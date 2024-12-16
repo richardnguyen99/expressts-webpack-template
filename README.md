@@ -18,7 +18,7 @@ stack web application that is ready for production.
 - [x] TypeScript: Strongly typed language for JavaScript development
 - [x] Webpack: Module bundler for front-end assets
 - [x] Nodemon: Monitor for any changes and hot-reload the server during development
-- [ ] Dotenv: Environment variable loader for the application
+- [x] Dotenv: Environment variable loader for the application
 - [ ] Handlebars: Templating engine for ExpressJS
 - [ ] Bootstrap: Front-end framework for responsive design
 - [ ] jQuery: JavaScript library for DOM manipulation

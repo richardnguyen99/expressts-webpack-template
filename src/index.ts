@@ -1,10 +1,12 @@
 import createApp from "./server";
 
+const PORT = process.env.PORT || 3000;
+
 const app = createApp();
 
 app
-  .listen(3000, () => {
-    console.log("Server is listening on port 3000");
+  .listen(PORT, () => {
+    console.log(`Server is listening on port ${PORT}`);
   })
   .on("error", (error: Error) => {
     // see https://github.com/remy/nodemon?tab=readme-ov-file#controlling-shutdown-of-your-script
