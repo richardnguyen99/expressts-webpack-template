@@ -5,7 +5,7 @@ const createApp = () => {
 
   app.use(Express.urlencoded({ extended: true }));
 
-  app.get("/", (req, res) => {
+  app.get("/", (_req, res) => {
     res.send("Hello World!\n");
   });
 

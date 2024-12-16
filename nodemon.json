@@ -1,0 +1,13 @@
+{
+  "$schema": "https://json.schemastore.org/nodemon.json",
+  "watch": [
+    "src"
+  ],
+  "ext": "js,json,ts,hbs,html,css",
+  "ignore": [
+    "src/**/*.test.ts"
+  ],
+  "colours": true,
+  "verbose": true,
+  "exec": "ts-node src/index.ts"
+}
