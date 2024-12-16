@@ -14,8 +14,8 @@ const getAppRouter = () => {
 
   const appRouter = Router(routerOptions);
 
-  appRouter.get("/", (_req, res) => {
-    res.send("Hello, world!\n");
+  appRouter.get("/", async (_req, res) => {
+    res.render("home");
   });
 
   appRouter.get("/login", loginHandler);

@@ -25,8 +25,15 @@ blogRouter.post("/new", (req: Request, res: Response) => {
   res.send("Create blog");
 });
 
-blogRouter.get("/:id", (req: Request, res: Response) => {
-  res.send(`blog ${req.params.id}`);
+blogRouter.get("/:slug", (req: Request, res: Response) => {
+  const slug = req.params.slug;
+
+  if (!slug) {
+    res.status(404).send("Blog slug is required");
+    return;
+  }
+
+  res.render(`blogs/${req.params.slug}`, { title: "Some blog" });
 });
 
 export default blogRouter;

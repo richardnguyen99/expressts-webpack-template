@@ -19,7 +19,7 @@ stack web application that is ready for production.
 - [x] Webpack: Module bundler for front-end assets
 - [x] Nodemon: Monitor for any changes and hot-reload the server during development
 - [x] Dotenv: Environment variable loader for the application
-- [ ] Handlebars: Templating engine for ExpressJS
+- [x] Handlebars: Templating engine for ExpressJS
 - [ ] Bootstrap: Front-end framework for responsive design
 - [ ] jQuery: JavaScript library for DOM manipulation
 - [ ] Winston + Morgan: Logging for the application and HTTP monitoring

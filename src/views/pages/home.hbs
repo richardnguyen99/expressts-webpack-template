@@ -1,0 +1,23 @@
+{{#> layouts/_base}}
+
+{{#*inline "title"}}
+  {{#if title}}
+    {{title}}
+  {{else}}
+    Home
+  {{/if}}
+{{/inline}}
+
+{{#*inline "styles"}}
+  <link rel="stylesheet" href="/css/home.css" />
+{{/inline}}
+
+{{#*inline "body"}}
+  <h1>Home</h1>
+{{/inline}}
+
+{{#*inline "scripts"}}
+  <script src="/js/home.js"></script>
+{{/inline}}
+
+{{/layouts/_base}}
