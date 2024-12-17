@@ -31,6 +31,7 @@ module.exports = (env, argv) => {
     mode: argv.mode || "development",
     entry: {
       main: ["./src/static/js/main.js", "./src/static/scss/styles.scss"],
+      vendors: ["bootstrap", "jquery"],
     },
 
     output: {
@@ -84,5 +85,18 @@ module.exports = (env, argv) => {
         filename: `css/${getOutputFilename(argv.mode)}.css`,
       }),
     ],
+
+    optimization: {
+      runtimeChunk: "single",
+      splitChunks: {
+        cacheGroups: {
+          vendor: {
+            test: /[\\/]node_modules[\\/]/,
+            name: "vendors",
+            chunks: "all",
+          },
+        },
+      },
+    },
   };
 };

@@ -54,6 +54,9 @@ const createApp = async () => {
     "/public",
     Express.static(path.join(__dirname, "public"), {
       maxAge: "30d",
+      lastModified: true,
+      etag: true,
+      cacheControl: true,
     })
   );
 

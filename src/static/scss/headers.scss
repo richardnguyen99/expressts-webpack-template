@@ -2,3 +2,12 @@
   vertical-align: -.125em;
   fill: currentColor;
 }
+
+.navbar-brand {
+  margin: 0;
+  padding: 0;
+
+  &:hover {
+    transform: rotate(-5deg) scale(1.1);
+  }
+}

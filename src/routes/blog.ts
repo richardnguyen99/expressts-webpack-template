@@ -1,9 +1,25 @@
 import { Router } from "express";
 import type { Request, Response } from "express-serve-static-core";
 
+import {
+  noCacheMiddleware,
+  cachableMiddleware,
+} from "../middlewares/cache-middleware";
+
 const blogRouter: Router = Router();
 
-blogRouter.get("/new", (req: Request, res: Response) => {
+blogRouter.get("/new", noCacheMiddleware, (req: Request, res: Response) => {
+  const userId = req.query.userId;
+
+  if (!userId) {
+    res.status(400).send("User ID is required");
+    return;
+  }
+
+  res.render("blogs/new", { title: "New blog" });
+});
+
+blogRouter.post("/new", noCacheMiddleware, (req: Request, res: Response) => {
   const userId = req.query.userId;
 
   if (!userId) {
@@ -14,18 +30,7 @@ blogRouter.get("/new", (req: Request, res: Response) => {
   res.send("Create blog");
 });
 
-blogRouter.post("/new", (req: Request, res: Response) => {
-  const userId = req.query.userId;
-
-  if (!userId) {
-    res.status(400).send("User ID is required");
-    return;
-  }
-
-  res.send("Create blog");
-});
-
-blogRouter.get("/:slug", (req: Request, res: Response) => {
+blogRouter.get("/:slug", noCacheMiddleware, (req: Request, res: Response) => {
   const slug = req.params.slug;
 
   if (!slug) {
@@ -36,7 +41,7 @@ blogRouter.get("/:slug", (req: Request, res: Response) => {
   res.render(`blogs/${req.params.slug}`, { title: "Some blog" });
 });
 
-blogRouter.get("/", (_req: Request, res: Response) => {
+blogRouter.get("/", cachableMiddleware, (_req: Request, res: Response) => {
   res.send("List of blogs");
 });
 
