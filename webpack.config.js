@@ -42,6 +42,15 @@ module.exports = (env, argv) => {
     module: {
       rules: [
         {
+          test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/i,
+          type: "asset/resource",
+          generator: {
+            //filename: 'fonts/[name]-[hash][ext][query]'
+            filename: "fonts/[name][ext][query]",
+          },
+        },
+
+        {
           test: /\.scss$/,
           use: [
             MiniCssExtractPlugin.loader,

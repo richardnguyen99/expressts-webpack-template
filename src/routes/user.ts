@@ -3,6 +3,10 @@ import type { Request, Response } from "express-serve-static-core";
 
 const userRouter: Router = Router();
 
+userRouter.get("/", (_req: Request, res: Response) => {
+  res.send("List of users");
+});
+
 userRouter.get("/:id", (req: Request, res: Response) => {
   res.send(`User ${req.params.id}`);
 });

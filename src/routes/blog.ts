@@ -36,4 +36,8 @@ blogRouter.get("/:slug", (req: Request, res: Response) => {
   res.render(`blogs/${req.params.slug}`, { title: "Some blog" });
 });
 
+blogRouter.get("/", (_req: Request, res: Response) => {
+  res.send("List of blogs");
+});
+
 export default blogRouter;
