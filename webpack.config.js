@@ -5,55 +5,75 @@ const autoprefixer = require("autoprefixer");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 
+const getOuputPath = (mode) => {
+  if (mode === "production") {
+    return path.resolve(__dirname, "dist", "public");
+  }
+  return path.resolve(__dirname, "src", "public");
+};
+
+const getOutputFilename = (mode) => {
+  if (mode === "production") {
+    return "[name].[contenthash]";
+  }
+  return "[name]";
+};
+
 /**
  * @type {import("webpack").Configuration}
  */
-module.exports = {
-  mode: "development",
-  entry: {
-    main: ["./src/static/js/main.js", "./src/static/scss/styles.scss"],
-  },
+module.exports = (env, argv) => {
+  console.log("argv", argv);
+  return {
+    stats: {
+      warnings: false,
+    },
+    mode: argv.mode || "development",
+    entry: {
+      main: ["./src/static/js/main.js", "./src/static/scss/styles.scss"],
+    },
 
-  output: {
-    filename: "js/[name].[contenthash].js",
-    path: path.resolve(__dirname, "src", "public"),
-    publicPath: "/public",
-  },
+    output: {
+      filename: `js/${getOutputFilename(argv.mode)}.js`,
+      path: getOuputPath(argv.mode),
+      publicPath: "/public",
+    },
 
-  module: {
-    rules: [
-      {
-        test: /\.scss$/,
-        use: [
-          MiniCssExtractPlugin.loader,
-          {
-            // Interprets `@import` and `url()` like `import/require()` and will resolve them
-            loader: "css-loader",
-          },
-          {
-            // Loader for webpack to process CSS with PostCSS
-            loader: "postcss-loader",
-            options: {
-              postcssOptions: {
-                plugins: [autoprefixer],
+    module: {
+      rules: [
+        {
+          test: /\.scss$/,
+          use: [
+            MiniCssExtractPlugin.loader,
+            {
+              // Interprets `@import` and `url()` like `import/require()` and will resolve them
+              loader: "css-loader",
+            },
+            {
+              // Loader for webpack to process CSS with PostCSS
+              loader: "postcss-loader",
+              options: {
+                postcssOptions: {
+                  plugins: [autoprefixer],
+                },
               },
             },
-          },
-          {
-            // Loads a SASS/SCSS file and compiles it to CSS
-            loader: "sass-loader",
-          },
-        ],
-      },
-    ],
-  },
+            {
+              // Loads a SASS/SCSS file and compiles it to CSS
+              loader: "sass-loader",
+            },
+          ],
+        },
+      ],
+    },
 
-  plugins: [
-    new WebpackManifestPlugin({
-      fileName: "manifest.json",
-    }),
-    new MiniCssExtractPlugin({
-      filename: "css/[name].[contenthash].css",
-    }),
-  ],
+    plugins: [
+      new WebpackManifestPlugin({
+        fileName: "manifest.json",
+      }),
+      new MiniCssExtractPlugin({
+        filename: `css/${getOutputFilename(argv.mode)}.css`,
+      }),
+    ],
+  };
 };

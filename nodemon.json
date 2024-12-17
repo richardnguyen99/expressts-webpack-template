@@ -3,9 +3,11 @@
   "watch": [
     "src"
   ],
-  "ext": "js,json,ts,hbs,html,css",
+  "ext": "json,ts",
   "ignore": [
-    "src/**/*.test.ts"
+    "src/**/*.test.ts",
+    "src/**/*.spec.ts",
+    "src/static"
   ],
   "colours": true,
   "verbose": true,
