@@ -1,4 +1,5 @@
 import * as path from "path";
+import * as fs from "fs/promises";
 import Express from "express";
 import dotenv from "dotenv";
 import { engine as hbsEngine } from "express-handlebars";
@@ -10,6 +11,12 @@ dotenv.config({
 });
 
 const createApp = async () => {
+  const manifestContent = await fs.readFile(
+    path.join(__dirname, "public", "manifest.json"),
+    "utf-8"
+  );
+  const manifest = JSON.parse(manifestContent);
+
   const app = Express();
 
   // Set up handlebars as the template engine
@@ -26,6 +33,15 @@ const createApp = async () => {
         "main.hbs"
       ),
       layoutsDir: path.join(__dirname, "views", "partials", "layouts"),
+      helpers: {
+        manifest(assetPath: string) {
+          if (manifest[assetPath]) {
+            return manifest[assetPath];
+          }
+
+          console.error(`Asset not found in manifest: ${assetPath}`);
+        },
+      },
     })
   );
   app.set("view engine", "hbs");
@@ -33,6 +49,13 @@ const createApp = async () => {
 
   app.use(Express.urlencoded({ extended: true }));
   app.use(Express.json());
+
+  app.use(
+    "/public",
+    Express.static(path.join(__dirname, "public"), {
+      maxAge: "30d",
+    })
+  );
 
   const appRouter = getAppRouter();
   app.use(appRouter);

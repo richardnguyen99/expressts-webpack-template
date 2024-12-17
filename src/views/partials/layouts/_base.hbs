@@ -4,7 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{#> title}}{{/title}} | ExWt</title>
 
-    <link rel="stylesheet" href="/css/main.css" />
+    <link rel="stylesheet" href={{ manifest "main.css" }} />
     {{#> styles}}
     {{/styles}}
 
@@ -20,7 +20,7 @@
 
     {{> includes/_footer }}
 
-    <script src="/js/main.js"></script>
+    <script text="javascript" src={{manifest "main.js" }}></script>
     {{#> scripts}}
     {{/scripts}}
 
