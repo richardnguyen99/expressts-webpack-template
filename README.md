@@ -68,13 +68,17 @@ r
     npm start
     ```
 
+The application will be running on `http://localhost:3000`.
+
 ## More examples
 
 - [ ] [expressts-typeorm-template](#): An extension of this template with TypeORM for database integration
 - [ ] [expressts-sequelize-template](#): An extension of this template with Sequelize for database integration
+- [ ] [expressts-mongoose-template](#): An extension of this template with Mongoose for database integration
 - [ ] [expressts-prisma-template](#): An extension of this template with Prisma for database integration
 - [ ] [expressts-passport-template](#): An extension of this template with Passport for authentication integration
 - [ ] [expressts-oauth2-template](#): An extension of this template with OAuth2 for authentication integration
+- [ ] [expressts-file-uploading-template](#): An extension of this template with file uploading pattern
 - [ ] [expressts-s3-template](#): An extension of this template with S3 for file storage integration
 - [ ] [expressts-hls-template](#): An extension of this template with HLS for video streaming
 

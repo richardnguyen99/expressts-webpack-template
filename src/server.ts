@@ -5,10 +5,22 @@ import dotenv from "dotenv";
 import { engine as hbsEngine } from "express-handlebars";
 
 import getAppRouter from "./routes";
+import type { Data } from "./types";
 
 dotenv.config({
   path: process.env.NODE_ENV === "test" ? ".env.test" : ".env",
 });
+
+export const mockedData: Promise<Data> = fs
+  .readFile(path.join(__dirname, "fake-data.json"), "utf-8")
+  .then((data) => JSON.parse(data))
+  .catch(() => {
+    console.error(
+      "Failed to load fake data. Make sure you have run `npm run gen:data`"
+    );
+
+    process.exit(1);
+  });
 
 const createApp = async () => {
   const manifestContent = await fs.readFile(

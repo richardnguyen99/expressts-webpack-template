@@ -5,6 +5,7 @@ import {
   noCacheMiddleware,
   cachableMiddleware,
 } from "../middlewares/cache-middleware";
+import { getPostsBySlug } from "../utils/posts";
 
 const blogRouter: Router = Router();
 
@@ -30,16 +31,20 @@ blogRouter.post("/new", noCacheMiddleware, (req: Request, res: Response) => {
   res.send("Create blog");
 });
 
-blogRouter.get("/:slug", noCacheMiddleware, (req: Request, res: Response) => {
-  const slug = req.params.slug;
+blogRouter.get(
+  "/:slug",
+  cachableMiddleware,
+  async (req: Request, res: Response) => {
+    const post = await getPostsBySlug(req.params.slug);
 
-  if (!slug) {
-    res.status(404).send("Blog slug is required");
-    return;
+    if (!post) {
+      res.status(404).send("Post not found");
+      return;
+    }
+
+    res.render(`blog`, { post });
   }
-
-  res.render(`blogs/${req.params.slug}`, { title: "Some blog" });
-});
+);
 
 blogRouter.get("/", cachableMiddleware, (_req: Request, res: Response) => {
   res.render("blogs", { title: "Blogs", page: "/blogs" });

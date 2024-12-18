@@ -131,3 +131,6 @@ dist
 
 # generated public directory
 public
+
+# generated and mock data
+src/fake-data.json

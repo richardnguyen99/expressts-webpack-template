@@ -5,10 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "copy:views": "copyfiles --error -a --up 1 \"src/views/**/*.*\" dist",
+    "copy:views": "copyfiles --error -a --up 1 \"src/views/**/*.*\" \"src/fake-data.json\" dist",
+    "gen:data": "ts-node faker.ts",
     "dev:server": "wait-on src/public/manifest.json && nodemon --config nodemon.json",
     "dev:webpack": "webpack --config webpack.config.js --mode development --watch",
     "dev": "concurrently -k -n \"SERVER,WEBPACK\" -c \"blue,magenta\" \"npm run dev:server\" \"npm run dev:webpack\"",
+    "prebuild": "npm run clean && npm run gen:data",
     "build:server": "tsc",
     "build:webpack": "webpack --config webpack.config.js --mode production",
     "build": "npm run build:server && npm run build:webpack",
@@ -30,6 +32,7 @@
     "jquery": "^3.7.1"
   },
   "devDependencies": {
+    "@faker-js/faker": "^9.3.0",
     "@types/dotenv": "^6.1.1",
     "@types/express": "^5.0.0",
     "@types/node": "^22.10.2",
@@ -42,6 +45,7 @@
     "mini-css-extract-plugin": "^2.9.2",
     "nodemon": "^3.1.9",
     "postcss-loader": "^8.1.1",
+    "randexp": "^0.5.3",
     "rimraf": "^6.0.1",
     "sass": "^1.83.0",
     "sass-loader": "^16.0.4",

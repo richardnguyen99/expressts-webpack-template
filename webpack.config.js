@@ -31,6 +31,7 @@ module.exports = (env, argv) => {
     mode: argv.mode || "development",
     entry: {
       main: ["./src/static/js/main.js", "./src/static/scss/styles.scss"],
+      home: ["./src/static/js/home.js", "./src/static/scss/home.scss"],
       vendors: ["bootstrap", "jquery"],
     },
 

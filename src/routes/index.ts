@@ -1,5 +1,6 @@
 import { Router, type RouterOptions } from "express";
 
+import { getTopViewedPosts, getRecentPosts } from "../utils/posts";
 import loginHandler from "./login";
 import registerHandler from "./register";
 import userRouter from "./user";
@@ -15,8 +16,20 @@ const getAppRouter = () => {
 
   const appRouter = Router(routerOptions);
 
-  appRouter.get("/", cachableMiddleware, async (_req, res) => {
-    res.render("home", { page: "/", title: "Home" });
+  appRouter.get("/", cachableMiddleware, async (_req, res, next) => {
+    try {
+      const topThreeViewedPosts = await getTopViewedPosts(3);
+      const topFiveRecentPosts = await getRecentPosts(5);
+
+      res.render("home", {
+        page: "/",
+        title: "Home",
+        topThreeViewedPosts,
+        topFiveRecentPosts,
+      });
+    } catch (error) {
+      next(error);
+    }
   });
 
   appRouter.get("/login", cachableMiddleware, loginHandler);
