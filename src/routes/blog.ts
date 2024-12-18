@@ -42,7 +42,7 @@ blogRouter.get("/:slug", noCacheMiddleware, (req: Request, res: Response) => {
 });
 
 blogRouter.get("/", cachableMiddleware, (_req: Request, res: Response) => {
-  res.send("List of blogs");
+  res.render("blogs", { title: "Blogs", page: "/blogs" });
 });
 
 export default blogRouter;

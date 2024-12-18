@@ -41,6 +41,8 @@ const createApp = async () => {
 
           console.error(`Asset not found in manifest: ${assetPath}`);
         },
+
+        eq: (a: any, b: any) => a === b,
       },
     })
   );

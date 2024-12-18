@@ -5,7 +5,7 @@ import type {
 } from "express-serve-static-core";
 
 const registerHandler: RequestHandler = (_req: Request, res: Response) => {
-  res.send("Register page\n");
+  res.render("register", { title: "Register", page: "/register" });
 };
 
 export default registerHandler;

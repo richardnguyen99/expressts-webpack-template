@@ -7,3 +7,19 @@ $bootstrap-icons-font-src: url("bootstrap-icons/font/fonts/bootstrap-icons.woff2
 @import "bootstrap-icons/font/bootstrap-icons.scss";
 @import "./headers.scss";
 @import "./textarea.scss";
+@import "./form.scss";
+
+html {
+  scrollbar-gutter: stable;
+  height: 100%;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  -webkit-tap-highlight-color: transparent;
+}
+
+main>.container {
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+  min-height: calc(100vh - 218px);
+}

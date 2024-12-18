@@ -4,6 +4,7 @@ import loginHandler from "./login";
 import registerHandler from "./register";
 import userRouter from "./user";
 import blogRouter from "./blog";
+import { cachableMiddleware } from "../middlewares/cache-middleware";
 
 const getAppRouter = () => {
   const routerOptions: RouterOptions = {
@@ -14,12 +15,12 @@ const getAppRouter = () => {
 
   const appRouter = Router(routerOptions);
 
-  appRouter.get("/", async (_req, res) => {
-    res.render("home");
+  appRouter.get("/", cachableMiddleware, async (_req, res) => {
+    res.render("home", { page: "/", title: "Home" });
   });
 
-  appRouter.get("/login", loginHandler);
-  appRouter.get("/register", registerHandler);
+  appRouter.get("/login", cachableMiddleware, loginHandler);
+  appRouter.get("/register", cachableMiddleware, registerHandler);
 
   appRouter.use("/users", userRouter);
   appRouter.use("/blogs", blogRouter);
