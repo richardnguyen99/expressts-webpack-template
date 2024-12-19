@@ -14,7 +14,11 @@
     margin-bottom: 1.5rem;
     color: var(--bs-emphasis-color);
     overflow: hidden;
-    height: 30rem;
+    height: 20rem;
+
+    @media (min-width: 576px) {
+      height: 30rem;
+    }
 
     &:hover {
       .hero-article__image>img {
@@ -54,6 +58,10 @@
     &__container {
       padding: 1.5rem;
       position: relative;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
 
       @media (min-width: 768px) {
         padding: 3rem;
@@ -67,6 +75,23 @@
 
     &__title {
       font-style: italic;
+      font-size: 1.5rem;
+      font-weight: 600;
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      line-clamp: 5;
+      -webkit-line-clamp: 5;
+
+      @media (min-width: 576px) {
+        font-size: 2.5rem;
+      }
+
+
+      @media (min-width: 768px) {
+        font-size: 3rem;
+        font-weight: 800;
+      }
     }
 
     &__excerpt {
@@ -75,6 +100,7 @@
       overflow: hidden;
       line-clamp: 3;
       -webkit-line-clamp: 3;
+      margin-top: auto;
     }
   }
 }
