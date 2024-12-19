@@ -43,3 +43,24 @@ export const getPostsBySlug = async (slug: string) => {
 
   return posts;
 };
+
+export const getTopCategories = async (count: number) => {
+  const data = await mockedData;
+  const posts = data.posts;
+
+  const categories = posts.reduce((acc, post) => {
+    if (!acc[post.category]) {
+      acc[post.category] = 1;
+    } else {
+      acc[post.category] += 1;
+    }
+
+    return acc;
+  }, {} as Record<string, number>);
+
+  const topCategories = Object.keys(categories)
+    .sort((a, b) => categories[b] - categories[a])
+    .slice(0, count);
+
+  return topCategories;
+};

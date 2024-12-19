@@ -55,6 +55,9 @@ const createApp = async () => {
         },
 
         eq: (a: any, b: any) => a === b,
+        uppercase: (str: string) => str.toUpperCase(),
+        lowercase: (str: string) => str.toLowerCase(),
+        capitalize: (str: string) => str.charAt(0).toUpperCase() + str.slice(1),
       },
     })
   );

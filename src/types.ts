@@ -24,6 +24,7 @@ export type Post = {
   postId: string;
   createdAt: number;
   thumbnail: string;
+  category: string;
   views: number;
   likes: number;
 };

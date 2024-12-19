@@ -4,6 +4,21 @@ import RandExp from "randexp";
 
 import type { User, Profile, Post } from "./src/types";
 
+const categories = [
+  "technology",
+  "science",
+  "health",
+  "business",
+  "politics",
+  "entertainment",
+  "sports",
+  "travel",
+  "lifestyle",
+  "fashion",
+  "music",
+  "art",
+];
+
 const generateFakeUsers = (): User => {
   return {
     username: faker.internet.username(),
@@ -54,6 +69,7 @@ const generateFakePosts = (): Post => {
       .getTime(),
     views: faker.number.int({ min: 100, max: 10000 }),
     likes: faker.number.int({ min: 10, max: 1000 }),
+    category: categories[Math.floor(Math.random() * categories.length)],
     thumbnail: faker.image.urlPicsumPhotos({
       width: 1280,
       height: 720,
