@@ -58,6 +58,16 @@ const createApp = async () => {
         uppercase: (str: string) => str.toUpperCase(),
         lowercase: (str: string) => str.toLowerCase(),
         capitalize: (str: string) => str.charAt(0).toUpperCase() + str.slice(1),
+        date: (
+          format: Intl.DateTimeFormatOptions["dateStyle"],
+          timestamp: number
+        ) => {
+          const date = new Date(timestamp);
+
+          return new Intl.DateTimeFormat("en-US", {
+            dateStyle: format,
+          }).format(date);
+        },
       },
     })
   );
