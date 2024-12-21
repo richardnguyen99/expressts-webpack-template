@@ -37,7 +37,7 @@ const getAppRouter = () => {
 
       try {
         const topThreeViewedPosts = await getTopViewedPosts(3);
-        const topFiveRecentPosts = await getRecentPosts(5);
+        const topThreeRecentPosts = await getRecentPosts(3);
         const topCategories = await getTopCategories(9);
         topCategories.unshift("latest");
 
@@ -52,7 +52,7 @@ const getAppRouter = () => {
           page: "/",
           title: "Home",
           topThreeViewedPosts,
-          topFiveRecentPosts,
+          topThreeRecentPosts,
           topCategories,
           categoryQuery: category,
         });

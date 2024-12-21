@@ -1,0 +1,29 @@
+.article {
+  &-list-short-item {
+
+    &__thumbnail {
+      height: 10rem;
+      background: var(--bs-secondary-color);
+      animation: pulse 1.5s infinite;
+
+
+      @media (min-width: 992px) {
+        height: 6rem;
+      }
+    }
+  }
+}
+
+@keyframes pulse {
+  0% {
+    background-color: var(--bs-secondary-color);
+  }
+
+  50% {
+    background-color: var(--bs-secondary-color-50);
+  }
+
+  100% {
+    background-color: var(--bs-secondary-color);
+  }
+}
