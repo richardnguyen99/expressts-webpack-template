@@ -64,3 +64,64 @@ export const getTopCategories = async (count: number) => {
 
   return topCategories;
 };
+
+export const getArchives = async () => {
+  const data = await mockedData;
+  const posts = data.posts;
+
+  const archives = posts.reduce((acc, post) => {
+    const date = new Date(post.createdAt);
+    const year = date.getFullYear();
+    const month = date.getMonth();
+
+    if (!acc[year]) {
+      acc[year] = {};
+    }
+
+    if (!acc[year][month]) {
+      acc[year][month] = 1;
+    } else {
+      acc[year][month] += 1;
+    }
+
+    return acc;
+  }, {} as Record<string, Record<string, number>>);
+
+  return archives;
+};
+
+export const getLatestArchives = async (limit: number) => {
+  const data = await mockedData;
+  const posts = data.posts;
+
+  const archives = posts.reduce((acc, post) => {
+    const date = new Date(post.createdAt);
+    const year = date.getFullYear();
+    const month = date.toLocaleString("default", { month: "long" });
+
+    if (!acc[year]) {
+      acc[year] = {};
+    }
+
+    if (!acc[year][month]) {
+      acc[year][month] = 1;
+    } else {
+      acc[year][month] += 1;
+    }
+
+    return acc;
+  }, {} as Record<string, Record<string, number>>);
+
+  const latestArchives = Object.keys(archives)
+    .sort((a, b) => Number(b) - Number(a))
+    .map((year) => {
+      const months = Object.keys(archives[year]);
+      return months
+        .sort((a, b) => Number(b) - Number(a))
+        .map((month) => [`${month}, ${year}`, archives[year][month]]);
+    })
+    .flat()
+    .slice(0, limit);
+
+  return latestArchives;
+};

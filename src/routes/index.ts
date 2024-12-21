@@ -4,6 +4,7 @@ import {
   getTopViewedPosts,
   getRecentPosts,
   getTopCategories,
+  getLatestArchives,
 } from "../utils/posts";
 import loginHandler from "./login";
 import registerHandler from "./register";
@@ -39,6 +40,7 @@ const getAppRouter = () => {
         const topThreeViewedPosts = await getTopViewedPosts(3);
         const topThreeRecentPosts = await getRecentPosts(3);
         const topCategories = await getTopCategories(9);
+        const recentArchives = await getLatestArchives(12);
         topCategories.unshift("latest");
 
         if (topCategories.length > 0 && !topCategories.includes(category)) {
@@ -55,6 +57,7 @@ const getAppRouter = () => {
           topThreeRecentPosts,
           topCategories,
           categoryQuery: category,
+          recentArchives,
         });
       } catch (error) {
         next(error);
