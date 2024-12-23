@@ -1,4 +1,70 @@
 import { mockedData } from "../server";
+import { Post } from "../types";
+
+const createdAtLessThanStrategy = (a: Post, b: Post) =>
+  a.createdAt - b.createdAt;
+const createdAtGreaterThanStrategy = (a: Post, b: Post) =>
+  b.createdAt - a.createdAt;
+
+const createdAtStragies = {
+  asc: createdAtLessThanStrategy,
+  desc: createdAtGreaterThanStrategy,
+};
+
+const getPostsByLatest = (posts: Post[], order: "asc" | "desc") => {
+  return posts.sort((a, b) => createdAtStragies[order](a, b));
+};
+
+const viewsLessThanStrategy = (a: Post, b: Post) => b.views - a.views;
+const viewsGreaterThanStrategy = (a: Post, b: Post) => a.views - b.views;
+
+const viewsStrategies = {
+  asc: viewsLessThanStrategy,
+  desc: viewsGreaterThanStrategy,
+};
+
+const getPostsByViews = (posts: Post[], order: "asc" | "desc") => {
+  return posts.sort((a, b) => viewsStrategies[order](a, b));
+};
+
+const likesLessThanStrategy = (a: Post, b: Post) => b.likes - a.likes;
+const likesGreaterThanStrategy = (a: Post, b: Post) => a.likes - b.likes;
+
+const likesStrategies = {
+  asc: likesLessThanStrategy,
+  desc: likesGreaterThanStrategy,
+};
+
+const getPostsByLikes = (posts: Post[], order: "asc" | "desc") => {
+  return posts.sort((a, b) => likesStrategies[order](a, b));
+};
+
+const categoryFilter = (posts: Post[], category: string) => {
+  return posts.filter((post) => post.category === category);
+};
+
+const postSortStrategies = {
+  latest: getPostsByLatest,
+  views: getPostsByViews,
+  likes: getPostsByLikes,
+};
+
+export const getPosts = async (
+  limit: number,
+  category: string,
+  sortedBy: "latest" | "views" | "likes",
+  order: "asc" | "desc"
+): Promise<Post[]> => {
+  const data = await mockedData;
+  const posts = data.posts;
+
+  const filteredPosts = category === "latest" ? posts
+                                                       : categoryFilter(posts, category);
+
+  const sortedPosts = postSortStrategies[sortedBy](filteredPosts, order);
+
+  return sortedPosts.slice(0, limit);
+};
 
 export const getTopViewedPosts = async (limit: number) => {
   const data = await mockedData;

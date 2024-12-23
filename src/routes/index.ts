@@ -1,10 +1,9 @@
 import { Router, type RouterOptions } from "express";
 
 import {
-  getTopViewedPosts,
-  getRecentPosts,
   getTopCategories,
   getLatestArchives,
+  getPosts,
 } from "../utils/posts";
 import loginHandler from "./login";
 import registerHandler from "./register";
@@ -37,10 +36,11 @@ const getAppRouter = () => {
       const category = req.query.category as string;
 
       try {
-        const topThreeViewedPosts = await getTopViewedPosts(3);
-        const topThreeRecentPosts = await getRecentPosts(3);
+        const topThreeViewedPosts = await getPosts(3, category, "views", "desc");
+        const topThreeRecentPosts = await getPosts(3, category, "latest", "desc");
         const topCategories = await getTopCategories(9);
         const recentArchives = await getLatestArchives(12);
+
         topCategories.unshift("latest");
 
         if (topCategories.length > 0 && !topCategories.includes(category)) {
