@@ -4,7 +4,7 @@ import type { Request, Response } from "express-serve-static-core";
 import {
   cachableMiddleware,
   noCacheMiddleware,
-} from "../middlewares/cache-middleware";
+} from "../middlewares/cache.middleware";
 
 const userRouter: Router = Router();
 

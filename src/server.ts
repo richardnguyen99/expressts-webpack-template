@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import { engine as hbsEngine } from "express-handlebars";
 
 import getAppRouter from "./routes";
+import morganMiddleware from "./middlewares/morgan.middleware";
 import type { Data } from "./types";
 
 const env_path =
@@ -87,6 +88,9 @@ const createApp = async () => {
   );
   app.set("view engine", "hbs");
   app.set("views", "src/views/pages");
+
+  // Set up logging
+  app.use(morganMiddleware);
 
   app.use(Express.urlencoded({ extended: true }));
   app.use(Express.json());

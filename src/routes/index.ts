@@ -10,7 +10,7 @@ import loginHandler from "./login";
 import registerHandler from "./register";
 import userRouter from "./user";
 import blogRouter from "./blog";
-import { cachableMiddleware } from "../middlewares/cache-middleware";
+import { cachableMiddleware } from "../middlewares/cache.middleware";
 
 const getAppRouter = () => {
   const routerOptions: RouterOptions = {

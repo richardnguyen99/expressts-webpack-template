@@ -4,7 +4,7 @@ import type { Request, Response } from "express-serve-static-core";
 import {
   noCacheMiddleware,
   cachableMiddleware,
-} from "../middlewares/cache-middleware";
+} from "../middlewares/cache.middleware";
 import { getPostsBySlug } from "../utils/posts";
 
 const blogRouter: Router = Router();
