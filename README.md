@@ -21,9 +21,9 @@ stack web application that is ready for production.
 - [x] Dotenv: Environment variable loader for the application
 - [x] Handlebars: Templating engine for ExpressJS
 - [x] Bootstrap: Front-end framework for responsive design
-- [ ] jQuery: JavaScript library for DOM manipulation
-- [ ] Favicons and meta tags: SEO optimization for the application
-- [ ] Responsive design: Mobile-first design for the application
+- [x] jQuery: JavaScript library for DOM manipulation
+- [x] Favicons and meta tags: SEO optimization for the application
+- [x] Responsive design: Mobile-first design for the application
 - [ ] Winston + Morgan: Logging for the application and HTTP monitoring
 - [ ] ESLint: Linter for TypeScript
 - [ ] Prettier: Code formatter for TypeScript
