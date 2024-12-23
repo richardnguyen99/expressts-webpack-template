@@ -9,8 +9,11 @@
     {{#each meta as |meta|}}
     <meta name="{{meta.[0]}}" content="{{meta.[1]}}" />
     {{/each}}
+
+    {{#if (eq env "production")}}
     {{> includes/_apple_touch_startup_image }}
     {{> includes/_manifest }}
+    {{/if}}
 
 
     <link rel="stylesheet" href={{ manifest "main.css" }} />

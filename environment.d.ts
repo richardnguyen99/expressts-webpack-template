@@ -4,6 +4,7 @@ declare global {
       NODE_ENV: "development" | "production" | "test";
       PORT: string;
       BASE_URL: string;
+      ENV_PATH: string;
     }
   }
 }

@@ -7,9 +7,23 @@ import { engine as hbsEngine } from "express-handlebars";
 import getAppRouter from "./routes";
 import type { Data } from "./types";
 
-dotenv.config({
-  path: process.env.NODE_ENV === "test" ? ".env.test" : ".env",
+const env_path =
+  process.env.NODE_ENV === "test"
+    ? ".env.test"
+    : process.env.NODE_ENV === "production"
+      ? ".env.production"
+      : ".env";
+
+const result = dotenv.config({
+  path: path.join(__dirname, "..", env_path),
 });
+
+if (result.error) {
+  console.error(result.error);
+  process.exit(1);
+}
+
+process.env.ENV_PATH = env_path;
 
 export const mockedData: Promise<Data> = fs
   .readFile(path.join(__dirname, "fake-data.json"), "utf-8")

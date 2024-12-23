@@ -63,6 +63,7 @@ const getAppRouter = () => {
         res.render("home", {
           page: "/",
           title: "Home",
+          env: process.env.NODE_ENV,
           meta,
           topThreeViewedPosts,
           topThreeRecentPosts,
