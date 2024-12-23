@@ -5,6 +5,7 @@ import {
   getLatestArchives,
   getPosts,
 } from "../utils/posts";
+import { getMeta } from "../utils/meta";
 import loginHandler from "./login";
 import registerHandler from "./register";
 import userRouter from "./user";
@@ -50,15 +51,26 @@ const getAppRouter = () => {
           return;
         }
 
+        const meta = Object.entries(
+          getMeta({
+            title: "Home | ExWt",
+            description: "ExpressTS Webpack Template",
+            url: `${process.env.BASE_URL}/`,
+            "og:url": `${process.env.BASE_URL}/`,
+          })
+        );
+
         res.render("home", {
           page: "/",
           title: "Home",
+          meta,
           topThreeViewedPosts,
           topThreeRecentPosts,
           topCategories,
           categoryQuery: category,
           recentArchives,
         });
+
       } catch (error) {
         next(error);
       }

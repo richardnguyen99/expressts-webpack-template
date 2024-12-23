@@ -4,6 +4,7 @@ const path = require("path");
 const autoprefixer = require("autoprefixer");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
+const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
 const { ProvidePlugin } = require("webpack");
 
 const getOuputPath = (mode) => {
@@ -79,12 +80,19 @@ module.exports = (env, argv) => {
     },
 
     plugins: [
+        new FaviconsWebpackPlugin({
+          logo: path.resolve(__dirname, "src", "static",  "favicon.ico"),
+          cache: true,
+          publicPath: "/public",
+          prefix: "assets/[contenthash]",
+        }),
       new WebpackManifestPlugin({
         fileName: "manifest.json",
       }),
       new MiniCssExtractPlugin({
         filename: `css/${getOutputFilename(argv.mode)}.css`,
       }),
+
     ],
 
     optimization: {

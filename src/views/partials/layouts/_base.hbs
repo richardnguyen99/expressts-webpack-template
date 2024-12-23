@@ -4,6 +4,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{#> title}}{{/title}} | ExWt</title>
 
+    <!-- Meta and SEO tags -->
+    <link rel="icon" type="image/x-icon" href={{manifest "assets//favicon.ico"}} />
+    {{#each meta as |meta|}}
+    <meta name="{{meta.[0]}}" content="{{meta.[1]}}" />
+    {{/each}}
+    {{> includes/_apple_touch_startup_image }}
+    {{> includes/_manifest }}
+
+
     <link rel="stylesheet" href={{ manifest "main.css" }} />
     {{#> styles}}
     {{/styles}}
