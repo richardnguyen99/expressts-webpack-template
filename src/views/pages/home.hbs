@@ -14,7 +14,7 @@
 
 {{#*inline "body"}}
 <div class="container py-0">
-  <div class="nav-scroller py-1 mb-3 border-bottom">
+  <div class="nav-scroller position-sticky top-0 bg-body py-1 mb-3 border-bottom">
     <nav class="nav nav-underline justify-content-between">
       {{#each topCategories as |categoryItem|}}
         {{#if (eq categoryItem @root.categoryQuery)}}
@@ -166,7 +166,7 @@
     </div>
 
     <div class="col-12 col-md-4">
-      <div class="position-sticky" style="top: 2rem;">
+      <div class="position-sticky mt-2 mt-md-0" style="top: 3.5rem;">
         <div class="p-4 mb-3 bg-body-tertiary rounded">
           <h4 class="fst-italic">About</h4>
           <p class="mb-0">Customize this section to tell your visitors a little bit about your publication, writers, content, or something else entirely. Totally up to you.</p>
@@ -183,7 +183,7 @@
           </ul>
         </div>
 
-        <div class="py-4">
+        <div class="py-2">
           <h4 class="fst-italic">Archives</h4>
           <ol class="list-unstyled mb-0">
             {{#each recentArchives as |archive|}}

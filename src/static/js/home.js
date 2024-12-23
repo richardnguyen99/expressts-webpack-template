@@ -1,3 +1,13 @@
+import $ from "jquery";
+
 (function () {
-  console.log("Hello from home.js");
+  const navScroller = $(".nav-scroller");
+
+  $(window).on("scroll", function () {
+    if ($(window).scrollTop() > 100) {
+      navScroller.addClass("scrolled");
+    } else {
+      navScroller.removeClass("scrolled");
+    }
+  });
 })();

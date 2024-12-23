@@ -4,6 +4,7 @@ const path = require("path");
 const autoprefixer = require("autoprefixer");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
+const { ProvidePlugin } = require("webpack");
 
 const getOuputPath = (mode) => {
   if (mode === "production") {
@@ -32,7 +33,6 @@ module.exports = (env, argv) => {
     entry: {
       main: ["./src/static/js/main.js", "./src/static/scss/styles.scss"],
       home: ["./src/static/js/home.js", "./src/static/scss/home.scss"],
-      vendors: ["bootstrap", "jquery"],
     },
 
     output: {
