@@ -1,0 +1,8 @@
+<ul class="d-flex flex-column gap-2 ps-0 ">
+  {{#each posts as |post|}}
+    <li class="article-list-archive__item d-flex gap-2 flex-column flex-md-row justify-content-between flex-nowrap">
+      <a href="/blogs/{{post.slug}}" class="article-list-archive__item__link">{{post.title}}</a>
+      <p class="article-list-archive__item__date text-secondary mb-0">{{date "long" post.createdAt}}</p>
+    </li>
+  {{/each}}
+</ul>

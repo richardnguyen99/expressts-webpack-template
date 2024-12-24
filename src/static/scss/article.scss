@@ -14,9 +14,16 @@
   }
 
   &-list-archive {
+    &__year {
+      position: sticky;
+      top: 0;
+      background: var(--bs-body-bg);
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+    }
+
     &__item {
       line-height: 1.5;
-
 
       &__link {
         display: -webkit-box;
