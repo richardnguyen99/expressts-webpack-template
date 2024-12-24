@@ -10,6 +10,7 @@ import loginHandler from "./login";
 import registerHandler from "./register";
 import userRouter from "./user";
 import blogRouter from "./blog";
+import archivesRouter from "./archives";
 import { cachableMiddleware } from "../middlewares/cache.middleware";
 
 const getAppRouter = () => {
@@ -83,6 +84,7 @@ const getAppRouter = () => {
 
   appRouter.use("/users", userRouter);
   appRouter.use("/blogs", blogRouter);
+  appRouter.use("/archives", archivesRouter);
 
   return appRouter;
 };

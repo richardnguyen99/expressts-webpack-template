@@ -12,6 +12,32 @@
       }
     }
   }
+
+  &-list-archive {
+    &__item {
+      line-height: 1.5;
+
+
+      &__link {
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        line-clamp: 1;
+        -webkit-line-clamp: 1;
+      }
+
+      &__date {
+        font-size: 0.8rem;
+        color: var(--bs-secondary-color);
+
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        line-clamp: 1;
+        -webkit-line-clamp: 1;
+      }
+    }
+  }
 }
 
 @keyframes pulse {
