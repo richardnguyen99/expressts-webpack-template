@@ -9,7 +9,7 @@
     </a>
 
     <div class="article-list-blog-item__content">
-      <div class="d-flex gap-2">
+      <div class="d-flex gap-2 mb-3 align-items-center">
         <time
           class="article-list-blog-item__date"
           datetime="{{isoDatetime post.createdAt}}"
@@ -19,7 +19,7 @@
         </time>
 
         <span class="article-list-blog-item__category">
-          <i class="bi bi-tag"></i>
+          <i class="bi bi-tag-fill"></i>
           <a href="/blogs?category={{post.category}}">{{capitalize
               post.category
             }}</a>
@@ -62,7 +62,7 @@
           <span>{{post.views}}</span>
         </div>
 
-        <div class="article-list-blog-item__like">
+        <div class="article-list-blog-item__likes">
           <i class="bi bi-heart"></i>
           <span>{{post.likes}}</span>
         </div>
