@@ -4,7 +4,7 @@ $enable-negative-margins: true;
 
 
 // https://github.com/twbs/examples/issues/32#issuecomment-1532561291
-$bootstrap-icons-font-src: url("bootstrap-icons/font/fonts/bootstrap-icons.woff2") format("woff2"), url("bootstrap-icons/font/fonts/bootstrap-icons.woff") format("woff");
+$bootstrap-icons-font-src: url("~bootstrap-icons/font/fonts/bootstrap-icons.woff2") format("woff2"), url("~bootstrap-icons/font/fonts/bootstrap-icons.woff") format("woff");
 
 @import "bootstrap-icons/font/bootstrap-icons.scss";
 @import "./headers.scss";
@@ -13,7 +13,6 @@ $bootstrap-icons-font-src: url("bootstrap-icons/font/fonts/bootstrap-icons.woff2
 @import "./form.scss";
 
 html {
-  scrollbar-gutter: stable;
   height: 100%;
   font-feature-settings: "cv02", "cv03", "cv04", "cv11";
   line-height: 1.5;

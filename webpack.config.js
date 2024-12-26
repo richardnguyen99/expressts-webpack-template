@@ -22,7 +22,7 @@ const getOutputFilename = (mode) => {
 };
 
 /**
- * @type {import("webpack").Configuration}
+ * @type {(env, argv) => import("webpack").Configuration}
  */
 module.exports = (env, argv) => {
   console.log("argv", argv);
@@ -40,19 +40,11 @@ module.exports = (env, argv) => {
       filename: `js/${getOutputFilename(argv.mode)}.js`,
       path: getOuputPath(argv.mode),
       publicPath: "/public",
+      assetModuleFilename: "[contenthash][ext][query]",
     },
 
     module: {
       rules: [
-        {
-          test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/i,
-          type: "asset/resource",
-          generator: {
-            //filename: 'fonts/[name]-[hash][ext][query]'
-            filename: "fonts/[name][ext][query]",
-          },
-        },
-
         {
           test: /\.scss$/,
           use: [
@@ -75,6 +67,14 @@ module.exports = (env, argv) => {
               loader: "sass-loader",
             },
           ],
+        },
+
+        {
+          test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/i,
+          type: "asset/resource",
+          generator: {
+            publicPath: "fonts/",
+          }
         },
       ],
     },

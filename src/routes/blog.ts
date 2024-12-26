@@ -5,7 +5,7 @@ import {
   noCacheMiddleware,
   cachableMiddleware,
 } from "../middlewares/cache.middleware";
-import { getPostsBySlug } from "../utils/posts";
+import { getPostsBySlug, getTopCategories } from "../utils/posts";
 
 const blogRouter: Router = Router();
 
@@ -46,8 +46,31 @@ blogRouter.get(
   }
 );
 
-blogRouter.get("/", cachableMiddleware, (_req: Request, res: Response) => {
-  res.render("blogs", { title: "Blogs", page: "/blogs" });
-});
+blogRouter.get(
+  "/",
+  (req, res, next) => {
+    if (Object.keys(req.query).length === 0) {
+      req.url = "/blogs?category=latest";
+      res.redirect(301, "/blogs?category=latest");
+      return;
+    }
+
+    next();
+  },
+  cachableMiddleware,
+  async (req: Request, res: Response) => {
+    const { category } = req.query;
+    const topCategories = await getTopCategories(9);
+
+    topCategories.unshift("latest");
+
+    res.render("blogs", {
+      title: "Blogs",
+      page: "/blogs",
+      topCategories,
+      categoryQuery: category,
+    });
+  }
+);
 
 export default blogRouter;

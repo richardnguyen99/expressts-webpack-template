@@ -1,0 +1,51 @@
+<li class="nav-item">
+  {{#if (eq category categoryQuery)}}
+  <a href="/blogs?category={{category}}" class="nav-link text-white d-flex align-items-center gap-2 active" arial-current="page">
+  {{else}}
+  <a href="/blogs?category={{category}}" class="nav-link text-white d-flex align-items-center gap-2">
+  {{/if}}
+    {{#if (eq category "latest")}}
+      <i class="bi bi-cup-hot{{#if (eq category categoryQuery)}}-fill{{/if}}"></i>
+    {{/if}}
+    {{#if (eq category "technology")}}
+      <i class="bi bi-display{{#if (eq category categoryQuery)}}-fill{{/if}}"></i>
+    {{/if}}
+    {{#if (eq category "science")}}
+      <i class="bi bi-rocket-takeoff{{#if (eq category categoryQuery)}}-fill{{/if}}"></i>
+    {{/if}}
+    {{#if (eq category "health")}}
+      <i class="bi bi-balloon-heart{{#if (eq category categoryQuery)}}-fill{{/if}}"></i>
+    {{/if}}
+    {{#if (eq category "business")}}
+      <i class="bi bi-briefcase{{#if (eq category categoryQuery)}}-fill{{/if}}"></i>
+    {{/if}}
+    {{#if (eq category "politics")}}
+      <i class="bi bi-people{{#if (eq category categoryQuery)}}-fill{{/if}}"></i>
+    {{/if}}
+    {{#if (eq category "entertainment")}}
+      <i class="bi bi-file-music{{#if (eq category categoryQuery)}}-fill{{/if}}"></i>
+    {{/if}}
+    {{#if (eq category "sports")}}
+      <i class="bi bi-trophy{{#if (eq category categoryQuery)}}-fill{{/if}}"></i>
+    {{/if}}
+    {{#if (eq category "travel")}}
+      <i class="bi bi-airplane{{#if (eq category categoryQuery)}}-fill{{/if}}"></i>
+    {{/if}}
+    {{#if (eq category "lifestyle")}}
+      <i class="bi bi-camera{{#if (eq category categoryQuery)}}-fill{{/if}}"></i>
+    {{/if}}
+    {{#if (eq category "fashion")}}
+      <i class="bi bi-umbrella{{#if (eq category categoryQuery)}}-fill{{/if}}"></i>
+    {{/if}}
+    {{#if (eq category "music")}}
+      <i class="bi bi-boombox{{#if (eq category categoryQuery)}}-fill{{/if}}"></i>
+    {{/if}}
+    {{#if (eq category "art")}}
+      <i class="bi bi-palette{{#if (eq category categoryQuery)}}-fill{{/if}}"></i>
+    {{/if}}
+
+    <p class="mb-0">
+      {{capitalize category}}
+    </p>
+  </a>
+</li>
