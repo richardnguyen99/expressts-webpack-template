@@ -38,8 +38,18 @@ const getAppRouter = () => {
       const category = req.query.category as string;
 
       try {
-        const topThreeViewedPosts = await getPosts(3, category, "views", "desc");
-        const topThreeRecentPosts = await getPosts(3, category, "latest", "desc");
+        const topThreeViewedPosts = await getPosts({
+          limit: 3,
+          category,
+          sortedBy: "views",
+          order: "desc",
+        });
+        const topThreeRecentPosts = await getPosts({
+          limit: 3,
+          category,
+          sortedBy: "latest",
+          order: "desc",
+        });
         const topCategories = await getTopCategories(9);
         const recentArchives = await getLatestArchives(12);
 

@@ -1,0 +1,19 @@
+@import "~bootstrap/scss/bootstrap";
+
+$position: (
+  static: static,
+  relative: relative,
+  absolute: absolute,
+  fixed: fixed,
+  sticky: sticky
+);
+
+@each $position, $value in $position {
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    .position-#{$breakpoint}-#{$position} {
+      @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+        position: #{$value} !important;
+      }
+    }
+  }
+}

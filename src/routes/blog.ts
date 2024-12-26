@@ -5,7 +5,7 @@ import {
   noCacheMiddleware,
   cachableMiddleware,
 } from "../middlewares/cache.middleware";
-import { getPostsBySlug, getTopCategories } from "../utils/posts";
+import { getPosts, getPostsBySlug, getTopCategories } from "../utils/posts";
 
 const blogRouter: Router = Router();
 
@@ -60,7 +60,21 @@ blogRouter.get(
   cachableMiddleware,
   async (req: Request, res: Response) => {
     const { category } = req.query;
-    const topCategories = await getTopCategories(9);
+
+    if (typeof category !== "string") {
+      res.status(400).send("Invalid category");
+      return;
+    }
+
+    const topCategories = await getTopCategories(10);
+
+    const posts = await getPosts({
+      category,
+      limit: 10,
+      sortedBy: "latest",
+      order: "desc",
+      includes: ["author", "comments", "timetoread"],
+    });
 
     topCategories.unshift("latest");
 
@@ -68,6 +82,7 @@ blogRouter.get(
       title: "Blogs",
       page: "/blogs",
       topCategories,
+      posts,
       categoryQuery: category,
     });
   }

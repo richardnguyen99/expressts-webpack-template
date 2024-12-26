@@ -16,6 +16,14 @@ export type Profile = {
   country: string;
 };
 
+export type Comment = {
+  content: string;
+  userId: string;
+  postId: string;
+  commentId: string;
+  createdAt: number;
+};
+
 export type Post = {
   title: string;
   slug: string;
@@ -27,10 +35,19 @@ export type Post = {
   category: string;
   views: number;
   likes: number;
+
+  author?: {
+    userId: string;
+    profile: Profile;
+  };
+
+  comments?: Comment[];
+  timeToRead?: number;
 };
 
 export type Data = {
   users: User[];
   profiles: Profile[];
   posts: Post[];
+  comments: Comment[];
 };

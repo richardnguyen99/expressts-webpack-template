@@ -2,7 +2,7 @@ import fs from "fs";
 import { faker } from "@faker-js/faker";
 import RandExp from "randexp";
 
-import type { User, Profile, Post } from "./src/types";
+import type { User, Profile, Post, Comment } from "./src/types";
 
 const categories = [
   "technology",
@@ -83,10 +83,30 @@ const posts = faker.helpers.multiple(generateFakePosts, {
   count: 100,
 });
 
+const generateFakeComments = (): Comment => {
+  const postIndex = Math.floor(Math.random() * posts.length);
+
+  return {
+    content: faker.lorem.paragraph(),
+    userId: users[Math.floor(Math.random() * users.length)].userId,
+    postId: posts[postIndex].postId,
+    commentId: faker.string.ulid().toLowerCase(),
+    createdAt: faker.date.between({
+      from: posts[postIndex].createdAt,
+      to: "2024-12-01"
+    }).getTime(),
+  };
+};
+
+const comments = faker.helpers.multiple(generateFakeComments, {
+  count: 100,
+});
+
 const generated = {
   users,
   profiles,
   posts,
+  comments,
 };
 
 fs.writeFileSync("src/fake-data.json", JSON.stringify(generated, null, 2));

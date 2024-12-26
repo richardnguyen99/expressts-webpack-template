@@ -73,6 +73,13 @@ const createApp = async () => {
         uppercase: (str: string) => str.toUpperCase(),
         lowercase: (str: string) => str.toLowerCase(),
         capitalize: (str: string) => str.charAt(0).toUpperCase() + str.slice(1),
+        len: (arr: any[]) => arr.length,
+        fullname: (firstName: string, lastName: string) => `${firstName} ${lastName}`,
+        isoDatetime: (timestamp: number) => {
+          const date = new Date(timestamp);
+
+          return date.toISOString();
+        },
         date: (
           format: Intl.DateTimeFormatOptions["dateStyle"],
           timestamp: number

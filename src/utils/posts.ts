@@ -49,19 +49,56 @@ const postSortStrategies = {
   likes: getPostsByLikes,
 };
 
-export const getPosts = async (
-  limit: number,
-  category: string,
-  sortedBy: "latest" | "views" | "likes",
-  order: "asc" | "desc"
-): Promise<Post[]> => {
+export const getPosts = async (options: {
+  limit: number;
+  category: string;
+  sortedBy: "latest" | "views" | "likes";
+  order: "asc" | "desc";
+  includes?: ("author" | "comments" | "timetoread")[];
+}): Promise<Post[]> => {
+  const { limit, category, sortedBy, order, includes } = options;
+
   const data = await mockedData;
   const posts = data.posts;
 
-  const filteredPosts = category === "latest" ? posts
-                                                       : categoryFilter(posts, category);
+  const filteredPosts =
+    category === "latest" ? posts : categoryFilter(posts, category);
 
   const sortedPosts = postSortStrategies[sortedBy](filteredPosts, order);
+
+  if (includes && includes.includes("author")) {
+    const authors = sortedPosts.map((post) => {
+      return data.users.find((user) => user.userId === post.userId);
+    });
+
+    const authorProfiles = authors.map((author) => {
+      return data.profiles.find((profile) => profile.userId === author!.userId);
+    })
+
+    sortedPosts.forEach((post, index) => {
+      post.author = {
+        userId: authors[index]!.userId,
+        profile: authorProfiles[index]!,
+      }
+    });
+  }
+
+  if (includes && includes.includes("comments")) {
+    const comments = sortedPosts.map((post) => {
+      return data.comments.filter((comment) => comment.postId === post.postId);
+    });
+
+    sortedPosts.forEach((post, index) => {
+      post.comments = comments[index];
+    });
+  }
+
+  if (includes && includes.includes("timetoread")) {
+    sortedPosts.forEach((post) => {
+      const words = post.content.split(" ").length;
+      post.timeToRead = Math.ceil(words / 200);
+    });
+  }
 
   return sortedPosts.slice(0, limit);
 };
