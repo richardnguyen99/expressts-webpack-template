@@ -37,12 +37,22 @@ blogRouter.get(
   async (req: Request, res: Response) => {
     const post = await getPostsBySlug(req.params.slug);
 
-    if (!post) {
+    if (post === null) {
       res.status(404).send("Post not found");
       return;
     }
 
-    res.render(`blog`, { post });
+    const relatedPosts = await getPosts({
+      limit: 3,
+      category: post.category,
+      sortedBy: "views",
+      order: "desc",
+    });
+
+    res.render(`blogs/template`, {
+      post,
+      relatedPosts,
+    });
   }
 );
 

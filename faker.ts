@@ -38,6 +38,7 @@ const generateFakeProfiles = (userIndex: number): Profile => {
     bio: faker.lorem.paragraph(),
     firstName: faker.person.firstName(),
     lastName: faker.person.lastName(),
+    job: faker.person.jobTitle(),
     dateOfBirth: faker.date
       .between({ from: "1970-01-01", to: "2003-12-31" })
       .getTime(),
@@ -53,7 +54,7 @@ const profiles = faker.helpers.multiple((_, i) => generateFakeProfiles(i), {
 
 // Generate posts written by the users
 const generateFakePosts = (): Post => {
-  const title = faker.lorem.sentence();
+  const title = faker.lorem.sentence().slice(0, -1);
 
   return {
     title,

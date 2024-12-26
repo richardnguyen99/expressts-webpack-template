@@ -14,6 +14,7 @@ export type Profile = {
   avatar: string;
   gender: string;
   country: string;
+  job: string;
 };
 
 export type Comment = {

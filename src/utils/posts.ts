@@ -142,9 +142,24 @@ export const getPostsByUserId = async (userId: string) => {
 
 export const getPostsBySlug = async (slug: string) => {
   const data = await mockedData;
-  const posts = data.posts.find((post) => post.slug === slug);
+  const post = data.posts.find((post) => post.slug === slug);
 
-  return posts;
+  if (!post) {
+    return null;
+  }
+
+  const author = data.users.find((user) => user.userId === post!.userId);
+  const profile = data.profiles.find((profile) => profile.userId === author!.userId);
+  const comments = data.comments.filter((comment) => comment.postId === post!.postId);
+
+  post.author = {
+    userId: author!.userId,
+    profile: profile!,
+  };
+
+  post.comments = comments;
+
+  return post;
 };
 
 export const getTopCategories = async (count: number) => {

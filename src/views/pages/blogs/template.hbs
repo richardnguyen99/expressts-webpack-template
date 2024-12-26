@@ -1,0 +1,157 @@
+{{#> layouts/_base}}
+
+{{#*inline "title"}}
+  {{#if post.title}}
+    {{post.title}}
+  {{else}}
+    Blogs
+  {{/if}}
+{{/inline}}
+
+{{#*inline "styles"}}
+{{/inline}}
+
+{{#*inline "body"}}
+<section class="blog">
+  <div class="blog__container container">
+    <div class="row g-4">
+      <div class="blog__content col-lg-8">
+        <div class="blog__content__breadcrumb">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="/blogs">Blogs</a></li>
+              <li class="breadcrumb-item active" aria-current="page">{{post.slug}}</li>
+            </ol>
+          </nav>
+        </div>
+
+        <h1 class="blog__content__title">
+          {{post.title}}
+        </h1>
+
+        <div class="blog__content__info">
+          <div class="blog__content__info__timeline">
+            <div class="d-flex align-items-center">
+              <div class="blog__content__info__avatar">
+                <img
+                  src="{{post.author.profile.avatar}}"
+                  alt="{{fullname post.author.profile.firstName post.author.profile.lastName}}"
+                >
+              </div>
+
+              <div class="d-flex flex-column ms-2">
+                <span class="blog__content__info__author">{{fullname post.author.profile.firstName post.author.profile.lastName}}</span>
+                <span class="blog__content__info__date">{{date "long" post.createdAt}}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="blog__content__info__metadata">
+            <span class="blog__content__info__metadata__category">{{capitalize post.category}}</span>
+
+            <span class="blog__content__info__metadata__views">
+              <i class="bi bi-eye"></i>
+              {{post.views}}
+            </span>
+
+            <span class="blog__content__info__metadata__likes">
+              <i class="bi bi-heart"></i>
+              {{post.likes}}
+            </span>
+
+            <span class="blog__content__info__metadata__comments">
+              <i class="bi bi-chat"></i>
+              {{len post.comments}}
+            </span>
+          </div>
+        </div>
+
+        <hr>
+
+        <div class="blog__content__thumbnail">
+          <img src="{{post.thumbnail}}" alt="{{post.title}} thumbnail">
+        </div>
+
+        <div class="blog__content__body">
+          <p>{{post.content}}</p>
+        </div>
+
+      </div>
+
+      <div class="blog__extra col-lg-4">
+        <div class="blog__extra__author">
+          <div class="blog__extra__author__brief">
+            <div class="blog__extra__author__avatar">
+              <img
+                src="{{post.author.profile.avatar}}"
+                alt="{{fullname post.author.profile.firstName post.auuthor.profile.lastName}}"
+              >
+            </div>
+
+            <div class="blog__extra__author__title">
+              <span class="blog__extra__author__name">{{fullname post.author.profile.firstName post.author.profile.lastName}}</span>
+              <span class="blog__extra__author__job">{{post.author.profile.job}}</span>
+            </div>
+          </div>
+
+          <div class="blog__extra__author__bio">
+            <p>{{post.author.profile.bio}}</p>
+          </div>
+        </div>
+
+        <div class="blog__extra__related">
+          <h2 class="blog__extra__related__title">Related Posts</h2>
+
+          <div class="blog__extra__related-posts">
+            {{#each relatedPosts as |relatedPost|}}
+              <div class="blog__extra__related-post">
+                <div class="blog__extra__related-post__image">
+                  <img src="{{relatedPost.thumbnail}}" alt="{{relatedPost.title}} thumbnail">
+                </div>
+
+                <div class="blog__extra__related-post__title">
+                  <a href="/blogs/{{relatedPost.slug}}">{{relatedPost.title}}</a>
+                </div>
+              </div>
+            {{/each}}
+          </div>
+        </div>
+
+        <div class="blog__extra__socials">
+          <h2>Find me at</h2>
+
+          <div class="blog__extra__socials__icons">
+            <a href="#">
+              <i class="bi bi-facebook"></i>
+              <span>Facebook</span>
+            </a>
+
+            <a href="#">
+              <i class="bi bi-twitter"></i>
+              <span>Twitter</span>
+            </a>
+
+            <a href="#">
+              <i class="bi bi-linkedin"></i>
+              <span>LinkedIn</span>
+            </a>
+
+            <a href="#">
+              <i class="bi bi-github"></i>
+              <span>Instagram</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{{/inline}}
+
+{{#*inline "scripts"}}
+{{/inline}}
+
+{{/layouts/_base}}
+
+
