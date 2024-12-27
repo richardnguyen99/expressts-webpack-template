@@ -23,6 +23,11 @@ export type Comment = {
   postId: string;
   commentId: string;
   createdAt: number;
+
+  author?: {
+    userId: string;
+    profile: Profile;
+  };
 };
 
 export type Post = {

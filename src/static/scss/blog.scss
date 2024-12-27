@@ -141,6 +141,16 @@
         }
       }
     }
+
+  }
+
+  &__comment_section {
+
+  }
+
+  &__comments {
+    display: flex;
+    flex-direction: column;
   }
 
   &__extra {

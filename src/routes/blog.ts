@@ -49,6 +49,8 @@ blogRouter.get(
       order: "desc",
     });
 
+    console.log(post.comments);
+
     res.render(`blogs/template`, {
       post,
       relatedPosts,

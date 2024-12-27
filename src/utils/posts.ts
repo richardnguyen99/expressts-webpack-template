@@ -1,6 +1,8 @@
 import { mockedData } from "../server";
 import { Post } from "../types";
 
+import { getCommmentsByPostId } from "./comments";
+
 const createdAtLessThanStrategy = (a: Post, b: Post) =>
   a.createdAt - b.createdAt;
 const createdAtGreaterThanStrategy = (a: Post, b: Post) =>
@@ -89,6 +91,18 @@ export const getPosts = async (options: {
     });
 
     sortedPosts.forEach((post, index) => {
+      const postComments = comments[index];
+
+      postComments.forEach((comment) => {
+        const author = data.users.find((user) => user.userId === comment.userId);
+        const profile = data.profiles.find((profile) => profile.userId === author!.userId);
+
+        comment.author = {
+          userId: author!.userId,
+          profile: profile!,
+        };
+      });
+
       post.comments = comments[index];
     });
   }
@@ -150,7 +164,10 @@ export const getPostsBySlug = async (slug: string) => {
 
   const author = data.users.find((user) => user.userId === post!.userId);
   const profile = data.profiles.find((profile) => profile.userId === author!.userId);
-  const comments = data.comments.filter((comment) => comment.postId === post!.postId);
+  const comments = await getCommmentsByPostId(post.postId, {
+    limit: -1,
+    includes: ["author"],
+  })
 
   post.author = {
     userId: author!.userId,

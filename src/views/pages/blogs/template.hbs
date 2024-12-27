@@ -83,6 +83,31 @@
           <p>{{{post.content}}}</p>
         </div>
 
+        <div class="blog__comment-section">
+          <h2>Comments</h2>
+
+          <div class="blog__comments">
+            {{#each post.comments as |comment|}}
+              {{> includes/_comment-item comment=comment}}
+            {{/each}}
+          </div>
+
+          <hr>
+
+          <div class="blog__comment-form">
+            <h2>Leave a Comment</h2>
+
+            <form action="/comments" method="POST">
+              <div class="mb-3">
+                <label for="comment" class="form-label d-none">Comment</label>
+                <textarea class="form-control" id="comment" name="comment" rows="3"></textarea>
+              </div>
+
+              <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-success">Submit</button>
+              </div>
+            </form>
+        </div>
       </div>
 
       <div class="position-relative col-lg-4">
