@@ -69,6 +69,7 @@ const createApp = async () => {
           console.error(`Asset not found in manifest: ${assetPath}`);
         },
 
+        concat: (...args: any[]) => args.slice(0, -1).join(""),
         eq: (a: any, b: any) => a === b,
         uppercase: (str: string) => str.toUpperCase(),
         lowercase: (str: string) => str.toLowerCase(),

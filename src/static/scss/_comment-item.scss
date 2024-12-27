@@ -1,0 +1,126 @@
+.comment-item {
+  display: flex;
+  margin-left: 1rem;
+  padding: 1rem 0;
+  position: relative;
+
+
+  &__avatar {
+    left: -72px;
+    position: absolute;
+    z-index: 1;
+    display: hidden;
+
+    @include media-breakpoint-up(md) {
+      display: block;
+    }
+
+    a {
+      display: inline-block;
+    }
+
+    img {
+      width: 2.5rem;
+      height: 2.5rem;
+      border-radius: 50%;
+      overflow: hidden;
+      line-height: 1;
+      vertical-align: middle;
+      display: inline-block;
+    }
+  }
+
+  &__content {
+    margin-top: 0;
+    margin-bottom: 0;
+    color: var(--bs-emphasis-color);
+    max-width: 100%;
+    width: 100%;
+    min-width: 0;
+
+    &__container {
+      position: relative;
+      color: var(--bs-body-color);
+      background-color: var(--bs-body-bg);
+      border: 1px solid var(--bs-border-color);
+      border-radius: 6px;
+      margin-left: -1rem;
+
+      &::before {
+        content: " ";
+        position: absolute;
+        top: 15px;
+        right: 100%;
+        left: -0.375rem;
+        width: 10px;
+        height: 10px;
+        pointer-events: none;
+        background: var(--bs-secondary-bg);
+        border-bottom: 1px solid var(--bs-border-color);
+        border-left: 1px solid var(--bs-border-color);
+        rotate: 45deg;
+        display: none;
+      }
+
+      @include media-breakpoint-up(md) {
+        &::before {
+          display: block;
+        }
+      }
+
+      &:target,
+      &:target::before {
+        border-width: 2px;
+        border-color: var(--bs-primary);
+      }
+
+
+    }
+
+    &__header {
+      display: flex;
+      padding-right: 1rem;
+      padding-left: 1rem;
+      color: var(--bs-emphasis-color);
+      background: var(--bs-secondary-bg);
+      border-bottom: 1px solid var(--bs-border-color);
+      border-top-left-radius: 6px;
+      border-top-right-radius: 6px;
+      height: auto;
+      flex-direction: column;
+      gap: 0.25rem;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+
+      @include media-breakpoint-up(md) {
+        height: 2.5rem;
+        flex-direction: row;
+        align-items: center;
+        gap: 0.5rem;
+      padding-top: 0rem;
+      padding-bottom: 0rem;
+      }
+
+      &__author {
+        font-size: 1rem;
+        font-weight: 700;
+        color: var(--bs-emphasis-color);
+      }
+
+      &__date {
+        font-size: 0.875rem;
+        color: var(--bs-secondary-color);
+      }
+    }
+
+    &__body {
+      padding: 1rem;
+      width: 100%;
+
+      p {
+        margin: 0;
+        padding: 0;
+      }
+    }
+  }
+}

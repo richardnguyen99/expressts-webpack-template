@@ -83,12 +83,12 @@
           <p>{{{post.content}}}</p>
         </div>
 
-        <div class="blog__comment-section">
+        <div id="comment-section" class="blog__comment-section">
           <h2>Comments</h2>
 
           <div class="blog__comments">
             {{#each post.comments as |comment|}}
-              {{> includes/_comment-item comment=comment}}
+              {{> includes/_comment-item comment=comment url=(concat "/blogs/" @root.post.slug)}}
             {{/each}}
           </div>
 
@@ -107,11 +107,12 @@
                 <button type="submit" class="btn btn-success">Submit</button>
               </div>
             </form>
+          </div>
         </div>
       </div>
 
       <div class="position-relative col-lg-4">
-        <hr class="d-lg-none my-5">
+        <hr class="d-lg-none my-2">
         <div class="blog__extra">
           <div class="blog__extra__author">
             <div class="blog__extra__author__brief">

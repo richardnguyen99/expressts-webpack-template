@@ -151,6 +151,27 @@
   &__comments {
     display: flex;
     flex-direction: column;
+    margin-left: 0px;
+
+    @include media-breakpoint-up(md) {
+      margin-left: 72px;
+    }
+
+    &>.comment-item {
+      &:before {
+        content: "";
+        position: absolute;
+        height: 100%;
+        width: 1px;
+        background-color: var(--bs-border-color);
+      }
+    }
+  }
+
+  &__comment-form {
+    textarea {
+      min-height: 240px;
+    }
   }
 
   &__extra {
