@@ -14,7 +14,7 @@
 {{#*inline "body"}}
 <section class="blog">
   <div class="blog__container container">
-    <div class="row g-4">
+    <div class="row g-4 relative">
       <div class="blog__content col-lg-8">
         <div class="blog__content__breadcrumb">
           <nav aria-label="breadcrumb">
@@ -50,15 +50,21 @@
           <div class="blog__content__info__metadata">
             <span class="blog__content__info__metadata__category">{{capitalize post.category}}</span>
 
+            <span class="blog__content__info__separator">|</span>
+
             <span class="blog__content__info__metadata__views">
               <i class="bi bi-eye"></i>
               {{post.views}}
             </span>
 
+            <span class="blog__content__info__separator">|</span>
+
             <span class="blog__content__info__metadata__likes">
               <i class="bi bi-heart"></i>
               {{post.likes}}
             </span>
+
+            <span class="blog__content__info__separator">|</span>
 
             <span class="blog__content__info__metadata__comments">
               <i class="bi bi-chat"></i>
@@ -67,80 +73,77 @@
           </div>
         </div>
 
-        <hr>
+        <hr class="my-5">
 
         <div class="blog__content__thumbnail">
           <img src="{{post.thumbnail}}" alt="{{post.title}} thumbnail">
         </div>
 
         <div class="blog__content__body">
-          <p>{{post.content}}</p>
+          <p>{{{post.content}}}</p>
         </div>
 
       </div>
 
-      <div class="blog__extra col-lg-4">
-        <div class="blog__extra__author">
-          <div class="blog__extra__author__brief">
-            <div class="blog__extra__author__avatar">
-              <img
-                src="{{post.author.profile.avatar}}"
-                alt="{{fullname post.author.profile.firstName post.auuthor.profile.lastName}}"
-              >
-            </div>
-
-            <div class="blog__extra__author__title">
-              <span class="blog__extra__author__name">{{fullname post.author.profile.firstName post.author.profile.lastName}}</span>
-              <span class="blog__extra__author__job">{{post.author.profile.job}}</span>
-            </div>
-          </div>
-
-          <div class="blog__extra__author__bio">
-            <p>{{post.author.profile.bio}}</p>
-          </div>
-        </div>
-
-        <div class="blog__extra__related">
-          <h2 class="blog__extra__related__title">Related Posts</h2>
-
-          <div class="blog__extra__related-posts">
-            {{#each relatedPosts as |relatedPost|}}
-              <div class="blog__extra__related-post">
-                <div class="blog__extra__related-post__image">
-                  <img src="{{relatedPost.thumbnail}}" alt="{{relatedPost.title}} thumbnail">
-                </div>
-
-                <div class="blog__extra__related-post__title">
-                  <a href="/blogs/{{relatedPost.slug}}">{{relatedPost.title}}</a>
-                </div>
+      <div class="position-relative col-lg-4">
+        <hr class="d-lg-none my-5">
+        <div class="blog__extra">
+          <div class="blog__extra__author">
+            <div class="blog__extra__author__brief">
+              <div class="blog__extra__author__avatar">
+                <img
+                  src="{{post.author.profile.avatar}}"
+                  alt="{{fullname post.author.profile.firstName post.auuthor.profile.lastName}}"
+                >
               </div>
-            {{/each}}
+
+              <div class="blog__extra__author__title">
+                <span class="blog__extra__author__name">{{fullname post.author.profile.firstName post.author.profile.lastName}}</span>
+                <span class="blog__extra__author__job">{{post.author.profile.job}}</span>
+              </div>
+            </div>
+
+            <div class="blog__extra__author__bio">
+              <p>{{post.author.profile.bio}}</p>
+            </div>
           </div>
-        </div>
 
-        <div class="blog__extra__socials">
-          <h2>Find me at</h2>
+          <div class="blog__extra__related">
+            <h2 class="blog__extra__related__title">Related Posts</h2>
 
-          <div class="blog__extra__socials__icons">
-            <a href="#">
-              <i class="bi bi-facebook"></i>
-              <span>Facebook</span>
-            </a>
+            <ul class="list-unstyled">
+              {{#each relatedPosts as |relatedPost|}}
+                <li>
+                  {{> includes/_article_list_short_item post=relatedPost}}
+                </li>
+              {{/each}}
+            </ul>
+          </div>
 
-            <a href="#">
-              <i class="bi bi-twitter"></i>
-              <span>Twitter</span>
-            </a>
+          <div class="blog__extra__socials">
+            <h2>Find me at</h2>
 
-            <a href="#">
-              <i class="bi bi-linkedin"></i>
-              <span>LinkedIn</span>
-            </a>
+            <div class="blog__extra__socials__icons">
+              <a href="#">
+                <i class="bi bi-facebook"></i>
+                <span>Facebook</span>
+              </a>
 
-            <a href="#">
-              <i class="bi bi-github"></i>
-              <span>Instagram</span>
-            </a>
+              <a href="#">
+                <i class="bi bi-twitter"></i>
+                <span>Twitter</span>
+              </a>
+
+              <a href="#">
+                <i class="bi bi-linkedin"></i>
+                <span>LinkedIn</span>
+              </a>
+
+              <a href="#">
+                <i class="bi bi-github"></i>
+                <span>Instagram</span>
+              </a>
+            </div>
           </div>
         </div>
       </div>

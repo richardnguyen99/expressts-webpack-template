@@ -9,11 +9,13 @@ $bootstrap-icons-font-src: url("~bootstrap-icons/font/fonts/bootstrap-icons.woff
 @import "bootstrap-icons/font/bootstrap-icons.scss";
 
 @import "grid";
+@import "breadcrumb";
 
 @import "./headers.scss";
 @import "./textarea.scss";
 @import "./article.scss";
 @import "./form.scss";
+@import "./blog.scss";
 
 html {
   height: 100%;

@@ -62,7 +62,11 @@ const generateFakePosts = (): Post => {
       .toLowerCase()
       .replace(/ /g, "-")
       .replace(/[^\w-]+/g, ""),
-    content: faker.lorem.paragraphs(),
+    content: faker.lorem.paragraphs({
+      min: 5,
+      max: 15,
+
+    }, "\n\n"),
     userId: users[Math.floor(Math.random() * users.length)].userId,
     postId: faker.string.ulid().toLowerCase(),
     createdAt: faker.date

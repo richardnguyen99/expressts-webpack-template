@@ -1,0 +1,9 @@
+.breadcrumb {
+  &-item:last-child {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-clamp: 1;
+    -webkit-line-clamp: 1;
+  }
+}
