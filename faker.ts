@@ -25,6 +25,10 @@ const generateFakeUsers = (): User => {
     email: faker.internet.email(),
     password: new RandExp(/(?=.*[a-z])(?=.*[A-Z])(?=.*d).{8,12}/).gen(),
     userId: faker.string.nanoid(10),
+    createdAt: faker.date
+      .between({ from: "2019-01-01", to: "2020-12-01" })
+      .getTime(),
+    verified: faker.datatype.boolean(),
   };
 };
 

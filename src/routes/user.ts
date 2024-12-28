@@ -1,6 +1,8 @@
 import { Router } from "express";
 import type { Request, Response } from "express-serve-static-core";
 
+import { getUserById } from "../utils/users";
+
 import {
   cachableMiddleware,
   noCacheMiddleware,
@@ -15,8 +17,22 @@ userRouter.get("/", cachableMiddleware, (_req: Request, res: Response) => {
   });
 });
 
-userRouter.get("/:id", noCacheMiddleware, (req: Request, res: Response) => {
-  res.send(`User ${req.params.id}`);
+userRouter.get("/:id", noCacheMiddleware, async (req: Request, res: Response) => {
+
+  const user = await getUserById(req.params.id, {
+    includes: ["posts", "profile"],
+  });
+
+  if (!user) {
+    res.status(404).send("User not found");
+    return;
+  }
+
+  res.render("users/template", {
+    title: `${user.profile!.firstName} ${user.profile!.lastName}`,
+    page: "/users",
+    user,
+  })
 });
 
 userRouter.post("/", noCacheMiddleware, (_req: Request, res: Response) => {

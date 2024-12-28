@@ -3,6 +3,12 @@ export type User = {
   password: string;
   email: string;
   userId: string;
+  createdAt: number;
+  verified: boolean;
+
+  profile?: Profile;
+  posts?: Post[];
+  comments?: Comment[];
 };
 
 export type Profile = {
