@@ -63,3 +63,8 @@ export type Data = {
   posts: Post[];
   comments: Comment[];
 };
+
+export type ResponseLocals = {
+  user?: User;
+  profile?: Profile;
+}

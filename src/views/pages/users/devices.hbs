@@ -1,0 +1,16 @@
+{{#if partial}}
+
+<title>{{title}}</title>
+{{> includes/_user_devices }}
+
+{{else}}
+
+{{#> includes/_user_template }}
+
+{{#*inline "user_content"}}
+{{> includes/_user_devices }}
+{{/inline}}
+
+{{/includes/_user_template}}
+
+{{/if}}

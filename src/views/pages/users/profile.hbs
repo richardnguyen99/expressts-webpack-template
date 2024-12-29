@@ -1,0 +1,16 @@
+{{#if partial}}
+
+<title>{{title}}</title>
+{{> includes/_user_profile }}
+
+{{else}}
+
+{{#> includes/_user_template }}
+
+{{#*inline "user_content"}}
+{{> includes/_user_profile }}
+{{/inline}}
+
+{{/includes/_user_template}}
+
+{{/if}}
