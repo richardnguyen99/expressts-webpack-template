@@ -9,6 +9,21 @@ export type User = {
   profile?: Profile;
   posts?: Post[];
   comments?: Comment[];
+  devices?: Device[];
+};
+
+export type Device = {
+  os: string;
+  browser: string;
+  device: string;
+  ip: string;
+  engine: string;
+  userId: string;
+  geo: {
+    city: string;
+    region: string;
+    country: string;
+  }
 };
 
 export type Profile = {

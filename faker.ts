@@ -1,8 +1,10 @@
 import fs from "fs";
 import { faker } from "@faker-js/faker";
 import RandExp from "randexp";
+import uap from "ua-parser-js";
+import geoip from "geoip-lite";
 
-import type { User, Profile, Post, Comment } from "./src/types";
+import type { User, Profile, Post, Comment, Device } from "./src/types";
 
 const categories = [
   "technology",
@@ -36,6 +38,34 @@ const users = faker.helpers.multiple(generateFakeUsers, {
   count: 50,
 });
 
+const generateFakeDevices = (userIdx: number): Device => {
+  const userAgent = faker.internet.userAgent();
+  const UA = uap.UAParser(userAgent);
+  const ip = faker.internet.ipv4();
+  const geo = geoip.lookup(ip);
+
+  return {
+    os: UA.os.name!,
+    browser: UA.browser.name!,
+    device: UA.device.model!,
+    ip: ip,
+    engine: UA.engine.name!,
+    userId: users[userIdx].userId,
+    geo: {
+      country: geo?.country || "Unknown",
+      region: geo?.region || "Unknown",
+      city: geo?.city || "Unknown",
+    },
+  };
+};
+
+const devices = faker.helpers.multiple(
+  (_, i) => generateFakeDevices(i % users.length),
+  {
+    count: 75,
+  }
+);
+
 const generateFakeProfiles = (userIndex: number): Profile => {
   return {
     userId: users[userIndex].userId,
@@ -68,11 +98,13 @@ const generateFakePosts = (): Post => {
       .toLowerCase()
       .replace(/ /g, "-")
       .replace(/[^\w-]+/g, ""),
-    content: faker.lorem.paragraphs({
-      min: 5,
-      max: 15,
-
-    }, "\n\n"),
+    content: faker.lorem.paragraphs(
+      {
+        min: 5,
+        max: 15,
+      },
+      "\n\n"
+    ),
     userId: users[Math.floor(Math.random() * users.length)].userId,
     postId: faker.string.ulid().toLowerCase(),
     createdAt: faker.date
@@ -102,10 +134,12 @@ const generateFakeComments = (): Comment => {
     userId: users[Math.floor(Math.random() * users.length)].userId,
     postId: posts[postIndex].postId,
     commentId: faker.string.ulid().toLowerCase(),
-    createdAt: faker.date.between({
-      from: posts[postIndex].createdAt,
-      to: "2024-12-01"
-    }).getTime(),
+    createdAt: faker.date
+      .between({
+        from: posts[postIndex].createdAt,
+        to: "2024-12-01",
+      })
+      .getTime(),
   };
 };
 
@@ -115,6 +149,7 @@ const comments = faker.helpers.multiple(generateFakeComments, {
 
 const generated = {
   users,
+  devices,
   profiles,
   posts,
   comments,
