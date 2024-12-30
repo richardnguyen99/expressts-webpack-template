@@ -1,3 +1,65 @@
-<div>
-  Devices Content
+{{> includes/_user_header header_title="My Devices" }}
+
+<div class="card bg-body-tertiary p-3">
+  <div class="card-header bg-transparent border-bottom p-0 pb-3">
+    <h6 class="mb-0">Logged devices</h6>
+  </div>
+
+  <div class="card-body px-0">
+    <ul class="list-group">
+      {{#each devices as |device|}}
+      <li data-device-id="device-{{device.deviceId}}" class="list-group-item p-0 bg-body-secondary z-0">
+        <div class="p-3 pb-0">
+          <div class="w-100 d-flex gap-2 align-items-center mb-2">
+            <span class="fw-bold w-auto">{{device.device}}/{{device.browser}} @ {{device.os}}</span>
+            <span class="badge text-bg-primary rounded-pill d-none d-sm-inline-block">{{date "short" device.loggedInTime}}</span>
+            <button class="btn btn-outline border ms-sm-auto p-2" type="button" data-bs-toggle="modal" data-bs-target="#modalDevice-{{device.deviceId}}">
+              <i class="bi bi-trash"></i>
+            </button>
+          </div>
+
+          <p class="text-truncate text-muted small mb-0 mb-md-3">
+            Device ID: {{device.deviceId}}
+          </p>
+        </div>
+
+        <div class="d-none d-md-block p-3 pt-0">
+          <button class="btn btn-dark btn-sm z-3" type="button" data-bs-toggle="collapse" data-bs-target="#deviceDetails-{{device.deviceId}}" aria-expanded="false" aria-controls="{{device.deviceId}}">
+            Details
+          </button>
+
+          <div class="collapse" id="deviceDetails-{{device.deviceId}}">
+            <ul class="list-group small text-muted mt-2">
+              <li class="list-group-item bg-transparent border-0">Device: {{device.device}}</li>
+              <li class="list-group-item bg-transparent border-0">Browser: {{device.browser}}</li>
+              <li class="list-group-item bg-transparent border-0">OS: {{device.os}}</li>
+              <li class="list-group-item bg-transparent border-0">Logged in: {{date "short" device.loggedInTime}}</li>
+              <li class="text-truncate list-group-item bg-transparent border-0" title="{{device.deviceId}}">Device ID: {{device.deviceId}}</li>
+              <li class="text-truncate list-group-item bg-transparent border-0" title="{{device.ip}}">IP Address: {{device.ip}}</li>
+            </ul>
+          </div>
+        </div>
+      </li>
+
+      <div class="modal fade" id="modalDevice-{{device.deviceId}}" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="modalDevice-{{device.deviceId}}" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="modalDeviceLabel-{{device.deviceId}}">Problem with this device?</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              You can remove this device if it's not yours, or you wish to continue removing it.
+            </div>
+            <div class="modal-footer justify-content-start">
+              <p class="small text-muted fst-italic">This action is irreversible</p>
+              <button type="button" class="ms-auto btn btn-outline-success" data-bs-dismiss="modal">It's mine</button>
+              <button type="button" class="btn btn-danger">Remove it</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      {{/each}}
+    </ul>
+  </div>
 </div>

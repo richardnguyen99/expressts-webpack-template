@@ -3,6 +3,7 @@ import { faker } from "@faker-js/faker";
 import RandExp from "randexp";
 import uap from "ua-parser-js";
 import geoip from "geoip-lite";
+import cryptol from "crypto";
 
 import type { User, Profile, Post, Comment, Device } from "./src/types";
 
@@ -43,12 +44,21 @@ const generateFakeDevices = (userIdx: number): Device => {
   const UA = uap.UAParser(userAgent);
   const ip = faker.internet.ipv4();
   const geo = geoip.lookup(ip);
+  const loggedInTime = faker.date.recent().getTime();
+  const hash = cryptol.createHash("sha256");
+  hash.update(UA.os.name || "Unknown")
+      .update(UA.browser.name || "Unknown")
+      .update(UA.device.model || "Unknown")
+      .update(UA.engine.name || "Unknown")
+      .update(ip)
 
   return {
+    deviceId: hash.digest("hex"),
     os: UA.os.name!,
     browser: UA.browser.name!,
     device: UA.device.model!,
     ip: ip,
+    loggedInTime,
     engine: UA.engine.name!,
     userId: users[userIdx].userId,
     geo: {

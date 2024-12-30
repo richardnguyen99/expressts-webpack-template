@@ -11,6 +11,7 @@ import {
   cachableMiddleware,
   noCacheMiddleware,
 } from "../middlewares/cache.middleware";
+import { getLoggedDevicesFromUserId } from "../utils/devices";
 
 const userRouter: Router = Router();
 
@@ -64,11 +65,14 @@ userRouter.get(
   "/:id/devices",
   fetchUserMiddleware,
   noCacheMiddleware,
-  (req: UserRequest, res: UserResponse) => {
+  async (req: UserRequest, res: UserResponse) => {
+    const devices = await getLoggedDevicesFromUserId(req.params.id);
+
     const devicesData = {
       title: `Devices @ ${res.locals.user?.profile?.firstName} ${res.locals.user?.profile?.lastName}`,
       page: "/users",
       user: res.locals.user,
+      devices,
     };
 
     if (
@@ -83,7 +87,7 @@ userRouter.get(
       return;
     }
 
-    res.render("users/profile", devicesData);
+    res.render("users/devices", devicesData);
   }
 );
 

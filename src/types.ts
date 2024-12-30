@@ -13,11 +13,13 @@ export type User = {
 };
 
 export type Device = {
+  deviceId: string;
   os: string;
   browser: string;
   device: string;
   ip: string;
   engine: string;
+  loggedInTime: number;
   userId: string;
   geo: {
     city: string;
@@ -79,6 +81,7 @@ export type Data = {
   profiles: Profile[];
   posts: Post[];
   comments: Comment[];
+  devices: Device[];
 };
 
 export type ResponseLocals = {
