@@ -22,6 +22,7 @@ export type Profile = {
   phone: string;
   country: string;
   job: string;
+  address: string;
 };
 
 export type Comment = {

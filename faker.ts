@@ -49,7 +49,8 @@ const generateFakeProfiles = (userIndex: number): Profile => {
       .getTime(),
     avatar: faker.image.avatar(),
     gender: faker.person.gender(),
-    country: faker.location.country(),
+    country: faker.location.countryCode("alpha-2"),
+    address: faker.location.streetAddress(),
   };
 };
 

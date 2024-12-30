@@ -3,6 +3,7 @@ import * as fs from "fs/promises";
 import Express from "express";
 import dotenv from "dotenv";
 import { engine as hbsEngine } from "express-handlebars";
+import { getCountryDataList, getEmojiFlag, type TCountryCode } from "countries-list";
 
 import getAppRouter from "./routes";
 import morganMiddleware from "./middlewares/morgan.middleware";
@@ -70,6 +71,14 @@ const createApp = async () => {
         },
 
         concat: (...args: any[]) => args.slice(0, -1).join(""),
+        flag: (countryCode: TCountryCode) => getEmojiFlag(countryCode),
+        countryName: (countryCode: TCountryCode) => {
+          const country = getCountryDataList().find(
+            (c) => c.iso2 === countryCode
+          );
+
+          return country?.name;
+        },
         eq: (a: any, b: any) => a === b,
         uppercase: (str: string) => str.toUpperCase(),
         lowercase: (str: string) => str.toLowerCase(),
