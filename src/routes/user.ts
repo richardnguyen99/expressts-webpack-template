@@ -65,8 +65,6 @@ userRouter.get(
   fetchUserMiddleware,
   noCacheMiddleware,
   (req: UserRequest, res: UserResponse) => {
-    console.log(req.headers["user-agent"]);
-
     const devicesData = {
       title: `Devices @ ${res.locals.user?.profile?.firstName} ${res.locals.user?.profile?.lastName}`,
       page: "/users",
