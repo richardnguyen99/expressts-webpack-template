@@ -8,11 +8,221 @@ $position: (
   sticky: sticky
 );
 
+$sides: (
+  t: top,
+  r: right,
+  b: bottom,
+  l: left,
+);
+
 @each $position, $value in $position {
   @each $breakpoint in map-keys($grid-breakpoints) {
     .position-#{$breakpoint}-#{$position} {
       @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
         position: #{$value} !important;
+      }
+    }
+  }
+}
+
+@for $i from 1 through 128 {
+  .exts-mt-#{$i} {
+    margin-top: #{$i * 0.25}rem !important;
+  }
+
+  .-exts-mt-#{$i} {
+    margin-top: #{$i * -0.25}rem !important;
+  }
+
+  .exts-mr-#{$i} {
+    margin-right: #{$i * 0.25}rem !important;
+  }
+
+  .-exts-mr-#{$i} {
+    margin-right: #{$i * -0.25}rem !important;
+  }
+
+  .exts-mb-#{$i} {
+    margin-bottom: #{$i * 0.25}rem !important;
+  }
+
+  .exts-mb-#{$i} {
+    margin-bottom: #{$i * -0.25}rem !important;
+  }
+
+  .exts-ml-#{$i} {
+    margin-left: #{$i * 0.25}rem !important;
+  }
+
+  .-exts-ml-#{$i} {
+    margin-left: #{$i * -0.25}rem !important;
+  }
+
+  .exts-mx-#{$i} {
+    margin-left: #{$i * 0.25}rem !important;
+    margin-right: #{$i * 0.25}rem !important;
+  }
+
+  .-exts-mx-#{$i} {
+    margin-left: #{$i * -0.25}rem !important;
+    margin-right: #{$i * -0.25}rem !important;
+  }
+
+  .exts-my-#{$i} {
+    margin-top: #{$i * 0.25}rem !important;
+    margin-bottom: #{$i * 0.25}rem !important;
+  }
+
+  .-exts-my-#{$i} {
+    margin-top: #{$i * -0.25}rem !important;
+    margin-bottom: #{$i * -0.25}rem !important;
+  }
+
+  .exts-m-#{$i} {
+    margin: #{$i * 0.25}rem !important;
+  }
+
+  .-exts-m-#{$i} {
+    margin: #{$i * -0.25}rem !important;
+  }
+
+  .exts-pt-#{$i} {
+    padding-top: #{$i * 0.25}rem !important;
+  }
+
+  .-exts-pt-#{$i} {
+    padding-top: #{$i * -0.25}rem !important;
+  }
+
+  .exts-pr-#{$i} {
+    padding-right: #{$i * 0.25}rem !important;
+  }
+
+  .-exts-pr-#{$i} {
+    padding-right: #{$i * -0.25}rem !important;
+  }
+
+  .exts-pb-#{$i} {
+    padding-bottom: #{$i * 0.25}rem !important;
+  }
+
+  .-exts-pb-#{$i} {
+    padding-bottom: #{$i * -0.25}rem !important;
+  }
+
+  .exts-pl-#{$i} {
+    padding-left: #{$i * 0.25}rem !important;
+  }
+
+  .-exts-pl-#{$i} {
+    padding-left: #{$i * -0.25}rem !important;
+  }
+
+  .exts-px-#{$i} {
+    padding-left: #{$i * 0.25}rem !important;
+    padding-right: #{$i * 0.25}rem !important;
+  }
+
+  .-exts-px-#{$i} {
+    padding-left: #{$i * -0.25}rem !important;
+    padding-right: #{$i * -0.25}rem !important;
+  }
+
+  .exts-py-#{$i} {
+    padding-top: #{$i * 0.25}rem !important;
+    padding-bottom: #{$i * 0.25}rem !important;
+  }
+
+  .-exts-py-#{$i} {
+    padding-top: #{$i * -0.25}rem !important;
+    padding-bottom: #{$i * -0.25}rem !important;
+  }
+
+  .exts-p-#{$i} {
+    padding: #{$i * 0.25}rem !important;
+  }
+
+  .-exts-p-#{$i} {
+    padding: #{$i * -0.25}rem !important;
+  }
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    .#{$breakpoint}\:exts-m-#{$i} {
+      margin: #{$i * 0.25}rem !important;
+    }
+
+    .#{$breakpoint}\:-exts-m-#{$i} {
+      margin: #{$i * -0.25}rem !important;
+    }
+
+    .#{$breakpoint}\:exts-p-#{$i} {
+      padding: #{$i * 0.25}rem !important;
+    }
+
+    .#{$breakpoint}\:-exts-p-#{$i} {
+      padding: #{$i * -0.25}rem !important;
+    }
+
+    .#{$breakpoint}\:exts-my-#{$i} {
+      margin-top: #{$i * 0.25}rem !important;
+      margin-bottom: #{$i * 0.25}rem !important;
+    }
+
+    .#{$breakpoint}\:-exts-my-#{$i} {
+      margin-top: #{$i * -0.25}rem !important;
+      margin-bottom: #{$i * -0.25}rem !important;
+    }
+
+    .#{$breakpoint}\:exts-mx-#{$i} {
+      margin-left: #{$i * 0.25}rem !important;
+      margin-right: #{$i * 0.25}rem !important;
+    }
+
+    .#{$breakpoint}\:-exts-mx-#{$i} {
+      margin-left: #{$i * -0.25}rem !important;
+      margin-right: #{$i * -0.25}rem !important;
+    }
+
+    .#{$breakpoint}\:exts-px-#{$i} {
+      padding-left: #{$i * 0.25}rem !important;
+      padding-right: #{$i * 0.25}rem !important;
+    }
+
+    .#{$breakpoint}\:-exts-px-#{$i} {
+      padding-left: #{$i * -0.25}rem !important;
+      padding-right: #{$i * -0.25}rem !important;
+    }
+
+    .#{$breakpoint}\:exts-py-#{$i} {
+      padding-top: #{$i * 0.25}rem !important;
+      padding-bottom: #{$i * 0.25}rem !important;
+    }
+
+    .#{$breakpoint}\:-exts-py-#{$i} {
+      padding-top: #{$i * -0.25}rem !important;
+      padding-bottom: #{$i * -0.25}rem !important;
+    }
+
+    @each $side, $side-value in $sides {
+
+      // Positive margin and padding with responsive variants from 1 to 128
+      // i.e. .xs:exts-mt-1 { margin-top: 0.25rem !important; }
+      @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+        .#{$breakpoint}\:exts-m#{$side}-#{$i} {
+          margin-#{$side-value}: #{$i * 0.25}rem !important;
+        }
+
+        .#{$breakpoint}\:-exts-m#{$side}-#{$i} {
+          margin-#{$side-value}: #{$i * -0.25}rem !important;
+        }
+
+        .#{$breakpoint}\:exts-p#{$side}-#{$i} {
+          padding-#{$side-value}: #{$i * 0.25}rem !important;
+        }
+
+        .#{$breakpoint}\:-exts-p#{$side}-#{$i} {
+          padding-#{$side-value}: #{$i * -0.25}rem !important;
+        }
       }
     }
   }

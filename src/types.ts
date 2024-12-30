@@ -19,6 +19,7 @@ export type Profile = {
   dateOfBirth: number;
   avatar: string;
   gender: string;
+  phone: string;
   country: string;
   job: string;
 };

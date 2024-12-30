@@ -22,9 +22,9 @@
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasSidebar" aria-label="Close"></button>
           </div>
 
-          <div class="offcanvas-body p-0">
-            <div class="card border p-0 w-100">
-              <div class="card-header d-flex flex-column gap-3 align-items-center border-bottom bg-body">
+          <div class="offcanvas-body px-3 px-lg-0">
+            <div class="card border rounded-2 p-3 bg-body-tertiary w-100">
+              <div class="card-header d-flex flex-column gap-3 align-items-center bg-transparent px-0 border-bottom-0">
                 <div class="user__avatar position-relative my-2">
                   <img
                     class="rounded-circle border border-2 border-secondary"
@@ -38,7 +38,9 @@
                 <a href="#" class="text-reset text-primary-hover small mt-n3">{{user.email}}</a>
               </div>
 
-              <div class="card-body p-2">
+              <hr class="my-1">
+
+              <div class="card-body py-2 px-0">
                 <ul id="user-nav-sidebar" class="nav nav-pills flex-column gap-2">
                   {{> includes/_user_nav_items user=user page=page  }}
                 </ul>

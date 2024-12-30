@@ -43,6 +43,7 @@ const generateFakeProfiles = (userIndex: number): Profile => {
     firstName: faker.person.firstName(),
     lastName: faker.person.lastName(),
     job: faker.person.jobTitle(),
+    phone: faker.phone.number(),
     dateOfBirth: faker.date
       .between({ from: "1970-01-01", to: "2003-12-31" })
       .getTime(),
