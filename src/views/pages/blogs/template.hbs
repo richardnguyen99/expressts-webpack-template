@@ -33,12 +33,12 @@
         <div class="blog__content__info">
           <div class="blog__content__info__timeline">
             <div class="d-flex align-items-center">
-              <div class="blog__content__info__avatar">
+              <a href="/users/{{post.author.userId}}/profile" class="blog__content__info__avatar">
                 <img
                   src="{{post.author.profile.avatar}}"
                   alt="{{fullname post.author.profile.firstName post.author.profile.lastName}}"
                 >
-              </div>
+              </a>
 
               <div class="d-flex flex-column ms-2">
                 <span class="blog__content__info__author">{{fullname post.author.profile.firstName post.author.profile.lastName}}</span>
@@ -116,12 +116,12 @@
         <div class="blog__extra">
           <div class="blog__extra__author">
             <div class="blog__extra__author__brief">
-              <div class="blog__extra__author__avatar">
+              <a href="/users/{{post.author.userId}}/profile" class="blog__extra__author__avatar">
                 <img
                   src="{{post.author.profile.avatar}}"
                   alt="{{fullname post.author.profile.firstName post.auuthor.profile.lastName}}"
                 >
-              </div>
+              </a>
 
               <div class="blog__extra__author__title">
                 <span class="blog__extra__author__name">{{fullname post.author.profile.firstName post.author.profile.lastName}}</span>
