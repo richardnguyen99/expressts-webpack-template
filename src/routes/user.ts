@@ -156,6 +156,7 @@ userRouter.get(
   noCacheMiddleware,
   async (req: UserRequest, res: UserResponse) => {
     const comments = await getCommentsByUserId(req.params.id);
+
     const posts = await Promise.all(
       comments.map(async (comment) => {
         const post = await getPostById(comment.postId);
