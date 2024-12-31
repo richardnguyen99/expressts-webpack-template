@@ -50,6 +50,9 @@ const logger = winston.createLogger({
       level: "error",
       maxsize: 5242880, // 5MB
       maxFiles: 5,
+      format: winston.format.combine(
+        winston.format.uncolorize(),
+      ),
     }),
     new winston.transports.Console(),
   ],

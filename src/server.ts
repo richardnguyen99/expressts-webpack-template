@@ -2,6 +2,7 @@ import * as path from "path";
 import * as fs from "fs/promises";
 import Express from "express";
 import dotenv from "dotenv";
+import methodOverride from "method-override";
 import { engine as hbsEngine } from "express-handlebars";
 import { getCountryDataList, getEmojiFlag, type TCountryCode } from "countries-list";
 
@@ -115,6 +116,7 @@ const createApp = async () => {
 
   app.use(Express.urlencoded({ extended: true }));
   app.use(Express.json());
+  app.use(methodOverride());
 
   app.use(
     "/public",

@@ -3,7 +3,14 @@ import { logger } from "../logger";
 
 const stream = {
   write: (message: string) => {
-    logger.info(message.replace(/\n$/, ""));
+    const messageParts = message.split(" ");
+
+    if (Number(messageParts[messageParts.length - 5]) >= 400) {
+      logger.error(message.replace(/\n$/, ""));
+      return
+    }
+
+    logger.http(message.replace(/\n$/, ""));
   },
 };
 
