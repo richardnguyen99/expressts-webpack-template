@@ -72,7 +72,7 @@ userRouter.get(
 
     const devicesData = {
       title: `Devices @ ${res.locals.user?.profile?.firstName} ${res.locals.user?.profile?.lastName}`,
-      page: "/users",
+      page: "/devices",
       user: res.locals.user,
       devices,
     };

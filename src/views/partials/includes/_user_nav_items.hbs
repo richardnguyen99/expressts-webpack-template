@@ -1,81 +1,83 @@
-<li class="nav-item" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasSidebar">
-  <a
-    hx-get="/users/{{user.userId}}/profile"
-    hx-trigger="click"
-    hx-target="#user-content"
-    hx-swap="innerHTML"
-    hx-push-url="/users/{{user.userId}}/profile"
-    class="nav-link {{#if (eq page "/profile")}}active{{/if}}"
-    {{#if (eq page "/profile")}}aria-current="page"{{/if}}
-  >
-    <i class="bi bi-person"></i>
-    Profile
-  </a>
-</li>
+<ul id="user-nav-sidebar" class="nav nav-pills flex-column gap-2" hx-swap-oob="true">
+  <li class="nav-item" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasSidebar">
+    <a
+      hx-get="/users/{{user.userId}}/profile"
+      hx-trigger="click"
+      hx-target="#user-content"
+      hx-swap="innerHTML"
+      hx-push-url="/users/{{user.userId}}/profile"
+      class="nav-link {{#if (eq page "/profile")}}active{{/if}}"
+      {{#if (eq page "/profile")}}aria-current="page"{{/if}}
+    >
+      <i class="bi bi-person"></i>
+      Profile
+    </a>
+  </li>
 
-<li class="nav-item" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasSidebar">
-  <a
-    hx-get="/users/{{user.userId}}/devices"
-    hx-push-url="/users/{{user.userId}}/devices"
-    hx-trigger="click"
-    hx-target="#user-content"
-    hx-swap="innerHTML"
-    class="nav-link {{#if (eq page "/devides")}}active{{/if}}"
-    {{#if (eq page "/devices")}}aria-current="page"{{/if}}
-  >
-    <i class="bi bi-phone"></i>
-    Devices
-  </a>
-</li>
+  <li class="nav-item" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasSidebar">
+    <a
+      hx-get="/users/{{user.userId}}/devices"
+      hx-push-url="/users/{{user.userId}}/devices"
+      hx-trigger="click"
+      hx-target="#user-content"
+      hx-swap="innerHTML"
+      class="nav-link {{#if (eq page "/devices")}}active{{/if}}"
+      {{#if (eq page "/devices")}}aria-current="page"{{/if}}
+    >
+      <i class="bi bi-phone"></i>
+      Devices
+    </a>
+  </li>
 
-<li class="nav-item" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasSidebar">
-  <a
-    hx-get="/users/{{user.userId}}/notifications"
-    hx-push-url="/users/{{user.userId}}/notifications"
-    hx-trigger="click"
-    hx-target="#user-content"
-    hx-swap="innerHTML"
-    class="nav-link {{#if (eq page "/notifications")}}active{{/if}}"
-    {{#if (eq page "/notifications")}}aria-current="page"{{/if}}
-  >
-    <i class="bi bi-bell"></i>
-    Notifications
-  </a>
-</li>
+  <li class="nav-item" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasSidebar">
+    <a
+      hx-get="/users/{{user.userId}}/notifications"
+      hx-push-url="/users/{{user.userId}}/notifications"
+      hx-trigger="click"
+      hx-target="#user-content"
+      hx-swap="innerHTML"
+      class="nav-link {{#if (eq page "/notifications")}}active{{/if}}"
+      {{#if (eq page "/notifications")}}aria-current="page"{{/if}}
+    >
+      <i class="bi bi-bell"></i>
+      Notifications
+    </a>
+  </li>
 
-<li class="nav-item" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasSidebar">
-  <a
-    hx-get="/users/{{user.userId}}/posts"
-    hx-push-url="/users/{{user.userId}}/posts"
-    hx-trigger="click"
-    hx-target="#user-content"
-    hx-swap="innerHTML"
-    class="nav-link {{#if (eq page "/posts")}}active{{/if}}"
-    {{#if (eq page "/posts")}}aria-current="page"{{/if}}
-  >
-    <i class="bi bi-file-earmark-text"></i>
-    Posts
-  </a>
-</li>
+  <li class="nav-item" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasSidebar">
+    <a
+      hx-get="/users/{{user.userId}}/posts"
+      hx-push-url="/users/{{user.userId}}/posts"
+      hx-trigger="click"
+      hx-target="#user-content"
+      hx-swap="innerHTML"
+      class="nav-link {{#if (eq page "/posts")}}active{{/if}}"
+      {{#if (eq page "/posts")}}aria-current="page"{{/if}}
+    >
+      <i class="bi bi-file-earmark-text"></i>
+      Posts
+    </a>
+  </li>
 
-<li class="nav-item" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasSidebar">
-  <a
-    hx-get="/users/{{user.userId}}/comments"
-    hx-push-url="/users/{{user.userId}}/comments"
-    hx-trigger="click"
-    hx-target="#user-content"
-    hx-swap="innerHTML"
-    class="nav-link {{#if (eq page "/comments")}}active{{/if}}"
-    {{#if (eq page "/comments")}}aria-current="page"{{/if}}
-  >
-    <i class="bi bi-chat"></i>
-    Comments
-  </a>
-</li>
+  <li class="nav-item" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasSidebar">
+    <a
+      hx-get="/users/{{user.userId}}/comments"
+      hx-push-url="/users/{{user.userId}}/comments"
+      hx-trigger="click"
+      hx-target="#user-content"
+      hx-swap="innerHTML"
+      class="nav-link {{#if (eq page "/comments")}}active{{/if}}"
+      {{#if (eq page "/comments")}}aria-current="page"{{/if}}
+    >
+      <i class="bi bi-chat"></i>
+      Comments
+    </a>
+  </li>
 
-<li class="nav-item" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasSidebar">
-  <a href="/users/{{user.userId}}/delete_account" class="nav-link">
-    <i class="bi bi-trash"></i>
-    Delete Account
-  </a>
-</li>
+  <li class="nav-item" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasSidebar">
+    <a href="/users/{{user.userId}}/delete_account" class="nav-link">
+      <i class="bi bi-trash"></i>
+      Delete Account
+    </a>
+  </li>
+</ul>

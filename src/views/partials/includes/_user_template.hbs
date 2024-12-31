@@ -41,9 +41,7 @@
               <hr class="my-1">
 
               <div class="card-body py-2 px-0">
-                <ul id="user-nav-sidebar" class="nav nav-pills flex-column gap-2">
-                  {{> includes/_user_nav_items user=user page=page  }}
-                </ul>
+                {{> includes/_user_nav_items user=@root.user page=@root.page  }}
               </div>
             </div>
           </div>
