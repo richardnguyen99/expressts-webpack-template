@@ -7,6 +7,7 @@ import { getCountryDataList, getEmojiFlag, type TCountryCode } from "countries-l
 
 import getAppRouter from "./routes";
 import morganMiddleware from "./middlewares/morgan.middleware";
+import { requestIdMiddleware } from "./middlewares/request.middleware";
 import type { Data } from "./types";
 
 const env_path =
@@ -108,6 +109,9 @@ const createApp = async () => {
 
   // Set up logging
   app.use(morganMiddleware);
+
+  // Set up unique request ID registration
+  app.use(requestIdMiddleware);
 
   app.use(Express.urlencoded({ extended: true }));
   app.use(Express.json());
