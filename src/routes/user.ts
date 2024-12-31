@@ -125,7 +125,10 @@ userRouter.get(
   fetchUserMiddleware,
   noCacheMiddleware,
   async (req: UserRequest, res: UserResponse) => {
-    const posts = await getPostsByUserId(req.params.id);
+    const posts = await getPostsByUserId(req.params.id, {
+      limit: 10,
+      includes: ["comments"],
+    });
 
     const postsData = {
       title: `Posts by ${res.locals.user?.profile?.firstName} ${res.locals.user?.profile?.lastName}`,

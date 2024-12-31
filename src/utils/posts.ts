@@ -2,6 +2,15 @@ import { mockedData } from "../server";
 import { Post } from "../types";
 
 import { getCommmentsByPostId } from "./comments";
+import { getUserById } from "./users";
+
+type Options = {
+  limit: number;
+  category: string;
+  sortedBy: "latest" | "views" | "likes";
+  order: "asc" | "desc";
+  includes?: ("author" | "comments" | "timetoread")[];
+};
 
 const createdAtLessThanStrategy = (a: Post, b: Post) =>
   a.createdAt - b.createdAt;
@@ -49,6 +58,30 @@ const postSortStrategies = {
   latest: getPostsByLatest,
   views: getPostsByViews,
   likes: getPostsByLikes,
+};
+
+const includesAuthorStrategy = (posts: Post[]) => {
+  posts.forEach(async (post) => {
+    const author = await getUserById(post.userId, {
+      includes: ["profile"],
+    });
+
+    post.author =  {
+      userId: author!.userId,
+      profile: author!.profile!,
+    }
+  });
+};
+
+const includesCommentsStrategy = async (posts: Post[]) => {
+  posts.forEach(async (post) => {
+    const comments = await getCommmentsByPostId(post.postId, {
+      limit: -1,
+      includes: ["author"],
+    });
+
+    post.comments = comments;
+  });
 };
 
 export const getPosts = async (options: {
@@ -147,23 +180,37 @@ export const getPostById = async (postId: string) => {
   return post;
 };
 
-export const getPostsByUserId = async (userId: string) => {
+export const getPostsByUserId = async (
+  userId: string,
+  options?: Partial<Omit<Options, "category">>
+): Promise<Post[]> => {
   const data = await mockedData;
   const posts = data.posts.filter((post) => post.userId === userId);
 
-  posts.forEach((post) => {
-    const author = data.users.find((user) => user.userId === post.userId);
-    const profile = data.profiles.find((profile) => profile.userId === author!.userId);
+  if (!options) {
+    return posts;
+  }
 
-    post.author = {
-      userId: author!.userId,
-      profile: profile!,
-    };
+  const limit: number = options.limit
+                        ? options.limit < 0
+                          ? posts.length
+                          : options.limit
+                        : posts.length;
 
-    post.comments = data.comments.filter((comment) => comment.postId === post.postId);
-  });
+  const sortedBy: Options["sortedBy"] = options.sortedBy || "latest";
+  const order: Options["order"] = options.order || "desc";
 
-  return posts;
+  const sortedPosts = postSortStrategies[sortedBy](posts, order);
+
+  if (options.includes && options.includes.includes("author")) {
+    includesAuthorStrategy(sortedPosts);
+  };
+
+  if (options.includes && options.includes.includes("comments")) {
+    includesCommentsStrategy(sortedPosts);
+  }
+
+  return posts.slice(0, limit);
 };
 
 export const getPostsBySlug = async (slug: string) => {
