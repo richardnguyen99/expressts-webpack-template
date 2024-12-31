@@ -21,4 +21,15 @@
       object-fit: cover;
     }
   }
+
+  &__sidebar {
+    .nav-link {
+      cursor: pointer;
+      transition: all 0.3s ease-in;
+
+      &:hover {
+        background-color: mix($primary, $gray-700, 15%);
+      }
+    }
+  }
 }
