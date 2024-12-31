@@ -11,8 +11,9 @@ import {
   cachableMiddleware,
   noCacheMiddleware,
 } from "../middlewares/cache.middleware";
-import { getPostsByUserId } from "../utils/posts";
+import { getPostById, getPostsByUserId } from "../utils/posts";
 import { getLoggedDevicesFromUserId } from "../utils/devices";
+import { getCommentsByUserId } from "../utils/comments";
 
 const userRouter: Router = Router();
 
@@ -153,11 +154,28 @@ userRouter.get(
   "/:id/comments",
   fetchUserMiddleware,
   noCacheMiddleware,
-  (req: UserRequest, res: UserResponse) => {
+  async (req: UserRequest, res: UserResponse) => {
+    const comments = await getCommentsByUserId(req.params.id);
+    const posts = await Promise.all(
+      comments.map(async (comment) => {
+        const post = await getPostById(comment.postId);
+
+        if (!post) {
+          throw new Error("Post not found");
+        }
+
+        return post;
+      })
+    );
+
     const commentsData = {
       title: `Comments by ${res.locals.user?.profile?.firstName} ${res.locals.user?.profile?.lastName}`,
       page: "/comments",
       user: res.locals.user,
+      comments: comments.map((comment, index) => ({
+        ...comment,
+        post: posts[index],
+      }))
     };
 
     if (

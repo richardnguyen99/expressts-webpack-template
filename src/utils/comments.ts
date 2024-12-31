@@ -62,13 +62,13 @@ export const getCommentById = async (commentId: string, options: {
 
 export const getCommentsByUserId = async (
   userId: string,
-  options: {
+  options?: {
     includes: "author"[],
 }): Promise<Comment[]> => {
   const data = await mockedData;
   const comments = data.comments.filter((comment) => comment.userId === userId);
 
-  if (options.includes.includes("author")) {
+  if (options && options.includes.includes("author")) {
     await includesAuthorStrategy(comments);
   }
 
