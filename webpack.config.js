@@ -39,8 +39,8 @@ module.exports = (env, argv) => {
     output: {
       filename: `js/${getOutputFilename(argv.mode)}.js`,
       path: getOuputPath(argv.mode),
-      publicPath: "/public",
-      assetModuleFilename: "[contenthash][ext][query]",
+      publicPath: "/public/",
+      assetModuleFilename: "fonts/[contenthash][ext][query]",
     },
 
     module: {
@@ -72,9 +72,6 @@ module.exports = (env, argv) => {
         {
           test: /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/i,
           type: "asset/resource",
-          generator: {
-            publicPath: "fonts/",
-          }
         },
       ],
     },
