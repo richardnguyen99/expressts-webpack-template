@@ -11,6 +11,7 @@ import {
   cachableMiddleware,
   noCacheMiddleware,
 } from "../middlewares/cache.middleware";
+import { getPostsByUserId } from "../utils/posts";
 import { getLoggedDevicesFromUserId } from "../utils/devices";
 
 const userRouter: Router = Router();
@@ -122,11 +123,14 @@ userRouter.get(
   "/:id/posts",
   fetchUserMiddleware,
   noCacheMiddleware,
-  (req: UserRequest, res: UserResponse) => {
+  async (req: UserRequest, res: UserResponse) => {
+    const posts = await getPostsByUserId(req.params.id);
+
     const postsData = {
       title: `Posts by ${res.locals.user?.profile?.firstName} ${res.locals.user?.profile?.lastName}`,
       page: "/posts",
       user: res.locals.user,
+      posts,
     };
 
     if (
@@ -160,7 +164,7 @@ userRouter.get(
       req.headers["referer"] &&
       req.headers["referer"].includes(`/users/${res.locals.user?.userId}`)
     ) {
-      res.render("users/posts", {
+      res.render("users/comments", {
         ...commentsData,
         partial: true,
       });
@@ -168,7 +172,7 @@ userRouter.get(
       return;
     }
 
-    res.render("users/posts", commentsData);
+    res.render("users/comments", commentsData);
   }
 );
 

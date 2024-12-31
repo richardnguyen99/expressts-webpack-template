@@ -151,6 +151,18 @@ export const getPostsByUserId = async (userId: string) => {
   const data = await mockedData;
   const posts = data.posts.filter((post) => post.userId === userId);
 
+  posts.forEach((post) => {
+    const author = data.users.find((user) => user.userId === post.userId);
+    const profile = data.profiles.find((profile) => profile.userId === author!.userId);
+
+    post.author = {
+      userId: author!.userId,
+      profile: profile!,
+    };
+
+    post.comments = data.comments.filter((comment) => comment.postId === post.postId);
+  });
+
   return posts;
 };
 
