@@ -14,15 +14,9 @@ import {
 import { getPostById, getPostsByUserId } from "../utils/posts";
 import { getLoggedDevicesFromUserId } from "../utils/devices";
 import { getCommentsByUserId } from "../utils/comments";
+import ExpressError from "../error";
 
 const userRouter: Router = Router();
-
-userRouter.get("/", cachableMiddleware, (_req: Request, res: Response) => {
-  res.render("users", {
-    title: "Users",
-    page: "/users",
-  });
-});
 
 userRouter.get("/:id", (req: Request, res: Response) => {
   res.redirect(`/users/${req.params.id}/profile`);
@@ -226,5 +220,15 @@ userRouter.get(
     res.send(`Blogs for user ${req.params.id}`);
   }
 );
+
+userRouter.get("*", (_req: Request, _res: Response) => {
+  const message = `The path <code>${_req.originalUrl}</code> was not found.`;
+
+  throw new ExpressError(message, 404);
+});
+
+userRouter.use("*", (_req: Request, _res: Response) => {
+  throw new ExpressError("Bad Request", 400);
+});
 
 export default userRouter;

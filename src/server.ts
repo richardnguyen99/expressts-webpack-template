@@ -9,6 +9,7 @@ import { getCountryDataList, getEmojiFlag, type TCountryCode } from "countries-l
 import getAppRouter from "./routes";
 import morganMiddleware from "./middlewares/morgan.middleware";
 import { requestIdMiddleware } from "./middlewares/request.middleware";
+import errorHandlerMiddleware from "./middlewares/error.middleware";
 import type { Data } from "./types";
 
 const env_path =
@@ -130,6 +131,8 @@ const createApp = async () => {
 
   const appRouter = getAppRouter();
   app.use(appRouter);
+
+  app.use(errorHandlerMiddleware)
 
   return app;
 };
