@@ -1,5 +1,6 @@
 import $ from "jquery";
 
+
 (function () {
   const navScroller = $(".nav-scroller");
 
@@ -10,4 +11,5 @@ import $ from "jquery";
       navScroller.removeClass("scrolled");
     }
   });
+
 })();

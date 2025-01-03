@@ -1,0 +1,14 @@
+<div class="card">
+  <div class="card-header">
+    {{user.profile.job}}
+  </div>
+
+  <div class="card-body">
+    <div class="rounded-circle object-fit-cover" style="width: 32px; height: 32px;">
+      <img class="rounded-circle object-fit-cover w-100 h-100" src="{{user.profile.avatar}}" alt="{{fullname user.profile.firstName user.profile.lastName}}">
+    </div>
+    <div class="card-text mt-2">
+      <a><strong>{{user.username}}</strong></a>
+    </div>
+  </div>
+</div>

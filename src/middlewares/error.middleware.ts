@@ -1,9 +1,7 @@
 import { ErrorRequestHandler } from "express-serve-static-core";
 import { STATUS_CODES } from "http";
 
-import { logger } from "../logger";
 import ExpressError from "../error";
-
 
 const getErrorTemplate = (statusCode: number) => {
   if (statusCode >= 400 && statusCode < 500) {

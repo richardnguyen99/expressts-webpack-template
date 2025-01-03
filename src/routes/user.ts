@@ -213,13 +213,19 @@ userRouter.delete("/:id", noCacheMiddleware, (req: Request, res: Response) => {
   res.send(`Delete user ${req.params.id}`);
 });
 
-userRouter.get(
-  "/:id/blogs",
-  cachableMiddleware,
-  (req: Request, res: Response) => {
-    res.send(`Blogs for user ${req.params.id}`);
+userRouter.get("/:id/hover-card", fetchUserMiddleware, cachableMiddleware, (req: Request, res: Response) => {
+  // Check if the request contains a referer header
+  if (req.headers["referer"]) {
+    res.render("users/_hover_card", {
+      user: res.locals.user,
+    });
+
+    return;
   }
-);
+
+  res.status(406).send("Not Acceptable");
+});
+
 
 userRouter.get("*", (_req: Request, _res: Response) => {
   const message = `The path <code>${_req.originalUrl}</code> was not found.`;

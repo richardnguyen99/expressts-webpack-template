@@ -5,7 +5,7 @@ const autoprefixer = require("autoprefixer");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const { WebpackManifestPlugin } = require("webpack-manifest-plugin");
 const FaviconsWebpackPlugin = require("favicons-webpack-plugin");
-const { ProvidePlugin } = require("webpack");
+const { ProvidePlugin, webpack } = require("webpack");
 
 const getOuputPath = (mode) => {
   if (mode === "production") {
@@ -89,7 +89,10 @@ module.exports = (env, argv) => {
       new MiniCssExtractPlugin({
         filename: `css/${getOutputFilename(argv.mode)}.css`,
       }),
-
+      new webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: "jquery",
+      })
     ],
 
     optimization: {

@@ -36,3 +36,15 @@ main>.container {
 .offcanvas-backdrop {
   margin-top: 0;
 }
+
+#tooltip {
+  /* Float on top of the UI */
+  position: absolute;
+
+  /* Avoid layout interference */
+  width: max-content;
+  top: 0;
+  left: 0;
+
+  z-index: 1100;
+}
