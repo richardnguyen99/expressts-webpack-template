@@ -37,14 +37,11 @@ main>.container {
   margin-top: 0;
 }
 
-#tooltip {
-  /* Float on top of the UI */
+.hover-card {
   position: absolute;
-
-  /* Avoid layout interference */
-  width: max-content;
   top: 0;
   left: 0;
-
-  z-index: 1100;
+  width: max-content;
+  max-width: 120px;
+  z-index: 100;
 }

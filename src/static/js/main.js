@@ -1,85 +1,117 @@
 import $ from "jquery";
-import { computePosition, hide } from "@floating-ui/dom";
+import * as FloatingUIDOM from "@floating-ui/dom";
 import * as bootstrap from "bootstrap";
 
 $.noConflict();
 
-function removeHoverCard(el) {
-  setTimeout(() => {
-    el.remove();
-  }, 100);
-
-  el.classList.remove("show");
-  el.classList.add("hide");
-}
-
 $(function () {
-  const hoverCards = $("[data-hover-card-url]");
+  const $avatars = $("[data-hover-card-url]");
 
   // iterate over each hover card element
-  hoverCards.each(function () {
-    const hoverCard = $(this);
-    const url = hoverCard.data("hover-card-url");
+  $avatars.each(function (i, _el) {
+    const $avatar = $(this);
+    let cleanupAutoUpdate;
+    let isHoveringCard = false;
+    let timeoutId;
+    let emptyTimeoutId;
+    let showTimeoutId;
 
+    const $hoverCard = $("<div class='hover-card fade invisible hide'></div>");
+    $hoverCard.attr("id", "hover-card-" + i);
 
-    // fetch the hover card content on mouse enter
-    hoverCard.on("mouseenter", function () {
-      document.querySelectorAll(".popover").forEach((el) => {
-        removeHoverCard(el);
-      });
+    /** @type {JQuery<HTMLElement>} */
+    let $hoverCardContent;
 
+    const showHoverCard = function () {
+      if (showTimeoutId) clearTimeout(showTimeoutId);
+      if (timeoutId) clearTimeout(timeoutId);
+      if (emptyTimeoutId) clearTimeout(emptyTimeoutId);
+
+      const url = $avatar.data("hover-card-url");
+      if (!url) return;
+
+      // Fetch the hover card content
       $.ajax({
-        url: url,
+        url,
         method: "GET",
-        cache: true,
-        success: function (data) {
-          if (document.querySelector(`#tooltip[data-hover-card-url='${url}']`)) {
-            return;
-          }
+        success: function (html) {
+          $hoverCard.empty();
+          $("body").append($hoverCard);
+          isHoveringCard = false;
 
-          const popoverEl = document.createElement("div");
-          popoverEl.innerHTML = data;
-          popoverEl.setAttribute("id", `tooltip`);
-          popoverEl.setAttribute("data-hover-card-url", url);
-          popoverEl.classList.add("popover", "fade", "hide");
-          $("body").append(popoverEl);
+          // Create a HTML element from the response
+          $hoverCardContent = $(html);
 
-          computePosition(hoverCard[0], popoverEl, {
-            placement: "top-start",
-          }).then(({ x, y }) => {
-            popoverEl.style.left = `${x}px`;
-            popoverEl.style.top = `${y-16}px`;
-          });
+          $hoverCard.append($hoverCardContent);
 
-          setTimeout(() => {
-            popoverEl.classList.remove("hide");
-            popoverEl.classList.add("show");
-          }, 100);
+          // Position the hover card using Floating UI
+          cleanupAutoUpdate = FloatingUIDOM.autoUpdate(
+            $avatar[0],
+            $hoverCard[0],
+            () => {
+              FloatingUIDOM.computePosition($avatar[0], $hoverCard[0], {
+                middleware: [FloatingUIDOM.offset(10), FloatingUIDOM.flip()],
+                placement: "top-start",
+              }).then(({ x, y }) => {
+                $hoverCard.css({ left: `${x}px`, top: `${y}px` });
+              });
+            }
+          );
+
+          showTimeoutId = setTimeout(() => {
+            $hoverCard.removeClass("invisible")
+                      .removeClass("hide")
+                      .addClass("show");
+
+            $hoverCard.on("mouseenter", function () {
+              isHoveringCard = true;
+
+              if (timeoutId) clearTimeout(timeoutId);
+              if (emptyTimeoutId) clearTimeout(emptyTimeoutId);
+            });
+
+            $hoverCard.on("mouseleave", function () {
+              isHoveringCard = false;
+              hideHoverCard();
+            });
+          }, 200);
+        },
+        error: function (error) {
+          console.error("Failed to fetch hover card:", error);
         },
       });
-    });
+    };
 
-    // remove the hover card content on mouse leave
-    hoverCard.on("mouseleave", function () {
-      const popoverEl = document.querySelector(`#tooltip[data-hover-card-url='${url}']`);
-      let mouseOverCard = false;
+    const hideHoverCard = function () {
+      if (timeoutId) clearTimeout(timeoutId);
+      if (emptyTimeoutId) clearTimeout(emptyTimeoutId);
 
-      setTimeout(() => {
-        if (mouseOverCard) {
-          return;
+      timeoutId = setTimeout(() => {
+        if (isHoveringCard) return;
+        console.log(isHoveringCard);
+
+        $hoverCard.removeClass("show").addClass("hide");
+
+        if (cleanupAutoUpdate) {
+          cleanupAutoUpdate();
+          cleanupAutoUpdate = null;
         }
+      }, 300);
 
-        removeHoverCard(popoverEl);
-      }, 200);
 
-      popoverEl.addEventListener("mouseenter", function () {
-        mouseOverCard = true;
-      });
+      // Remove the hover card after it has been hidden
+      emptyTimeoutId = setTimeout(() => {
+        if (isHoveringCard) return;
 
-      popoverEl.addEventListener("mouseleave", function () {
-        mouseOverCard = false;
-        removeHoverCard(popoverEl);
-      });
-    });
+        $hoverCard.empty();
+        $hoverCard.remove();
+
+        $hoverCard.off("mouseenter");
+        $hoverCard.off("mouseleave");
+      }, 400);
+    };
+
+    $avatar.on("mouseenter", showHoverCard);
+    $avatar.on("mouseleave", hideHoverCard);
   });
 });
