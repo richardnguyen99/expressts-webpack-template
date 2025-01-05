@@ -53,7 +53,7 @@ $(function () {
                 middleware: [FloatingUIDOM.offset(10), FloatingUIDOM.flip()],
                 placement: "top-start",
               }).then(({ x, y }) => {
-                $hoverCard.css({ left: `${x}px`, top: `${y}px` });
+                $hoverCard.css({ left: `${x-16}px`, top: `${y}px` });
               });
             }
           );

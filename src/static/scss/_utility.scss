@@ -1,0 +1,457 @@
+/* TEXT COLOR =============================================================== */
+
+$color-maps: (
+  "blues": $blues,
+  "indigos": $indigos,
+  "purples": $purples,
+  "pinks": $pinks,
+  "reds": $reds,
+  "oranges": $oranges,
+  "yellows": $yellows,
+  "greens": $greens,
+  "teals": $teals,
+  "cyans": $cyans,
+  "grays": $grays,
+);
+
+$pseudos: (
+  "hover": "hover",
+  "focus": "focus",
+  "active": "active",
+  "disabled": "disabled",
+  "visited": "visited",
+  "focus-within": "focus-within",
+  "focus-visible": "focus-visible",
+  "target": "target",
+);
+
+@each $color-map, $colors in $color-maps {
+  @each $color, $value in $colors {
+    .text-#{$color} {
+      color: $value !important;
+    }
+
+    @for $j from 1 through 5 {
+      .text-#{$color}-lighten-#{$j} {
+        color: tint-color($value, $j * 10%) !important;
+      }
+
+      .text-#{$color}-darken-#{$j} {
+        color: shade-color($value, $j * 10%) !important;
+      }
+    }
+
+    @each $breakpoint in map-keys($grid-breakpoints) {
+      .text-#{$color}-#{$breakpoint} {
+        @include media-breakpoint-up($breakpoint) {
+          color: $value !important;
+        }
+      }
+
+      @for $j from 1 through 5 {
+        .text-#{$color}-#{$breakpoint}-lighten-#{$j} {
+          color: tint-color($value, $j * 10%) !important;
+        }
+
+        .text-#{$color}-#{$breakpoint}-darken-#{$j} {
+          color: shade-color($value, $j * 10%) !important;
+        }
+      }
+    }
+
+    @each $pseudo, $pseudo-value in $pseudos {
+      .text-#{$color}-#{$pseudo} {
+        &:#{$pseudo} {
+          color: $value !important;
+        }
+      }
+
+      @for $j from 1 through 5 {
+        .text-#{$color}-#{$pseudo}-lighten-#{$j} {
+          &:#{$pseudo} {
+            color: tint-color($value, $j * 10%) !important;
+          }
+        }
+
+        .text-#{$color}-#{$pseudo}-darken-#{$j} {
+          &:#{$pseudo} {
+            color: shade-color($value, $j * 10%) !important;
+          }
+        }
+      }
+
+      @each $breakpoint in map-keys($grid-breakpoints) {
+        .text-#{$color}-#{$pseudo}-#{$breakpoint} {
+          @include media-breakpoint-up($breakpoint) {
+            &:#{$pseudo} {
+              color: $value !important;
+            }
+          }
+        }
+
+        @for $j from 1 through 5 {
+          .text-#{$color}-#{$pseudo}-#{$breakpoint}-lighten-#{$j} {
+            @include media-breakpoint-up($breakpoint) {
+              &:#{$pseudo} {
+                color: tint-color($value, $j * 10%) !important;
+              }
+            }
+          }
+
+          .text-#{$color}-#{$pseudo}-#{$breakpoint}-darken-#{$j} {
+            @include media-breakpoint-up($breakpoint) {
+              &:#{$pseudo} {
+                color: shade-color($value, $j * 10%) !important;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+/* =========================================================== END TEXT COLOR */
+
+/* FONT SIZE AND WEIGHT ===================================================== */
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    &-#{$breakpoint} {
+      @include media-breakpoint-up($breakpoint) {
+        font-size: 0.75rem;
+        line-height: 1rem;
+      }
+    }
+  }
+}
+
+.text-sm {
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    &-#{$breakpoint} {
+      @include media-breakpoint-up($breakpoint) {
+        font-size: 0.875rem;
+        font-weight: 400;
+        line-height: 1.5rem;
+      }
+    }
+  }
+}
+
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5;
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    &-#{$breakpoint} {
+      @include media-breakpoint-up($breakpoint) {
+        font-size: 1rem;
+        font-weight: 400;
+        line-height: 1.5;
+      }
+    }
+  }
+}
+
+.text-lg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    &-#{$breakpoint} {
+      @include media-breakpoint-up($breakpoint) {
+        font-size: 1.125rem;
+        font-weight: 400;
+        line-height: 1.75rem;
+      }
+    }
+  }
+}
+
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    &-#{$breakpoint} {
+      @include media-breakpoint-up($breakpoint) {
+        font-size: 1.25rem;
+        font-weight: 400;
+        line-height: 1.75rem;
+      }
+    }
+  }
+}
+
+.text-2xl {
+  font-size: 1.5rem;
+  line-height: 2rem;
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    &-#{$breakpoint} {
+      @include media-breakpoint-up($breakpoint) {
+        font-size: 1.5rem;
+        font-weight: 400;
+        line-height: 2rem;
+      }
+    }
+  }
+}
+
+.text-3xl {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    &-#{$breakpoint} {
+      @include media-breakpoint-up($breakpoint) {
+        font-size: 1.875rem;
+        font-weight: 400;
+        line-height: 2.25rem;
+      }
+    }
+  }
+}
+
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    &-#{$breakpoint} {
+      @include media-breakpoint-up($breakpoint) {
+        font-size: 2.25rem;
+        font-weight: 400;
+        line-height: 2.5rem;
+      }
+    }
+  }
+}
+
+.text-5xl {
+  font-size: 3rem;
+  line-height: 1;
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    &-#{$breakpoint} {
+      @include media-breakpoint-up($breakpoint) {
+        font-size: 3rem;
+        font-weight: 400;
+        line-height: 1;
+      }
+    }
+  }
+}
+
+.text-6xl {
+  font-size: 4rem;
+  line-height: 1;
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    &-#{$breakpoint} {
+      @include media-breakpoint-up($breakpoint) {
+        font-size: 4rem;
+        font-weight: 400;
+        line-height: 1;
+      }
+    }
+  }
+}
+
+.text-7xl {
+  font-size: 5rem;
+  line-height: 1;
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    &-#{$breakpoint} {
+      @include media-breakpoint-up($breakpoint) {
+        font-size: 5rem;
+        font-weight: 400;
+        line-height: 1;
+      }
+    }
+  }
+}
+
+.text-8xl {
+  font-size: 6rem;
+  line-height: 1;
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    &-#{$breakpoint} {
+      @include media-breakpoint-up($breakpoint) {
+        font-size: 6rem;
+        font-weight: 400;
+        line-height: 1;
+      }
+    }
+  }
+}
+
+.text-9xl {
+  font-size: 8rem;
+  line-height: 1;
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    &-#{$breakpoint} {
+      @include media-breakpoint-up($breakpoint) {
+        font-size: 8rem;
+        font-weight: 400;
+        line-height: 1;
+      }
+    }
+  }
+}
+
+.text-10xl {
+  font-size: 10rem;
+  line-height: 1;
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    &-#{$breakpoint} {
+      @include media-breakpoint-up($breakpoint) {
+        font-size: 10rem;
+        font-weight: 400;
+        line-height: 1;
+      }
+    }
+  }
+}
+
+$font-weights: (
+  'thin': 100,
+  'extralight': 200,
+  'light': 300,
+  'normal': 400,
+  'medium': 500,
+  'semibold': 600,
+  'bold': 700,
+  'extrabold': 800,
+  'black': 900,
+);
+
+@each $name, $weight in $font-weights {
+  .font-#{$name} {
+    font-weight: $weight;
+  }
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    .font-#{$name}-#{$breakpoint} {
+      @include media-breakpoint-up($breakpoint) {
+        font-weight: $weight;
+      }
+    }
+  }
+}
+
+/* ===================================================== FONT SIZE AND WEIGHT */
+
+/* TEXT DECORATION ========================================================== */
+
+.text-underline {
+  text-decoration: underline;
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    &-#{$breakpoint} {
+      @include media-breakpoint-up($breakpoint) {
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+.text-underline-hover {
+  &:hover {
+    text-decoration: underline;
+  }
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    &-#{$breakpoint} {
+      @include media-breakpoint-up($breakpoint) {
+        &:hover {
+          text-decoration: underline;
+        }
+      }
+    }
+  }
+}
+
+.text-decoration {
+  text-decoration: none;
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    &-#{$breakpoint} {
+      @include media-breakpoint-up($breakpoint) {
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.text-decoration-hover {
+  &:hover {
+    text-decoration: none;
+  }
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    &-#{$breakpoint} {
+      @include media-breakpoint-up($breakpoint) {
+        &:hover {
+          text-decoration: none;
+        }
+      }
+    }
+  }
+}
+
+.text-underline-dotted {
+  text-decoration: underline dotted;
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    &-#{$breakpoint} {
+      @include media-breakpoint-up($breakpoint) {
+        text-decoration: underline dotted;
+      }
+    }
+  }
+}
+
+.text-underline-dotted-hover {
+  &:hover {
+    text-decoration: underline dotted;
+  }
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    &-#{$breakpoint} {
+      @include media-breakpoint-up($breakpoint) {
+        &:hover {
+          text-decoration: underline dotted;
+        }
+      }
+    }
+  }
+}
+
+/* ====================================================== END TEXT DECORATION */
+
+/* LINE BREAK AND WRAP ====================================================== */
+
+@for $i from 1 through 5 {
+  .line-clamp-#{$i} {
+    @include line-clamp($i);
+  }
+
+  @each $breakpoint in map-keys($grid-breakpoints) {
+    .line-clamp-#{$i}-#{$breakpoint} {
+      @include media-breakpoint-up($breakpoint) {
+        @include line-clamp($i);
+      }
+    }
+  }
+}
+
+/* =================================================== END LINE BREAK AND WRAP */
