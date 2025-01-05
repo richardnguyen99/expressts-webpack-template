@@ -91,6 +91,21 @@ const getAppRouter = () => {
 
   appRouter.get("/login", cachableMiddleware, loginHandler);
   appRouter.get("/register", cachableMiddleware, registerHandler);
+  appRouter.get("/faq", cachableMiddleware, (_req, res) => {
+    res.render("faq", {
+      page: "/faq",
+      title: "FAQ",
+      env: process.env.NODE_ENV,
+      meta: Object.entries(
+        getMeta({
+          title: "FAQ | ExWt",
+          description: "ExpressTS Webpack Template",
+          url: `${process.env.BASE_URL}/faq`,
+          "og:url": `${process.env.BASE_URL}/faq`,
+        })
+      ),
+    });
+  });
 
   appRouter.use("/users", userRouter);
   appRouter.use("/blogs", blogRouter);

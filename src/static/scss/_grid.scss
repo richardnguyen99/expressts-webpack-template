@@ -46,7 +46,7 @@ $sides: (
     margin-bottom: #{$i * 0.25}rem !important;
   }
 
-  .exts-mb-#{$i} {
+  .-exts-mb-#{$i} {
     margin-bottom: #{$i * -0.25}rem !important;
   }
 
