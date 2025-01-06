@@ -8,6 +8,7 @@ import {
 import { getMeta } from "../utils/meta";
 import loginHandler from "./login";
 import registerHandler from "./register";
+import faqHandler from "./faq";
 import userRouter from "./user";
 import blogRouter from "./blog";
 import archivesRouter from "./archives";
@@ -91,21 +92,7 @@ const getAppRouter = () => {
 
   appRouter.get("/login", cachableMiddleware, loginHandler);
   appRouter.get("/register", cachableMiddleware, registerHandler);
-  appRouter.get("/faq", cachableMiddleware, (_req, res) => {
-    res.render("faq", {
-      page: "/faq",
-      title: "FAQ",
-      env: process.env.NODE_ENV,
-      meta: Object.entries(
-        getMeta({
-          title: "FAQ | ExWt",
-          description: "ExpressTS Webpack Template",
-          url: `${process.env.BASE_URL}/faq`,
-          "og:url": `${process.env.BASE_URL}/faq`,
-        })
-      ),
-    });
-  });
+  appRouter.get("/faq", cachableMiddleware, faqHandler);
 
   appRouter.use("/users", userRouter);
   appRouter.use("/blogs", blogRouter);
