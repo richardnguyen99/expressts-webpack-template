@@ -35,6 +35,7 @@ module.exports = (env, argv) => {
       main: "./src/static/js/main.js",
       home: "./src/static/js/home.js",
       styles: "./src/static/scss/styles.scss",
+      faqStyles: "./src/static/scss/faq.scss",
       homeStyles: "./src/static/scss/home.scss",
     },
 

@@ -68,6 +68,7 @@ const faqHandler: RequestHandler = (_req: Request, res: Response) => {
         description: "ExpressTS Webpack Template",
         url: `${process.env.BASE_URL}/faq`,
         "og:url": `${process.env.BASE_URL}/faq`,
+        "og:title": "FAQ | ExWt",
       })
     ),
   });

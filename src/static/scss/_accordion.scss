@@ -31,7 +31,7 @@
   content: "";
   width: 8px;
   height: 3px;
-  right: calc(var(--bs-accordion-body-padding-x) - 2.5px);
+  right: calc(var(--bs-accordion-body-padding-x) - 3.25px);
 }
 
 .accordion-button::after{
@@ -41,17 +41,20 @@
   height: 8px;
   flex-shrink: 0;
   right: var(--bs-accordion-body-padding-x);
+  background-image: none;
 }
 
 
 [data-bs-theme="dark"] .accordion-button:not(.collapsed)::before,
 [data-bs-theme="dark"] .accordion-button:not(.collapsed)::after {
   background-color: var(--bs-gray-900);
+  background-image: none;
 }
 
 [data-bs-theme="dark"] .accordion-button::before,
 [data-bs-theme="dark"] .accordion-button::after {
   background-color: var(--bs-gray-100);
+  background-image: none;
 }
 
 .accordion-button:not(.collapsed)::after {
