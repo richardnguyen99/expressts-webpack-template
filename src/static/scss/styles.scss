@@ -8,11 +8,13 @@ $bootstrap-icons-font-src: url("~bootstrap-icons/font/fonts/bootstrap-icons.woff
 
 @import "bootstrap-icons/font/bootstrap-icons.scss";
 
+
 @import "mixins";
-@import "utility";
-@import "grid";
+// @import "utility";
+// @import "grid";
 @import "breadcrumb";
 @import "comment-item";
+@import "accordion";
 
 @import "./headers.scss";
 @import "./textarea.scss";

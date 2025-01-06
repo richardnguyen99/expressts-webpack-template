@@ -27,12 +27,15 @@ module.exports = (env, argv) => {
   console.log("argv", argv);
   return {
     stats: {
-      warnings: false,
+      warnings: true,
+      errorDetails: true,
     },
     mode: argv.mode || "development",
     entry: {
-      main: ["./src/static/js/main.js", "./src/static/scss/styles.scss"],
-      home: ["./src/static/js/home.js", "./src/static/scss/home.scss"],
+      main: "./src/static/js/main.js",
+      home: "./src/static/js/home.js",
+      styles: "./src/static/scss/styles.scss",
+      homeStyles: "./src/static/scss/home.scss",
     },
 
     output: {
@@ -41,6 +44,8 @@ module.exports = (env, argv) => {
       publicPath: "/public/",
       assetModuleFilename: "fonts/[contenthash][ext][query]",
     },
+
+    devtool: argv.mode === "production" ? "source-map" : "eval-source-map",
 
     module: {
       rules: [
@@ -57,7 +62,7 @@ module.exports = (env, argv) => {
               loader: "postcss-loader",
               options: {
                 postcssOptions: {
-                  plugins: [autoprefixer],
+                  plugins: () => [autoprefixer],
                 },
               },
             },
