@@ -4,8 +4,19 @@ import type {
   Response,
 } from "express-serve-static-core";
 
+import { getMeta } from "../utils/meta";
+
 const loginHandler: RequestHandler = (_req: Request, res: Response) => {
-  res.render("login", { title: "Login", page: "/login" });
+  const meta = Object.entries(getMeta({
+    title: "Login | ExWt",
+    description: "Login to your account",
+    url: `${process.env.BASE_URL}/login`,
+    "og:title": "Login | ExWt",
+    "og:url": `${process.env.BASE_URL}/login`,
+    "og:description": "Login to your account",
+  }));
+
+  res.render("login", { title: "Login", page: "/login", meta });
 };
 
 export default loginHandler;

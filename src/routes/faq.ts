@@ -65,10 +65,11 @@ const faqHandler: RequestHandler = (_req: Request, res: Response) => {
     meta: Object.entries(
       getMeta({
         title: "FAQ | ExWt",
-        description: "ExpressTS Webpack Template",
+        description: "Frequently Asked Questions",
         url: `${process.env.BASE_URL}/faq`,
         "og:url": `${process.env.BASE_URL}/faq`,
         "og:title": "FAQ | ExWt",
+        "og:description": "Frequently Asked Questions",
       })
     ),
   });
