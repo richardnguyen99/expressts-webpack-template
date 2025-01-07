@@ -1,9 +1,53 @@
 @import "bootstrap/scss/functions";
 @import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins/breakpoints";
 
 .blog {
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
+
+  &__offcanvas {
+    &-btn {
+      width: 2.5rem;
+      height: 2.5rem;
+
+      [data-bs-theme="dark"] & {
+        background-color: var(--bs-gray-800);
+      }
+
+      [data-bs-theme="light"] & {
+        background-color: var(--bs-gray-200);
+      }
+    }
+
+    &-link {
+      [data-bs-theme="dark"] & {
+        color: var(--bs-gray-100);
+      }
+
+      [data-bs-theme="dark"] &:hover {
+        background-color: rgba($blue-600, 0.175);
+      }
+
+      [data-bs-theme="dark"] &.active:hover {
+        background-color: rgba($blue-600, 1);
+      }
+
+      [data-bs-theme="light"] & {
+        color: var(--bs-gray-900);
+      }
+
+      [data-bs-theme="light"] &:hover {
+        background-color: rgba($blue-400, 0.175);
+      }
+
+      [data-bs-theme="light"] &.active:hover {
+        background-color: rgba($blue-400, 1);
+      }
+    }
+  }
 
   &__container {
     display: flex;

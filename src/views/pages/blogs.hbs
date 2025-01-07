@@ -9,27 +9,60 @@
 {{/inline}}
 
 {{#*inline "styles"}}
+<link rel="stylesheet" href="{{manifest "blogStyles.css"}}">
 {{/inline}}
 
 {{#*inline "body"}}
-<button class="btn btn-secondary rounded-circle p-2 d-block d-md-none position-fixed top-50 start-0 ms-2 z-3"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasResponsive" aria-controls="offcanvasResponsive">
-  <svg class="bi p-0" width="16" height="16"><use xlink:href="#chevron-right"></use></svg>
+<!-- Offcanvas button on smaller screens -->
+<button
+  type="button"
+  data-bs-toggle="offcanvas"
+  data-bs-target="#offcanvasResponsive"
+  aria-controls="offcanvasResponsive"
+  class="btn blog__offcanvas-btn rounded-circle p-2 d-block d-md-none position-fixed top-50 start-0 ms-2 z-3"
+>
+  <svg
+    class="bi p-0"
+    width="16"
+    height="16"
+  >
+    <use xlink:href="#chevron-right"></use>
+  </svg>
 </button>
 
-<div class="container py-5 d-grid flex-column">
+<div class="blog container py-5 d-grid flex-column">
   <div class="d-flex row g-4 h-100">
-    <div class="offcanvas-md offcanvas-start col-md-4 col-lg-3 mt-0" tabindex="-1" id="offcanvasResponsive" aria-labelledby="offcanvasResponsiveLabel">
-
+    <!-- Offcanvas component -->
+    <div
+      tabindex="-1"
+      id="offcanvasResponsive"
+      aria-labelledby="offcanvasResponsiveLabel"
+      class="blog__offcanvas offcanvas-md offcanvas-start col-md-4 col-lg-3 mt-0"
+    >
       <div class="offcanvas-header">
-        <div class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
-          <svg class="bi me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>
+        <div class="d-flex align-items-center mb-0 mb-md-3 me-md-auto text-decoration-none">
+          <svg
+           class="bi me-2"
+           width="40"
+           height="32"
+          >
+            <use xlink:href="#bootstrap"></use>
+          </svg>
+
           <span class="fs-4">Categories</span>
         </div>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasResponsive" aria-label="Close"></button>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="offcanvas"
+          data-bs-target="#offcanvasResponsive"
+          aria-label="Close"
+        ></button>
       </div>
 
-      <div class="offcanvas-body position-md-sticky top-0 bottom-0">
-        <div class="d-flex flex-column flex-shrink-0 p-3 text-white bg-dark w-100">
+      <div class="offcanvas-body position-sticky top-0 bottom-0">
+        <div class="d-flex flex-column flex-shrink-0 p-3 w-100">
+          <!-- Sidebar items -->
           <ul class="nav nav-pills flex-column mb-auto">
             {{#each topCategories as |category|}}
               {{> includes/_blog_sidebar_item category=category categoryQuery=@root.categoryQuery }}
@@ -38,13 +71,27 @@
 
           <hr>
 
+          <!-- User profile dropdown -->
           <div class="dropdown">
-            <a href="#" class="d-flex align-items-center text-white text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="https://github.com/mdo.png" alt="" width="32" height="32" class="rounded-circle me-2">
-              <strong>mdo</strong>
-            </a>
+            <button
+              type="button"
+              id="dropdownUser1"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+              class="btn d-flex align-items-center text-decoration-none dropdown-toggle border-0"
+            >
+              <img
+                src="https://github.com/mdo.png"
+                alt="avatar user"
+                width="32"
+                height="32"
+                class="rounded-circle me-2"
+              >
 
-            <ul class="dropdown-menu dropdown-menu-dark text-small shadow" aria-labelledby="dropdownUser1">
+              <strong>mdo</strong>
+            </button>
+
+            <ul class="dropdown-menu text-small shadow" aria-labelledby="dropdownUser1">
               <li><a class="dropdown-item" href="#">New project...</a></li>
               <li><a class="dropdown-item" href="#">Settings</a></li>
               <li><a class="dropdown-item" href="#">Profile</a></li>
@@ -57,7 +104,8 @@
       </div>
     </div>
 
-    <div class="col-12 col-md-8 col-lg-9">
+    <!-- Main content -->
+    <div class="col-12 col-md-8 col-lg-9 mt-3">
       <div class="d-flex flex-column justify-content-between">
         {{#each posts as |post|}}
           {{> includes/_article_list_blog_item post=post }}
