@@ -1,8 +1,10 @@
-<html lang="en" data-bs-theme="dark">
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="auto">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{{#> title}}{{/title}} | ExWt</title>
+
 
     <!-- Meta and SEO tags -->
     <link rel="icon" type="image/x-icon" href={{manifest "assets//favicon.ico"}} />
@@ -15,8 +17,8 @@
     {{> includes/_manifest }}
     {{/if}}
 
-    <script src="{{manifest "theme.js"}}"></script>
-
+    <script src="{{manifest "theme.js"}}">
+    </script>
     <link rel="stylesheet" href={{ manifest "styles.css" }} />
     {{#> styles}}
     {{/styles}}

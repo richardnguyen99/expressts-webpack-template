@@ -1,7 +1,6 @@
 import $ from "jquery";
 import * as FloatingUIDOM from "@floating-ui/dom";
 import * as bootstrap from "bootstrap";
-import Cookies from "js-cookie";
 
 $.noConflict();
 

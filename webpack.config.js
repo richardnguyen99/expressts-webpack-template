@@ -34,10 +34,19 @@ module.exports = (env, argv) => {
     entry: {
       main: "./src/static/js/main.js",
       home: "./src/static/js/home.js",
-      theme: "./src/static/js/theme.js",
       styles: "./src/static/scss/styles.scss",
       faqStyles: "./src/static/scss/faq.scss",
       homeStyles: "./src/static/scss/home.scss",
+      theme: {
+        import: "./src/static/js/theme.js",
+        chunkLoading: false,
+        runtime: false,
+        library: {
+          type: "var",
+          name: "theme",
+          export: "default",
+        },
+      }
     },
 
     output: {
@@ -46,8 +55,6 @@ module.exports = (env, argv) => {
       publicPath: "/public/",
       assetModuleFilename: "fonts/[contenthash][ext][query]",
     },
-
-    devtool: argv.mode === "production" ? "source-map" : "eval-source-map",
 
     module: {
       rules: [
@@ -83,12 +90,12 @@ module.exports = (env, argv) => {
     },
 
     plugins: [
-        new FaviconsWebpackPlugin({
-          logo: path.resolve(__dirname, "src", "static",  "favicon.ico"),
-          cache: true,
-          publicPath: "/public",
-          prefix: "assets/[contenthash]",
-        }),
+      new FaviconsWebpackPlugin({
+        logo: path.resolve(__dirname, "src", "static", "favicon.ico"),
+        cache: true,
+        publicPath: "/public",
+        prefix: "assets/[contenthash]",
+      }),
       new WebpackManifestPlugin({
         fileName: "manifest.json",
       }),
@@ -100,6 +107,9 @@ module.exports = (env, argv) => {
     optimization: {
       runtimeChunk: "single",
       splitChunks: {
+        chunks(chunk) {
+          return chunk.name !== "theme";
+        },
         cacheGroups: {
           vendor: {
             test: /[\\/]node_modules[\\/]/,
