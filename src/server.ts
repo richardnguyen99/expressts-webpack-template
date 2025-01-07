@@ -3,6 +3,7 @@ import * as fs from "fs/promises";
 import Express from "express";
 import dotenv from "dotenv";
 import methodOverride from "method-override";
+import cookieParser from "cookie-parser";
 import { engine as hbsEngine } from "express-handlebars";
 import { getCountryDataList, getEmojiFlag, type TCountryCode } from "countries-list";
 
@@ -114,7 +115,7 @@ const createApp = async () => {
 
   // Set up unique request ID registration
   app.use(requestIdMiddleware);
-
+  app.use(cookieParser());
   app.use(Express.urlencoded({ extended: true }));
   app.use(Express.json());
   app.use(methodOverride());

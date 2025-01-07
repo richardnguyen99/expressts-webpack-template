@@ -11,5 +11,4 @@ import $ from "jquery";
       navScroller.removeClass("scrolled");
     }
   });
-
 })();

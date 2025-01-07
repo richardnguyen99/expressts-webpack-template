@@ -34,6 +34,7 @@ module.exports = (env, argv) => {
     entry: {
       main: "./src/static/js/main.js",
       home: "./src/static/js/home.js",
+      theme: "./src/static/js/theme.js",
       styles: "./src/static/scss/styles.scss",
       faqStyles: "./src/static/scss/faq.scss",
       homeStyles: "./src/static/scss/home.scss",

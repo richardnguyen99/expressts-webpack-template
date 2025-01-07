@@ -25,6 +25,7 @@
     "@popperjs/core": "^2.11.8",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
+    "cookie-parser": "^1.4.7",
     "countries-list": "^3.1.1",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
@@ -32,6 +33,7 @@
     "geoip-lite": "^1.4.10",
     "hbs": "^4.2.0",
     "jquery": "^3.7.1",
+    "js-cookie": "^3.0.5",
     "method-override": "^3.0.0",
     "morgan": "^1.10.0",
     "ua-parser-js": "^2.0.0",
@@ -41,6 +43,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^9.3.0",
+    "@types/cookie-parser": "^1.4.8",
     "@types/dotenv": "^6.1.1",
     "@types/express": "^5.0.0",
     "@types/geoip-lite": "^1.4.4",

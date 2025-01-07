@@ -9,13 +9,13 @@
 {{/inline}}
 
 {{#*inline "styles"}}
-<link rel="stylesheet" href={{ manifest "home.css" }}>
+<link rel="stylesheet" href={{ manifest "homeStyles.css" }}>
 {{/inline}}
 
 {{#*inline "body"}}
 <div class="container py-0">
-  <div class="nav-scroller position-sticky top-0 bg-body py-1 mb-3 border-bottom">
-    <nav class="nav nav-underline justify-content-between">
+  <div class="nav-scroller position-sticky top-0 bg-body py-1 mb-3 border-bottom z-3">
+    <nav class="nav nav-underline justify-content-between overflow-hidden flex-nowrap">
       {{#each topCategories as |categoryItem|}}
         {{#if (eq categoryItem @root.categoryQuery)}}
           <a class="nav-link link-body-emphasis text-capitalize active" href="/?category={{categoryItem}}">{{categoryItem}}</a>
