@@ -1,4 +1,4 @@
-<header class="text-bg-dark navbar navbar-expand-lg py-3 border-bottom">
+<header class="navbar navbar-expand-lg py-3 border-bottom">
   <div class="container">
     <a
       href="/"
@@ -41,7 +41,7 @@
         <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
           <input
             type="search"
-            class="form-control form-control-dark text-bg-dark"
+            class="form-control form-control-dark"
             placeholder="Search..."
             aria-label="Search"
           />
@@ -49,9 +49,9 @@
 
         <div class="text-md-end d-flex flex-column flex-lg-row gap-lg-1 gap-3 col-12 col-lg-auto">
         {{#if (eq page "/login")}}
-          <a href="/login" class="btn btn-light active me-lg-3 ">Login</a>
+          <a href="/login" class="btn btn-secondary active me-lg-3 ">Login</a>
         {{else}}
-          <a href="/login" class="btn btn-outline-light me-lg-3">Login</a>
+          <a href="/login" class="btn btn-outline-secondary me-lg-3">Login</a>
         {{/if}}
 
         {{#if (eq page "/register")}}
