@@ -38,6 +38,7 @@ module.exports = (env, argv) => {
       faqStyles: "./src/static/scss/faq.scss",
       homeStyles: "./src/static/scss/home.scss",
       blogStyles: "./src/static/scss/blog.scss",
+      userStyles: "./src/static/scss/user.scss",
       theme: {
         import: "./src/static/js/theme.js",
         chunkLoading: false,

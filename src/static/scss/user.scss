@@ -1,3 +1,9 @@
+@import "bootstrap/scss/functions";
+@import "bootstrap/scss/variables";
+@import "bootstrap/scss/variables-dark";
+@import "bootstrap/scss/maps";
+@import "bootstrap/scss/mixins/breakpoints";
+
 .user {
   &__avatar {
     width: 2rem;
@@ -25,10 +31,22 @@
   &__sidebar {
     .nav-link {
       cursor: pointer;
-      transition: all 0.3s ease-in;
+      transition: all 0.1s ease-in;
 
-      &:hover {
-        background-color: mix($primary, $gray-700, 15%);
+      [data-bs-theme="dark"] &:hover {
+        background-color: mix($blue-700, $gray-700, 50%);
+      }
+
+      [data-bs-theme="dark"] &:hover {
+        background-color: mix($blue-600, $gray-600, 80%);
+      }
+
+      [data-bs-theme="light"] &:hover {
+        background-color: mix($blue-100, $gray-100, 50%);
+      }
+
+      [data-bs-theme="light"] &.active:hover {
+        background-color: mix($blue-500, $gray-600, 50%);
       }
     }
   }
@@ -38,17 +56,19 @@
   }
 
   &__comment {
-    background-color: mix($gray-800, $gray-900, 60%);
     padding: 1rem;
-    transition: background-color 0.3s ease-in;
 
-    &:hover {
+    [data-bs-theme="dark"] & {
+      background-color: mix($gray-800, $gray-900, 60%);
+    }
+
+    [data-bs-theme="dark"] &:hover {
       background-color: mix($gray-700, $gray-900, 80%);
     }
 
     &__icon {
       width: 1rem;
-      height: 1rem;
+      height: 1.5rem;
       border-radius: 50%;
       overflow: hidden;
       color: var(--bs-info);
@@ -56,8 +76,10 @@
       visibility: hidden;
 
       @include media-breakpoint-up(sm) {
-        display: block;
+        display: flex;
         visibility: visible;
+        align-items: center;
+        justify-content: center;
       }
     }
 
