@@ -1,17 +1,44 @@
-<div class="comment-item" data-comment-id="{{comment.commentId}}" data-parent-url="{{url}}">
+<div
+  class="comment-item"
+  data-comment-id="{{comment.commentId}}"
+  data-parent-url="{{url}}"
+>
   <div class="comment-item__avatar">
-    <a href="/users/{{comment.author.userId}}" data-hover-card-url="/users/{{comment.author.userId}}/hover-card">
-      <img src="{{comment.author.profile.avatar}}" alt="{{fullname comment.author.profile.firstName comment.author.profile.lastName}}">
+    <a
+      href="/users/{{comment.author.userId}}"
+      data-hover-card-url="/users/{{comment.author.userId}}/hover-card"
+    >
+      <img
+        src="{{comment.author.profile.avatar}}"
+        alt="{{fullname
+          comment.author.profile.firstName
+          comment.author.profile.lastName
+        }}"
+      />
     </a>
   </div>
 
   <div class="comment-item__content">
-    <div class="comment-item__content__container" id="comment-{{comment.commentId}}">
+    <div
+      class="comment-item__content__container"
+      id="comment-{{comment.commentId}}"
+    >
       <div class="comment-item__content__header">
-        <a href="/users/{{comment.author.userId}}" class="comment-item__content__header__author">{{fullname comment.author.profile.firstName comment.author.profile.lastName}}</a>
-        <div class="comment-item__content__header__date d-flex align-items-center">
+        <a
+          href="/users/{{comment.author.userId}}"
+          class="comment-item__content__header__author"
+        >{{fullname
+            comment.author.profile.firstName
+            comment.author.profile.lastName
+          }}</a>
+        <div
+          class="comment-item__content__header__date d-flex align-items-center"
+        >
           <span>{{date "long" comment.createdAt}}</span>
-          <a href="{{url}}#comment-{{comment.commentId}}" title="Get permalink to this comment">
+          <a
+            href="{{url}}#comment-{{comment.commentId}}"
+            title="Get permalink to this comment"
+          >
             <i class="bi bi-hash"></i>
           </a>
         </div>

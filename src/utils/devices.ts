@@ -2,7 +2,7 @@ import { mockedData } from "../server";
 import type { Device } from "../types";
 
 export const getLoggedDevicesFromUserId = async (
-  userId: string
+  userId: string,
 ): Promise<Device[]> => {
   const data = await mockedData;
 

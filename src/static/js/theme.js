@@ -21,7 +21,7 @@
         "data-bs-theme",
         window.matchMedia("(prefers-color-scheme: dark)").matches
           ? "dark"
-          : "light"
+          : "light",
       );
     } else {
       document.documentElement.setAttribute("data-bs-theme", theme);
@@ -53,7 +53,6 @@
       setTheme(theme);
     });
   });
-
 
   setTheme(getPreferredTheme());
 })();

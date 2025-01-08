@@ -1,10 +1,6 @@
-import {
-  Request,
-  Response,
-} from "express-serve-static-core";
+import { Request, Response } from "express-serve-static-core";
 
 import { getPosts, getPostsBySlug } from "../../utils/posts";
-
 
 const blogSlugHandler = async (req: Request, res: Response) => {
   const post = await getPostsBySlug(req.params.slug);

@@ -2,7 +2,7 @@ import {
   type UserRequest,
   type UserResponse,
 } from "../../middlewares/user.middleware";
-import {  getPostsByUserId } from "../../utils/posts";
+import { getPostsByUserId } from "../../utils/posts";
 
 const userPostHandler = async (req: UserRequest, res: UserResponse) => {
   const posts = await getPostsByUserId(req.params.id, {

@@ -23,6 +23,6 @@ class ExpressError extends Error {
   public set message(message: string) {
     this._message = message;
   }
-};
+}
 
 export default ExpressError;

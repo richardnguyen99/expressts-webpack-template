@@ -1,4 +1,8 @@
-import type { Request, Response, NextFunction } from "express-serve-static-core";
+import type {
+  Request,
+  Response,
+  NextFunction,
+} from "express-serve-static-core";
 
 import { getUserById } from "../utils/users";
 import { ResponseLocals } from "../types";
@@ -12,10 +16,10 @@ export type UserRequest = Request<
 >;
 export type UserResponse = Response<unknown, ResponseLocals>;
 
-export const fetchUserMiddleware= async (
+export const fetchUserMiddleware = async (
   req: UserRequest,
   res: UserResponse,
-  next: NextFunction
+  next: NextFunction,
 ): Promise<void> => {
   const user = await getUserById(req.params.id, {
     includes: ["profile"],

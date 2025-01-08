@@ -1,15 +1,11 @@
-import {
-  Request,
-  Response,
-  NextFunction
-} from "express-serve-static-core";
+import { Request, Response, NextFunction } from "express-serve-static-core";
 
 import { getPosts, getTopCategories } from "../../utils/posts";
 
 export const blogIndexRedirectMiddleware = (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   if (Object.keys(req.query).length === 0) {
     req.url = "/blogs?category=latest";
@@ -20,9 +16,7 @@ export const blogIndexRedirectMiddleware = (
   next();
 };
 
-const blogIndexHandler = async (
-  req: Request, res: Response
-) => {
+const blogIndexHandler = async (req: Request, res: Response) => {
   const { category } = req.query;
 
   if (typeof category !== "string") {
@@ -52,4 +46,3 @@ const blogIndexHandler = async (
 };
 
 export default blogIndexHandler;
-

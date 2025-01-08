@@ -72,7 +72,7 @@ userRouter.delete(
   noCacheMiddleware,
   (req: UserRequest, res: UserResponse) => {
     res.send(`Delete account for user ${req.params.id}`);
-  }
+  },
 );
 
 userRouter.post("/", noCacheMiddleware, (_req: Request, res: Response) => {

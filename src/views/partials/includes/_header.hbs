@@ -10,7 +10,9 @@
         height="32"
         role="img"
         aria-label="Bootstrap"
-      ><use xlink:href="#bootstrap"></use></svg>
+      >
+        <use xlink:href="#bootstrap"></use>
+      </svg>
     </a>
 
     <button
@@ -34,7 +36,6 @@
         {{> includes/_header_item url="/archives" name="Archives"}}
         {{> includes/_header_item url="/faq" name="FAQ"}}
         {{> includes/_header_item url="#" name="About"}}
-
       </ul>
 
       <div class="d-flex flex-column flex-lg-row align-items-center gap-2">
@@ -47,23 +48,22 @@
           />
         </form>
 
-        <div class="text-md-end d-flex flex-column flex-lg-row gap-lg-1 gap-3 col-12 col-lg-auto">
-        {{#if (eq page "/login")}}
-          <a href="/login" class="btn btn-secondary active me-lg-3 ">Login</a>
-        {{else}}
+        <div
+          class="text-md-end d-flex flex-column flex-lg-row gap-lg-1 gap-3 col-12 col-lg-auto"
+        >
+          {{#if (eq page "/login")}}
+          <a href="/login" class="btn btn-secondary active me-lg-3">Login</a>
+          {{else}}
           <a href="/login" class="btn btn-outline-secondary me-lg-3">Login</a>
-        {{/if}}
+          {{/if}}
 
-        {{#if (eq page "/register")}}
+          {{#if (eq page "/register")}}
           <a href="/register" class="btn btn-warning active">Sign-up</a>
-        {{else}}
+          {{else}}
           <a href="/register" class="btn btn-outline-warning">Sign-up</a>
-        {{/if}}
-
+          {{/if}}
         </div>
       </div>
-
     </div>
-
   </div>
 </header>

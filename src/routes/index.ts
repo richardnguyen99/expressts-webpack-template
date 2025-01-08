@@ -1,10 +1,6 @@
 import { Router, type RouterOptions } from "express";
 
-import {
-  getTopCategories,
-  getLatestArchives,
-  getPosts,
-} from "../utils/posts";
+import { getTopCategories, getLatestArchives, getPosts } from "../utils/posts";
 import { getMeta } from "../utils/meta";
 import loginHandler from "./login";
 import registerHandler from "./register";
@@ -69,7 +65,7 @@ const getAppRouter = () => {
             description: "ExpressTS Webpack Template",
             url: `${process.env.BASE_URL}/`,
             "og:url": `${process.env.BASE_URL}/`,
-          })
+          }),
         );
 
         res.render("home", {
@@ -83,11 +79,10 @@ const getAppRouter = () => {
           categoryQuery: category,
           recentArchives,
         });
-
       } catch (error) {
         next(error);
       }
-    }
+    },
   );
 
   appRouter.get("/login", cachableMiddleware, loginHandler);

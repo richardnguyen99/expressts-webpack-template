@@ -1,9 +1,9 @@
 <article class="article-list-blog-item">
   <div class="article-list-blog-item__container">
-    <a href="/blogs/{{post.slug}}" class="article-list-blog-item__link">
+    <a href="/blogs/{{ post.slug }}" class="article-list-blog-item__link">
       <img
-        src="{{post.thumbnail}}"
-        alt="{{post.title}} thumbnail"
+        src="{{ post.thumbnail }}"
+        alt="{{ post.title }} thumbnail"
         class="article-list-blog-item__image"
       />
     </a>
@@ -20,24 +20,24 @@
 
         <span class="article-list-blog-item__category">
           <i class="bi bi-tag-fill"></i>
-          <a href="/blogs?category={{post.category}}">{{capitalize
+          <a href="/blogs?category={{ post.category }}">{{capitalize
               post.category
-            }}</a>
+          }}</a>
         </span>
       </div>
 
-      <a href="/blogs/{{post.slug}}" class="article-list-blog-item__title">
-        <h2>{{post.title}}</h2>
+      <a href="/blogs/{{ post.slug }}" class="article-list-blog-item__title">
+        <h2>{{ post.title }}</h2>
       </a>
 
       <p class="article-list-blog-item__excerpt">
-        {{post.content}}
+        {{ post.content }}
       </p>
 
       <div class="article-list-blog-item__credit">
         <div class="article-list-blog-item__avatar">
           <img
-            src="{{post.author.profile.avatar}}"
+            src="{{ post.author.profile.avatar }}"
             alt="{{fullname
               post.author.profile.firstName
               post.author.profile.lastName
@@ -47,7 +47,7 @@
 
         <div class="article-list-blog-item__author">
           <span>By</span>
-          <a href="/users/{{post.author.userId}}">
+          <a href="/users/{{ post.author.userId }}">
             {{fullname
               post.author.profile.firstName
               post.author.profile.lastName
@@ -59,12 +59,12 @@
       <div class="article-list-blog-item__metadata">
         <div class="article-list-blog-item__views">
           <i class="bi bi-eye"></i>
-          <span>{{post.views}}</span>
+          <span>{{ post.views }}</span>
         </div>
 
         <div class="article-list-blog-item__likes">
           <i class="bi bi-heart"></i>
-          <span>{{post.likes}}</span>
+          <span>{{ post.likes }}</span>
         </div>
 
         <div class="article-list-blog-item__comments">
@@ -74,7 +74,7 @@
 
         <div class="article-list-blog-item__time-to-read">
           <i class="bi bi-clock"></i>
-          <span>{{post.timeToRead}} min read</span>
+          <span>{{ post.timeToRead }} min read</span>
         </div>
       </div>
     </div>

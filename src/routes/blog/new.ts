@@ -1,7 +1,4 @@
-import {
-  Request,
-  Response,
-} from "express-serve-static-core";
+import { Request, Response } from "express-serve-static-core";
 
 const blogNewGetHandler = async (req: Request, res: Response) => {
   const userId = req.query.userId;

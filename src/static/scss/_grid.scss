@@ -5,7 +5,7 @@ $position: (
   relative: relative,
   absolute: absolute,
   fixed: fixed,
-  sticky: sticky
+  sticky: sticky,
 );
 
 $sides: (
@@ -204,7 +204,6 @@ $sides: (
     }
 
     @each $side, $side-value in $sides {
-
       // Positive margin and padding with responsive variants from 1 to 128
       // i.e. .xs:exts-mt-1 { margin-top: 0.25rem !important; }
       @include media-breakpoint-up($breakpoint, $grid-breakpoints) {

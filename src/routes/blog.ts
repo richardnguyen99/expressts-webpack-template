@@ -14,11 +14,7 @@ blogRouter.get("/new", noCacheMiddleware, blogNewHandler.get);
 
 blogRouter.post("/new", noCacheMiddleware, blogNewHandler.post);
 
-blogRouter.get(
-  "/:slug",
-  cachableMiddleware,
-  blogSlugHandler,
-);
+blogRouter.get("/:slug", cachableMiddleware, blogSlugHandler);
 
 blogRouter.get(
   "/",

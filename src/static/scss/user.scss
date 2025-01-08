@@ -52,7 +52,6 @@
   }
 
   &__comments {
-
   }
 
   &__comment {
@@ -98,7 +97,6 @@
       -webkit-box-orient: vertical;
       overflow: hidden;
       line-clamp: 3;
-
 
       @include media-breakpoint-up(sm) {
         width: calc(100% - 1.5rem);

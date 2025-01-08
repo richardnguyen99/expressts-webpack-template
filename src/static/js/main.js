@@ -53,15 +53,16 @@ $(function () {
                 middleware: [FloatingUIDOM.offset(10), FloatingUIDOM.flip()],
                 placement: "top-start",
               }).then(({ x, y }) => {
-                $hoverCard.css({ left: `${x-16}px`, top: `${y}px` });
+                $hoverCard.css({ left: `${x - 16}px`, top: `${y}px` });
               });
-            }
+            },
           );
 
           showTimeoutId = setTimeout(() => {
-            $hoverCard.removeClass("invisible")
-                      .removeClass("hide")
-                      .addClass("show");
+            $hoverCard
+              .removeClass("invisible")
+              .removeClass("hide")
+              .addClass("show");
 
             $hoverCard.on("mouseenter", function () {
               isHoveringCard = true;
@@ -97,7 +98,6 @@ $(function () {
           cleanupAutoUpdate = null;
         }
       }, 300);
-
 
       // Remove the hover card after it has been hidden
       emptyTimeoutId = setTimeout(() => {

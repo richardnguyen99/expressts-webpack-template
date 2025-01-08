@@ -1,6 +1,15 @@
-<div class="d-flex justify-content-md-between align-items-md-center mb-5 lg:exts-mb-6 flex-column flex-md-row gap-3">
+<div
+  class="d-flex justify-content-md-between align-items-md-center mb-5 lg:exts-mb-6 flex-column flex-md-row gap-3"
+>
   <h3 class="h3 mb-0">My posts</h3>
-  <button class="btn btn-primary btn-sm d-flex align-items-center gap-2 d-lg-none flex-shrink-0 ms-md-2 bg-info flex-wrap" style="width: fit-content;"  type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasSidebar" aria-controls="offcanvasSidebar">
+  <button
+    class="btn btn-primary btn-sm d-flex align-items-center gap-2 d-lg-none flex-shrink-0 ms-md-2 bg-info flex-wrap"
+    style="width: fit-content"
+    type="button"
+    data-bs-toggle="offcanvas"
+    data-bs-target="#offcanvasSidebar"
+    aria-controls="offcanvasSidebar"
+  >
     <i class="bi bi-box-arrow-right d-none d-sm-block"></i>
     <span>Show Sidebar</span>
   </button>
@@ -12,54 +21,74 @@
   </div>
 
   <div class="card-body px-0 pb-0">
-    <ul class="list-unstyled ">
+    <ul class="list-unstyled">
       {{#each posts as |post|}}
-        <li class="row mb-3">
-          <div class="d-none d-md-block col-md-4">
-            <img src="{{post.thumbnail}}" alt="{{post.title}} thumbnail" class="w-100 rounded-2" style="height: 160px;">
-          </div>
+      <li class="row mb-3">
+        <div class="d-none d-md-block col-md-4">
+          <img
+            src="{{ post.thumbnail }}"
+            alt="{{ post.title }} thumbnail"
+            class="w-100 rounded-2"
+            style="height: 160px"
+          />
+        </div>
 
-          <div class="col-12 col-md-8 d-flex flex-column">
-            <a href="/blogs/{{post.slug}}" class="d-flex gap-3 text-decoration-none">
-              <h4 class="text-truncate">{{post.title}}</h4>
-            </a>
+        <div class="col-12 col-md-8 d-flex flex-column">
+          <a
+            href="/blogs/{{ post.slug }}"
+            class="d-flex gap-3 text-decoration-none"
+          >
+            <h4 class="text-truncate">{{ post.title }}</h4>
+          </a>
 
-            <p class="text-truncate small text-muted">{{post.content}}</p>
+          <p class="text-truncate small text-muted">{{ post.content }}</p>
 
-            <div class="d-flex align-items-md-center flex-column flex-md-row gap-2 mt-auto">
-              <div class="d-flex align-items-center gap-2 order-1 flex-wrap">
-                <div>
-                  <span class="badge bg-primary rounded-pill bg-indigo">{{post.category}}</span>
-                </div>
+          <div
+            class="d-flex align-items-md-center flex-column flex-md-row gap-2 mt-auto"
+          >
+            <div class="d-flex align-items-center gap-2 order-1 flex-wrap">
+              <div>
+                <span class="badge bg-primary rounded-pill bg-indigo">{{
+                  post.category
+                }}</span>
+              </div>
 
-                <span class="text-muted">|</span>
+              <span class="text-muted">|</span>
 
-                <div class="d-flex align-content-center">
-                  <div class="d-flex gap-2 align-items-center flex-wrap">
-                    <div class="d-flex gap-1 align-items-center rounded-2 bg-body-secondary px-2 py-1">
-                      <i class="bi bi-eye"></i>
-                      <span>{{post.views}}</span>
-                    </div>
+              <div class="d-flex align-content-center">
+                <div class="d-flex gap-2 align-items-center flex-wrap">
+                  <div
+                    class="d-flex gap-1 align-items-center rounded-2 bg-body-secondary px-2 py-1"
+                  >
+                    <i class="bi bi-eye"></i>
+                    <span>{{ post.views }}</span>
+                  </div>
 
-                    <div class="d-flex gap-1 align-items-center rounded-2 bg-body-secondary px-2 py-1">
-                      <i class="bi bi-heart"></i>
-                      <span>{{post.likes}}</span>
-                    </div>
+                  <div
+                    class="d-flex gap-1 align-items-center rounded-2 bg-body-secondary px-2 py-1"
+                  >
+                    <i class="bi bi-heart"></i>
+                    <span>{{ post.likes }}</span>
+                  </div>
 
-                    <div class="d-flex gap-1 align-items-center rounded-2 bg-body-secondary px-2 py-1">
-                      <i class="bi bi-chat"></i>
-                      <span>{{len post.comments}}</span>
-                    </div>
+                  <div
+                    class="d-flex gap-1 align-items-center rounded-2 bg-body-secondary px-2 py-1"
+                  >
+                    <i class="bi bi-chat"></i>
+                    <span>{{len post.comments}}</span>
                   </div>
                 </div>
               </div>
+            </div>
 
-              <div class="ms-lg-auto order-0 order-md-1">
-                <span class="text-muted small">Written at {{date "short" post.createdAt}}</span>
-              </div>
+            <div class="ms-lg-auto order-0 order-md-1">
+              <span class="text-muted small"
+                >Written at {{date "short" post.createdAt}}</span
+              >
             </div>
           </div>
-        </li>
+        </div>
+      </li>
       {{/each}}
     </ul>
   </div>

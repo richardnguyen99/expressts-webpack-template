@@ -3,7 +3,7 @@ import type { RequestHandler } from "express-serve-static-core";
 const noCacheMiddleware: RequestHandler = (_req, res, next) => {
   res.set(
     "Cache-Control",
-    "no-store, no-cache, must-revalidate, private, max-age=0"
+    "no-store, no-cache, must-revalidate, private, max-age=0",
   );
   res.set("Pragma", "no-cache");
   res.set("Expires", "-1");

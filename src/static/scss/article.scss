@@ -3,12 +3,10 @@
 
 .article {
   &-list-short-item {
-
     &__thumbnail {
       height: 10rem;
       background: var(--bs-secondary-color);
       animation: pulse 1.5s infinite;
-
 
       @media (min-width: 992px) {
         height: 6rem;
@@ -176,7 +174,6 @@
         @include media-breakpoint-up(xl) {
           height: 320px;
         }
-
       }
 
       &__image {

@@ -25,7 +25,7 @@ export type Device = {
     city: string;
     region: string;
     country: string;
-  }
+  };
 };
 
 export type Profile = {
@@ -87,4 +87,4 @@ export type Data = {
 export type ResponseLocals = {
   user?: User;
   profile?: Profile;
-}
+};

@@ -17,4 +17,4 @@ type Meta = typeof defaultMeta;
 
 export const getMeta = (meta: Partial<Meta>) => {
   return { ...defaultMeta, ...meta };
-}
+};

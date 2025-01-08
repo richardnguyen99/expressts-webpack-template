@@ -4,7 +4,7 @@ import getArchives from "../../utils/archives";
 import { monthNames } from "../../utils/date";
 
 const archiveMonthHandler = async (req: Request, res: Response) => {
-  const { year, month: monthStr  } = req.params;
+  const { year, month: monthStr } = req.params;
   const archiveList = await getArchives();
 
   if (!archiveList[year]) {
@@ -21,8 +21,7 @@ const archiveMonthHandler = async (req: Request, res: Response) => {
   }
 
   const posts = archiveList[year].posts.filter(
-    (post) =>
-      new Date(post.createdAt).getMonth() + 1 === month
+    (post) => new Date(post.createdAt).getMonth() + 1 === month,
   );
 
   if (posts.length === 0) {

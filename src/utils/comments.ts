@@ -4,14 +4,14 @@ import { type Comment } from "../types";
 const includeAuthorToComment = async (comment: Comment) => {
   const data = await mockedData;
   const author = data.profiles.find(
-    (profile) => profile.userId === comment.userId
+    (profile) => profile.userId === comment.userId,
   );
 
   comment.author = {
     userId: comment.userId,
     profile: author!,
   };
-}
+};
 
 const includesAuthorStrategy = async (comments: Comment[]) => {
   comments.forEach(async (comment) => {
@@ -24,10 +24,9 @@ export const getCommmentsByPostId = async (
   options: {
     limit: number;
     includes: "author"[];
-  }
+  },
 ) => {
   let { limit } = options;
-
 
   const data = await mockedData;
   const comments = data.comments.filter((comment) => comment.postId === postId);
@@ -41,18 +40,22 @@ export const getCommmentsByPostId = async (
   }
 
   return comments
-    .sort((a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    .sort(
+      (a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
     )
     .slice(0, limit);
 };
 
-export const getCommentById = async (commentId: string, options: {
-  includes: "author"[],
-}) => {
+export const getCommentById = async (
+  commentId: string,
+  options: {
+    includes: "author"[];
+  },
+) => {
   const data = await mockedData;
   const comment = data.comments.find(
-    (comment) => comment.commentId === commentId
+    (comment) => comment.commentId === commentId,
   );
 
   if (comment && options.includes.includes("author")) {
@@ -62,7 +65,11 @@ export const getCommentById = async (commentId: string, options: {
   return comment;
 };
 
-const createdAtSortStrategy = (a: Comment, b: Comment, type: "asc" | "desc") => {
+const createdAtSortStrategy = (
+  a: Comment,
+  b: Comment,
+  type: "asc" | "desc",
+) => {
   if (type === "asc") {
     return new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime();
   }
@@ -72,7 +79,7 @@ const createdAtSortStrategy = (a: Comment, b: Comment, type: "asc" | "desc") => 
 
 const sortStrategies = {
   createdAt: createdAtSortStrategy,
-}
+};
 
 export const getCommentsByUserId = async (
   userId: string,
@@ -80,18 +87,20 @@ export const getCommentsByUserId = async (
     order: "asc" | "desc";
     limit: number;
     sortedBy: "createdAt";
-    includes: "author"[],
-  }): Promise<Comment[]> => {
+    includes: "author"[];
+  },
+): Promise<Comment[]> => {
   const data = await mockedData;
   const comments = data.comments.filter((comment) => comment.userId === userId);
 
   const sortedBy = options && options.sortedBy ? options.sortedBy : "createdAt";
-  const sortOrder = options && options.order || "desc";
-  const limit: number = options && options.limit
-    ? options.limit > 0
-      ? options.limit
-      : comments.length
-    : comments.length;
+  const sortOrder = (options && options.order) || "desc";
+  const limit: number =
+    options && options.limit
+      ? options.limit > 0
+        ? options.limit
+        : comments.length
+      : comments.length;
 
   comments.sort((a, b) => sortStrategies[sortedBy](a, b, sortOrder));
 

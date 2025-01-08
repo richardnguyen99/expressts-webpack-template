@@ -1,11 +1,11 @@
 {{#> layouts/_base}}
 
 {{#*inline "title"}}
-  {{#if title}}
-    {{title}}
-  {{else}}
-    Archives
-  {{/if}}
+{{#if title}}
+{{ title }}
+{{else}}
+Archives
+{{/if}}
 {{/inline}}
 
 {{#*inline "styles"}}
@@ -17,10 +17,10 @@
 
   <ul class="article-list-archive list-unstyled mt-4 d-flex flex-column gap-4">
     {{#each archiveList as |archive|}}
-      <li>
-        <h2 class="article-list-archive__year">{{archive.[0]}}</h2>
-        {{> includes/_archive_list posts=archive.[1].posts }}
-      </li>
+    <li>
+      <h2 class="article-list-archive__year">{{archive.[0]}}</h2>
+      {{> includes/_archive_list posts=archive.[1].posts }}
+    </li>
     {{/each}}
   </ul>
 </div>

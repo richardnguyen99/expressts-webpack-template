@@ -66,10 +66,10 @@ const includesAuthorStrategy = (posts: Post[]) => {
       includes: ["profile"],
     });
 
-    post.author =  {
+    post.author = {
       userId: author!.userId,
       profile: author!.profile!,
-    }
+    };
   });
 };
 
@@ -108,13 +108,13 @@ export const getPosts = async (options: {
 
     const authorProfiles = authors.map((author) => {
       return data.profiles.find((profile) => profile.userId === author!.userId);
-    })
+    });
 
     sortedPosts.forEach((post, index) => {
       post.author = {
         userId: authors[index]!.userId,
         profile: authorProfiles[index]!,
-      }
+      };
     });
   }
 
@@ -127,12 +127,12 @@ export const getPosts = async (options: {
       const postComments = comments[index];
 
       postComments.forEach((comment) => {
-        const author = data
-                      .users
-                      .find((user) => user.userId === comment.userId);
-        const profile = data
-                        .profiles
-                        .find((profile) => profile.userId === author!.userId);
+        const author = data.users.find(
+          (user) => user.userId === comment.userId,
+        );
+        const profile = data.profiles.find(
+          (profile) => profile.userId === author!.userId,
+        );
 
         comment.author = {
           userId: author!.userId,
@@ -186,7 +186,7 @@ export const getPostById = async (postId: string) => {
 
 export const getPostsByUserId = async (
   userId: string,
-  options?: Partial<Omit<Options, "category">>
+  options?: Partial<Omit<Options, "category">>,
 ): Promise<Post[]> => {
   const data = await mockedData;
   const posts = data.posts.filter((post) => post.userId === userId);
@@ -196,10 +196,10 @@ export const getPostsByUserId = async (
   }
 
   const limit: number = options.limit
-                        ? options.limit < 0
-                          ? posts.length
-                          : options.limit
-                        : posts.length;
+    ? options.limit < 0
+      ? posts.length
+      : options.limit
+    : posts.length;
 
   const sortedBy: Options["sortedBy"] = options.sortedBy || "latest";
   const order: Options["order"] = options.order || "desc";
@@ -208,7 +208,7 @@ export const getPostsByUserId = async (
 
   if (options.includes && options.includes.includes("author")) {
     includesAuthorStrategy(sortedPosts);
-  };
+  }
 
   if (options.includes && options.includes.includes("comments")) {
     includesCommentsStrategy(sortedPosts);
@@ -226,12 +226,13 @@ export const getPostsBySlug = async (slug: string) => {
   }
 
   const author = data.users.find((user) => user.userId === post!.userId);
-  const profile =
-    data.profiles.find((profile) => profile.userId === author!.userId);
+  const profile = data.profiles.find(
+    (profile) => profile.userId === author!.userId,
+  );
   const comments = await getCommmentsByPostId(post.postId, {
     limit: -1,
     includes: ["author"],
-  })
+  });
 
   post.author = {
     userId: author!.userId,
@@ -247,15 +248,18 @@ export const getTopCategories = async (count: number) => {
   const data = await mockedData;
   const posts = data.posts;
 
-  const categories = posts.reduce((acc, post) => {
-    if (!acc[post.category]) {
-      acc[post.category] = 1;
-    } else {
-      acc[post.category] += 1;
-    }
+  const categories = posts.reduce(
+    (acc, post) => {
+      if (!acc[post.category]) {
+        acc[post.category] = 1;
+      } else {
+        acc[post.category] += 1;
+      }
 
-    return acc;
-  }, {} as Record<string, number>);
+      return acc;
+    },
+    {} as Record<string, number>,
+  );
 
   const topCategories = Object.keys(categories)
     .sort((a, b) => categories[b] - categories[a])
@@ -268,23 +272,26 @@ export const getArchives = async () => {
   const data = await mockedData;
   const posts = data.posts;
 
-  const archives = posts.reduce((acc, post) => {
-    const date = new Date(post.createdAt);
-    const year = date.getFullYear();
-    const month = date.getMonth();
+  const archives = posts.reduce(
+    (acc, post) => {
+      const date = new Date(post.createdAt);
+      const year = date.getFullYear();
+      const month = date.getMonth();
 
-    if (!acc[year]) {
-      acc[year] = {};
-    }
+      if (!acc[year]) {
+        acc[year] = {};
+      }
 
-    if (!acc[year][month]) {
-      acc[year][month] = 1;
-    } else {
-      acc[year][month] += 1;
-    }
+      if (!acc[year][month]) {
+        acc[year][month] = 1;
+      } else {
+        acc[year][month] += 1;
+      }
 
-    return acc;
-  }, {} as Record<string, Record<string, number>>);
+      return acc;
+    },
+    {} as Record<string, Record<string, number>>,
+  );
 
   return archives;
 };
@@ -293,23 +300,26 @@ export const getLatestArchives = async (limit: number) => {
   const data = await mockedData;
   const posts = data.posts;
 
-  const archives = posts.reduce((acc, post) => {
-    const date = new Date(post.createdAt);
-    const year = date.getFullYear();
-    const month = date.toLocaleString("default", { month: "long" });
+  const archives = posts.reduce(
+    (acc, post) => {
+      const date = new Date(post.createdAt);
+      const year = date.getFullYear();
+      const month = date.toLocaleString("default", { month: "long" });
 
-    if (!acc[year]) {
-      acc[year] = {};
-    }
+      if (!acc[year]) {
+        acc[year] = {};
+      }
 
-    if (!acc[year][month]) {
-      acc[year][month] = 1;
-    } else {
-      acc[year][month] += 1;
-    }
+      if (!acc[year][month]) {
+        acc[year][month] = 1;
+      } else {
+        acc[year][month] += 1;
+      }
 
-    return acc;
-  }, {} as Record<string, Record<string, number>>);
+      return acc;
+    },
+    {} as Record<string, Record<string, number>>,
+  );
 
   const latestArchives = Object.keys(archives)
     .sort((a, b) => Number(b) - Number(a))

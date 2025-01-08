@@ -35,5 +35,4 @@ const userProfileHandler = async (req: UserRequest, res: UserResponse) => {
   res.render("users/profile", profileData);
 };
 
-
 export default userProfileHandler;

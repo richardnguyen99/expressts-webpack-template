@@ -4,7 +4,7 @@ import type { Post } from "../types";
 export interface ArchiveList {
   [year: string]: {
     posts: Post[];
-  }
+  };
 }
 
 const getArchives = async (): Promise<ArchiveList> => {
@@ -25,6 +25,5 @@ const getArchives = async (): Promise<ArchiveList> => {
 
   return archives;
 };
-
 
 export default getArchives;

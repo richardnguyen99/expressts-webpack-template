@@ -34,8 +34,8 @@ const format = winston.format.combine(
   winston.format.printf((info) =>
     isDevelopment()
       ? `${info.timestamp} ${info.level}: ${info.message}`
-      : `${info.message}`
-  )
+      : `${info.message}`,
+  ),
 );
 
 winston.addColors(colors);
@@ -50,9 +50,7 @@ const logger = winston.createLogger({
       level: "error",
       maxsize: 5242880, // 5MB
       maxFiles: 5,
-      format: winston.format.combine(
-        winston.format.uncolorize(),
-      ),
+      format: winston.format.combine(winston.format.uncolorize()),
     }),
     new winston.transports.Console(),
   ],

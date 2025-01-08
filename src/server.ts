@@ -5,7 +5,11 @@ import dotenv from "dotenv";
 import methodOverride from "method-override";
 import cookieParser from "cookie-parser";
 import { engine as hbsEngine } from "express-handlebars";
-import { getCountryDataList, getEmojiFlag, type TCountryCode } from "countries-list";
+import {
+  getCountryDataList,
+  getEmojiFlag,
+  type TCountryCode,
+} from "countries-list";
 
 import getAppRouter from "./routes";
 import morganMiddleware from "./middlewares/morgan.middleware";
@@ -36,7 +40,7 @@ export const mockedData: Promise<Data> = fs
   .then((data) => JSON.parse(data))
   .catch(() => {
     console.error(
-      "Failed to load fake data. Make sure you have run `npm run gen:data`"
+      "Failed to load fake data. Make sure you have run `npm run gen:data`",
     );
 
     process.exit(1);
@@ -45,7 +49,7 @@ export const mockedData: Promise<Data> = fs
 const createApp = async () => {
   const manifestContent = await fs.readFile(
     path.join(__dirname, "public", "manifest.json"),
-    "utf-8"
+    "utf-8",
   );
   const manifest = JSON.parse(manifestContent);
 
@@ -62,7 +66,7 @@ const createApp = async () => {
         "views",
         "partials",
         "layouts",
-        "main.hbs"
+        "main.hbs",
       ),
       layoutsDir: path.join(__dirname, "views", "partials", "layouts"),
       helpers: {
@@ -78,7 +82,7 @@ const createApp = async () => {
         flag: (countryCode: TCountryCode) => getEmojiFlag(countryCode),
         countryName: (countryCode: TCountryCode) => {
           const country = getCountryDataList().find(
-            (c) => c.iso2 === countryCode
+            (c) => c.iso2 === countryCode,
           );
 
           return country?.name;
@@ -88,7 +92,8 @@ const createApp = async () => {
         lowercase: (str: string) => str.toLowerCase(),
         capitalize: (str: string) => str.charAt(0).toUpperCase() + str.slice(1),
         len: (arr: unknown[]) => arr.length,
-        fullname: (firstName: string, lastName: string) => `${firstName} ${lastName}`,
+        fullname: (firstName: string, lastName: string) =>
+          `${firstName} ${lastName}`,
         isoDatetime: (timestamp: number) => {
           const date = new Date(timestamp);
 
@@ -96,7 +101,7 @@ const createApp = async () => {
         },
         date: (
           format: Intl.DateTimeFormatOptions["dateStyle"],
-          timestamp: number
+          timestamp: number,
         ) => {
           const date = new Date(timestamp);
 
@@ -105,7 +110,7 @@ const createApp = async () => {
           }).format(date);
         },
       },
-    })
+    }),
   );
   app.set("view engine", "hbs");
   app.set("views", "src/views/pages");
@@ -127,13 +132,13 @@ const createApp = async () => {
       lastModified: true,
       etag: true,
       cacheControl: true,
-    })
+    }),
   );
 
   const appRouter = getAppRouter();
   app.use(appRouter);
 
-  app.use(errorHandlerMiddleware)
+  app.use(errorHandlerMiddleware);
 
   return app;
 };

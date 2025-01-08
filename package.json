@@ -17,6 +17,7 @@
     "start": "cross-env NODE_ENV=production node dist/index.js",
     "lint": "eslint \"src/**/*.{ts,js}\" -c eslint.config.mjs",
     "lint:fix": "eslint \"src/**/*.{ts,js}\" -c eslint.config.mjs --fix",
+    "format": "prettier --write \"src/**/*.{ts,js,json,scss}\"",
     "clean": "rimraf dist src/public"
   },
   "keywords": [],
@@ -68,6 +69,7 @@
     "mini-css-extract-plugin": "^2.9.2",
     "nodemon": "^3.1.9",
     "postcss-loader": "^8.1.1",
+    "prettier": "3.4.2",
     "randexp": "^0.5.3",
     "rimraf": "^6.0.1",
     "sass": "^1.83.0",

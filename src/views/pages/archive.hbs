@@ -1,11 +1,11 @@
 {{#> layouts/_base}}
 
 {{#*inline "title"}}
-  {{#if title}}
-    {{title}}
-  {{else}}
-    Archives
-  {{/if}}
+{{#if title}}
+{{ title }}
+{{else}}
+Archives
+{{/if}}
 {{/inline}}
 
 {{#*inline "styles"}}
@@ -16,13 +16,13 @@
   <h1>Archives</h1>
 
   <h2 class="article-list-archive__year mt-4">
-    {{year}}{{#if month}}, {{month}}{{/if}}
+    {{ year }}{{#if month}}, {{ month }}{{/if}}
   </h2>
 
   {{> includes/_archive_list posts=posts }}
 
   {{#if month}}
-  <a href="/archives/{{year}}">Go back to Archive {{year}}</a>
+  <a href="/archives/{{ year }}">Go back to Archive {{ year }}</a>
   {{else}}
   {{#if year}}
   <a href="/archives">Go back to Archive</a>

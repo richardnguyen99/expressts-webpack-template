@@ -6,7 +6,9 @@ const PORT = process.env.PORT || 3000;
 createApp()
   .then((app) => {
     app.listen(PORT, () => {
-      logger.info(`✅ Server is listening on ${process.env.BASE_URL} (Press Ctrl+C to stop)\n`);
+      logger.info(
+        `✅ Server is listening on ${process.env.BASE_URL} (Press Ctrl+C to stop)\n`,
+      );
       logger.info(`\tNODE_ENV: ${process.env.NODE_ENV}`);
       logger.info(`\t.env:     ${process.env.ENV_PATH}\n`);
     });

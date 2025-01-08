@@ -1,6 +1,5 @@
 import $ from "jquery";
 
-
 (function () {
   const navScroller = $(".nav-scroller");
 

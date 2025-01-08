@@ -9,7 +9,7 @@ const getErrorTemplate = (statusCode: number) => {
   }
 
   return "errors/5xx";
-}
+};
 
 const errorHandler: ErrorRequestHandler = (err: ExpressError, _req, res) => {
   const statusCode = err.status || 500;
@@ -20,6 +20,6 @@ const errorHandler: ErrorRequestHandler = (err: ExpressError, _req, res) => {
     statusCode,
     message,
   });
-}
+};
 
 export default errorHandler;

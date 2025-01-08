@@ -14,7 +14,7 @@ const archiveYearHandler = async (req: Request, res: Response) => {
   }
 
   const posts = archiveList[year].posts.sort(
-    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    (a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
   );
 
   res.render("archive", {
@@ -24,6 +24,6 @@ const archiveYearHandler = async (req: Request, res: Response) => {
     year,
     posts,
   });
-}
+};
 
 export default archiveYearHandler;

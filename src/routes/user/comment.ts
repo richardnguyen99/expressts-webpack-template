@@ -17,7 +17,7 @@ const userCommentHandler = async (req: UserRequest, res: UserResponse) => {
       }
 
       return post;
-    })
+    }),
   );
 
   const commentsData = {
@@ -27,7 +27,7 @@ const userCommentHandler = async (req: UserRequest, res: UserResponse) => {
     comments: comments.map((comment, index) => ({
       ...comment,
       post: posts[index],
-    }))
+    })),
   };
 
   if (

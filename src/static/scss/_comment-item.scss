@@ -4,7 +4,6 @@
   padding: 1rem 0;
   position: relative;
 
-
   &__avatar {
     left: -72px;
     position: absolute;
@@ -73,8 +72,6 @@
         border-width: 2px;
         border-color: var(--bs-primary);
       }
-
-
     }
 
     &__header {
@@ -97,8 +94,8 @@
         flex-direction: row;
         align-items: center;
         gap: 0.5rem;
-      padding-top: 0rem;
-      padding-bottom: 0rem;
+        padding-top: 0rem;
+        padding-bottom: 0rem;
       }
 
       &__author {

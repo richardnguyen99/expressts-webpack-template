@@ -7,7 +7,7 @@ const stream = {
 
     if (Number(messageParts[messageParts.length - 5]) >= 400) {
       logger.error(message.replace(/\n$/, ""));
-      return
+      return;
     }
 
     logger.http(message.replace(/\n$/, ""));
@@ -21,7 +21,7 @@ const skip = () => {
 
 const morganMiddleware = morgan(
   ":remote-addr :method :url :status :res[content-length] - :response-time ms",
-  { stream, skip }
+  { stream, skip },
 );
 
 export default morganMiddleware;

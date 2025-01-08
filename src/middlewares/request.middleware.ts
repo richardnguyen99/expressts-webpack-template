@@ -12,7 +12,7 @@ import { Request, Response, NextFunction } from "express-serve-static-core";
 export const requestIdMiddleware = (
   _req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   res.header("X-Request-Id", uuidv4());
   next();

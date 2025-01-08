@@ -3,12 +3,12 @@ $color-mode-type: data;
 
 @import "bootstrap/scss/bootstrap";
 
-
 // https://github.com/twbs/examples/issues/32#issuecomment-1532561291
-$bootstrap-icons-font-src: url("~bootstrap-icons/font/fonts/bootstrap-icons.woff2") format("woff2"), url("~bootstrap-icons/font/fonts/bootstrap-icons.woff") format("woff");
+$bootstrap-icons-font-src:
+  url("~bootstrap-icons/font/fonts/bootstrap-icons.woff2") format("woff2"),
+  url("~bootstrap-icons/font/fonts/bootstrap-icons.woff") format("woff");
 
 @import "bootstrap-icons/font/bootstrap-icons.scss";
-
 
 @import "mixins";
 // @import "utility";
@@ -29,7 +29,7 @@ html {
   -webkit-tap-highlight-color: transparent;
 }
 
-main>.container {
+main > .container {
   padding-top: 3rem;
   padding-bottom: 3rem;
   min-height: calc(100vh - 218px);
