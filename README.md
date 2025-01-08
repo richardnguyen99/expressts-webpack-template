@@ -25,7 +25,7 @@ stack web application that is ready for production.
 - [x] Favicons and meta tags: SEO optimization for the application
 - [x] Responsive design: Mobile-first design for the application
 - [x] Winston + Morgan: Logging for the application and HTTP monitoring
-- [ ] ESLint: Linter for TypeScript
+- [x] ESLint: Linter for TypeScript
 - [ ] Prettier: Code formatter for TypeScript
 - [ ] Husky: Git hooks for linting and formatting before commits
 - [ ] Jest: Testing framework for TypeScript
