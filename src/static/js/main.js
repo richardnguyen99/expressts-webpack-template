@@ -1,6 +1,6 @@
 import $ from "jquery";
 import * as FloatingUIDOM from "@floating-ui/dom";
-import * as bootstrap from "bootstrap";
+import * as _bootstrap from "bootstrap";
 
 $.noConflict();
 
@@ -8,7 +8,7 @@ $(function () {
   const $avatars = $("[data-hover-card-url]");
 
   // iterate over each hover card element
-  $avatars.each(function (i, _el) {
+  $avatars.each(function (i) {
     const $avatar = $(this);
     let cleanupAutoUpdate;
     let isHoveringCard = false;

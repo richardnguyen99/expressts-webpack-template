@@ -14,7 +14,7 @@ const archiveMonthHandler = async (req: Request, res: Response) => {
     return;
   }
 
-  let month = Number(monthStr);
+  const month = Number(monthStr);
   if (isNaN(Number(monthStr))) {
     res.status(400);
     res.send("Invalid month");

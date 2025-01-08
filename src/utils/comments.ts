@@ -41,7 +41,9 @@ export const getCommmentsByPostId = async (
   }
 
   return comments
-    .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    .sort((a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    )
     .slice(0, limit);
 };
 

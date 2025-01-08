@@ -127,8 +127,12 @@ export const getPosts = async (options: {
       const postComments = comments[index];
 
       postComments.forEach((comment) => {
-        const author = data.users.find((user) => user.userId === comment.userId);
-        const profile = data.profiles.find((profile) => profile.userId === author!.userId);
+        const author = data
+                      .users
+                      .find((user) => user.userId === comment.userId);
+        const profile = data
+                        .profiles
+                        .find((profile) => profile.userId === author!.userId);
 
         comment.author = {
           userId: author!.userId,
@@ -222,7 +226,8 @@ export const getPostsBySlug = async (slug: string) => {
   }
 
   const author = data.users.find((user) => user.userId === post!.userId);
-  const profile = data.profiles.find((profile) => profile.userId === author!.userId);
+  const profile =
+    data.profiles.find((profile) => profile.userId === author!.userId);
   const comments = await getCommmentsByPostId(post.postId, {
     limit: -1,
     includes: ["author"],

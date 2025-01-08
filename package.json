@@ -15,6 +15,8 @@
     "build": "npm run build:server && npm run build:webpack",
     "postbuild": "npm run copy:views",
     "start": "cross-env NODE_ENV=production node dist/index.js",
+    "lint": "eslint \"src/**/*.{ts,js}\" -c eslint.config.mjs",
+    "lint:fix": "eslint \"src/**/*.{ts,js}\" -c eslint.config.mjs --fix",
     "clean": "rimraf dist src/public"
   },
   "keywords": [],
@@ -42,6 +44,7 @@
     "winston": "^3.17.0"
   },
   "devDependencies": {
+    "@eslint/js": "^9.17.0",
     "@faker-js/faker": "^9.3.0",
     "@types/cookie-parser": "^1.4.8",
     "@types/dotenv": "^6.1.1",
@@ -57,8 +60,10 @@
     "copyfiles": "^2.4.1",
     "cross-env": "^7.0.3",
     "css-loader": "^7.1.2",
+    "eslint": "^9.17.0",
     "favicons": "^7.2.0",
     "favicons-webpack-plugin": "^6.0.1",
+    "globals": "^15.14.0",
     "html-webpack-plugin": "^5.6.3",
     "mini-css-extract-plugin": "^2.9.2",
     "nodemon": "^3.1.9",
@@ -71,6 +76,7 @@
     "ts-node": "^10.9.2",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.7.2",
+    "typescript-eslint": "^8.19.1",
     "wait-on": "^8.0.1",
     "webpack": "^5.97.1",
     "webpack-cli": "^5.1.4",

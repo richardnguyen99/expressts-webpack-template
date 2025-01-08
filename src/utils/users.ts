@@ -77,7 +77,9 @@ const getUsersWithNumberOfCommentsOrder = async (
   });
 
   return usersWithComments
-    .sort((a, b) => numberOfCommentsStrategies[order](a.comments, b.comments)) as User[];
+    .sort((a, b) =>
+      numberOfCommentsStrategies[order](a.comments, b.comments)
+    ) as User[];
 };
 
 const userSortStrategies = {
@@ -92,7 +94,8 @@ export const getUsers = async (options: {
   order: "asc" | "desc";
   includes: ("profile" | "comments" | "posts")[];
 }) => {
-  let { limit, sortedBy, order, includes } = options;
+  const { sortedBy, order, includes } = options;
+  let { limit } = options;
 
   const data = await mockedData;
 
@@ -157,7 +160,10 @@ export const getUserById = async (userId: string, options: {
   }
 
   if (options.includes.includes("comments")) {
-    user.comments = data.comments.filter((comment) => comment.userId === userId);
+    user.comments = data.comments
+                        .filter(
+                          (comment) => comment.userId === userId
+                        );
   }
 
   return user;

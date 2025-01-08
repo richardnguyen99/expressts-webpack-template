@@ -87,13 +87,13 @@ userRouter.delete("/:id", noCacheMiddleware, (req: Request, res: Response) => {
   res.send(`Delete user ${req.params.id}`);
 });
 
-userRouter.get("*", (_req: Request, _res: Response) => {
+userRouter.get("*", (_req: Request) => {
   const message = `The path <code>${_req.originalUrl}</code> was not found.`;
 
   throw new ExpressError(message, 404);
 });
 
-userRouter.use("*", (_req: Request, _res: Response) => {
+userRouter.use("*", () => {
   throw new ExpressError("Bad Request", 400);
 });
 

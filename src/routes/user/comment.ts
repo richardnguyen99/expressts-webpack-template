@@ -1,15 +1,11 @@
 import {
-  NextFunction
-} from "express-serve-static-core";
-
-import {
   type UserRequest,
   type UserResponse,
 } from "../../middlewares/user.middleware";
 import { getPostById } from "../../utils/posts";
 import { getCommentsByUserId } from "../../utils/comments";
 
-const userCommentHandler = async (req: UserRequest, res: UserResponse, _next: NextFunction) => {
+const userCommentHandler = async (req: UserRequest, res: UserResponse) => {
   const comments = await getCommentsByUserId(req.params.id);
 
   const posts = await Promise.all(

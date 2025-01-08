@@ -3,8 +3,14 @@ import type { Request, Response, NextFunction } from "express-serve-static-core"
 import { getUserById } from "../utils/users";
 import { ResponseLocals } from "../types";
 
-export type UserRequest = Request<{ id: string }, any, any, any, ResponseLocals>;
-export type UserResponse = Response<any, ResponseLocals>;
+export type UserRequest = Request<
+  { id: string },
+  unknown,
+  unknown,
+  unknown,
+  ResponseLocals
+>;
+export type UserResponse = Response<unknown, ResponseLocals>;
 
 export const fetchUserMiddleware= async (
   req: UserRequest,

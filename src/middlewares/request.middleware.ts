@@ -9,7 +9,11 @@ import { Request, Response, NextFunction } from "express-serve-static-core";
  * @param res Express response object
  * @param next Express next function
  */
-export const requestIdMiddleware = (_req: Request, res: Response, next: NextFunction) => {
+export const requestIdMiddleware = (
+  _req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   res.header("X-Request-Id", uuidv4());
   next();
 };

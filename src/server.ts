@@ -74,7 +74,7 @@ const createApp = async () => {
           console.error(`Asset not found in manifest: ${assetPath}`);
         },
 
-        concat: (...args: any[]) => args.slice(0, -1).join(""),
+        concat: (...args: unknown[]) => args.slice(0, -1).join(""),
         flag: (countryCode: TCountryCode) => getEmojiFlag(countryCode),
         countryName: (countryCode: TCountryCode) => {
           const country = getCountryDataList().find(
@@ -83,11 +83,11 @@ const createApp = async () => {
 
           return country?.name;
         },
-        eq: (a: any, b: any) => a === b,
+        eq: (a: unknown, b: unknown) => a === b,
         uppercase: (str: string) => str.toUpperCase(),
         lowercase: (str: string) => str.toLowerCase(),
         capitalize: (str: string) => str.charAt(0).toUpperCase() + str.slice(1),
-        len: (arr: any[]) => arr.length,
+        len: (arr: unknown[]) => arr.length,
         fullname: (firstName: string, lastName: string) => `${firstName} ${lastName}`,
         isoDatetime: (timestamp: number) => {
           const date = new Date(timestamp);

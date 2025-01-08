@@ -6,7 +6,11 @@ import {
 
 import { getPosts, getTopCategories } from "../../utils/posts";
 
-export const blogIndexRedirectMiddleware = (req: Request, res: Response, next: NextFunction) => {
+export const blogIndexRedirectMiddleware = (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   if (Object.keys(req.query).length === 0) {
     req.url = "/blogs?category=latest";
     res.redirect(301, "/blogs?category=latest");
