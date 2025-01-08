@@ -27,7 +27,7 @@ stack web application that is ready for production.
 - [x] Winston + Morgan: Logging for the application and HTTP monitoring
 - [x] ESLint: Linter for TypeScript
 - [x] Prettier: Code formatter for TypeScript
-- [ ] Husky: Git hooks for linting and formatting before commits
+- [x] Husky: Git hooks for linting and formatting before commits
 - [ ] Jest: Testing framework for TypeScript
 - [ ] Supertest: HTTP assertions for testing ExpressJS routes
 - [ ] Docker: Containerization for the application
