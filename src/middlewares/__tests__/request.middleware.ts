@@ -1,9 +1,7 @@
 import express from "express";
 import request from "supertest";
 
-import {
-  requestIdMiddleware
-} from "../request.middleware";
+import { requestIdMiddleware } from "../request.middleware";
 
 describe("request middleware", () => {
   let app: express.Application;
@@ -26,4 +24,3 @@ describe("request middleware", () => {
       .expect(200, done);
   });
 });
-

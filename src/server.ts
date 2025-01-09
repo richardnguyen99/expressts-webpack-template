@@ -16,6 +16,25 @@ import morganMiddleware from "./middlewares/morgan.middleware";
 import { requestIdMiddleware } from "./middlewares/request.middleware";
 import errorHandlerMiddleware from "./middlewares/error.middleware";
 import type { Data } from "./types";
+import logger from "./logger";
+
+const stream = {
+  write: (message: string) => {
+    const messageParts = message.split(" ");
+
+    if (Number(messageParts[messageParts.length - 5]) >= 400) {
+      logger.error(message.replace(/\n$/, ""));
+      return;
+    }
+
+    logger.http(message.replace(/\n$/, ""));
+  },
+};
+
+const skip = () => {
+  const env = process.env.NODE_ENV || "development";
+  return env === "test";
+};
 
 const env_path =
   process.env.NODE_ENV === "test"
@@ -116,7 +135,7 @@ const createApp = async () => {
   app.set("views", "src/views/pages");
 
   // Set up logging
-  app.use(morganMiddleware);
+  app.use(morganMiddleware(stream, skip));
 
   // Set up unique request ID registration
   app.use(requestIdMiddleware);

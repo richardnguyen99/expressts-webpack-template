@@ -4,7 +4,8 @@
   "description": "An ExpressJS + TypeScript + Webpack template",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --all",
+    "test:fails": "jest --onlyFailures",
     "test:cov": "jest --coverage",
     "copy:views": "copyfiles --error -a --up 1 \"src/views/**/*.*\" \"src/fake-data.json\" dist",
     "gen:data": "ts-node faker.ts",
