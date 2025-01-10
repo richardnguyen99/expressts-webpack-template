@@ -1,25 +1,49 @@
-import { ErrorRequestHandler } from "express-serve-static-core";
+import {
+  ErrorRequestHandler,
+  ParamsDictionary,
+  RequestHandler,
+  Query,
+} from "express-serve-static-core";
 import { STATUS_CODES } from "http";
 
 import ExpressError from "../error";
 
-const getErrorTemplate = (statusCode: number) => {
-  if (statusCode >= 400 && statusCode < 500) {
-    return "errors/4xx";
-  }
-
-  return "errors/5xx";
+export type LocalObjs = {
+  error: Error;
+  title: string;
+  statusCode: number;
+  message: string;
 };
 
-const errorHandler: ErrorRequestHandler = (err: ExpressError, _req, res) => {
-  const statusCode = err.status || 500;
-  const message = err.message || "Internal Server Error";
+export type ErrorHandler = RequestHandler<
+  ParamsDictionary,
+  unknown,
+  unknown,
+  Query,
+  LocalObjs
+>;
 
-  res.status(statusCode).render(getErrorTemplate(statusCode), {
-    title: STATUS_CODES[statusCode],
-    statusCode,
-    message,
-  });
+const errorHandler = (
+  cb: ErrorHandler,
+): ErrorRequestHandler<
+  ParamsDictionary,
+  unknown,
+  unknown,
+  Query,
+  LocalObjs
+> => {
+  return (err: ExpressError, req, res, next) => {
+    const statusCode = err.status || 500;
+    const message = err.message;
+
+    res.locals.error = err;
+    res.locals.title = STATUS_CODES[statusCode]!;
+    res.locals.statusCode = statusCode;
+    res.locals.message = message;
+    res.status(statusCode);
+
+    cb(req, res, next);
+  };
 };
 
 export default errorHandler;

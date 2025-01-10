@@ -2,10 +2,10 @@ class ExpressError extends Error {
   private _status: number;
   private _message: string;
 
-  constructor(message: string, status: number) {
+  constructor(message?: string, status?: number) {
     super();
-    this._message = message;
-    this._status = status;
+    this._message = message || "Internal Server Error";
+    this._status = status || 500;
   }
 
   public get status() {

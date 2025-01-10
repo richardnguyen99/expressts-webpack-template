@@ -4,19 +4,35 @@ import Express from "express";
 import dotenv from "dotenv";
 import methodOverride from "method-override";
 import cookieParser from "cookie-parser";
-import { engine as hbsEngine } from "express-handlebars";
-import {
-  getCountryDataList,
-  getEmojiFlag,
-  type TCountryCode,
-} from "countries-list";
 
 import getAppRouter from "./routes";
 import morganMiddleware from "./middlewares/morgan.middleware";
 import { requestIdMiddleware } from "./middlewares/request.middleware";
-import errorHandlerMiddleware from "./middlewares/error.middleware";
+import errorHandlerMiddleware, {
+  ErrorHandler,
+} from "./middlewares/error.middleware";
 import type { Data } from "./types";
 import logger from "./logger";
+import hbsEngine from "./engine";
+
+const getErrorTemplate: ErrorHandler = (_req, res, _next) => {
+  const data = {
+    title: res.locals.title,
+    statusCode: res.locals.statusCode,
+    message: res.locals.message,
+  };
+
+  if (res.locals.statusCode >= 400 && res.locals.statusCode < 500) {
+    res.render("errors/4xx", data);
+    return;
+  }
+
+  res.render("errors/5xx", {
+    title: res.locals.title,
+    statusCode: res.locals.statusCode,
+    message: res.locals.message,
+  });
+};
 
 const stream = {
   write: (message: string) => {
@@ -78,57 +94,7 @@ const createApp = async () => {
   app.engine(
     "hbs",
     hbsEngine({
-      partialsDir: [path.join(__dirname, "views", "partials")],
-      extname: "hbs",
-      defaultLayout: path.join(
-        __dirname,
-        "views",
-        "partials",
-        "layouts",
-        "main.hbs",
-      ),
-      layoutsDir: path.join(__dirname, "views", "partials", "layouts"),
-      helpers: {
-        manifest(assetPath: string) {
-          if (manifest[assetPath]) {
-            return manifest[assetPath];
-          }
-
-          console.error(`Asset not found in manifest: ${assetPath}`);
-        },
-
-        concat: (...args: unknown[]) => args.slice(0, -1).join(""),
-        flag: (countryCode: TCountryCode) => getEmojiFlag(countryCode),
-        countryName: (countryCode: TCountryCode) => {
-          const country = getCountryDataList().find(
-            (c) => c.iso2 === countryCode,
-          );
-
-          return country?.name;
-        },
-        eq: (a: unknown, b: unknown) => a === b,
-        uppercase: (str: string) => str.toUpperCase(),
-        lowercase: (str: string) => str.toLowerCase(),
-        capitalize: (str: string) => str.charAt(0).toUpperCase() + str.slice(1),
-        len: (arr: unknown[]) => arr.length,
-        fullname: (firstName: string, lastName: string) =>
-          `${firstName} ${lastName}`,
-        isoDatetime: (timestamp: number) => {
-          const date = new Date(timestamp);
-
-          return date.toISOString();
-        },
-        date: (
-          format: Intl.DateTimeFormatOptions["dateStyle"],
-          timestamp: number,
-        ) => {
-          const date = new Date(timestamp);
-
-          return new Intl.DateTimeFormat("en-US", {
-            dateStyle: format,
-          }).format(date);
-        },
-      },
+      manifest,
     }),
   );
   app.set("view engine", "hbs");
@@ -157,7 +123,7 @@ const createApp = async () => {
   const appRouter = getAppRouter();
   app.use(appRouter);
 
-  app.use(errorHandlerMiddleware);
+  app.use(errorHandlerMiddleware(getErrorTemplate));
 
   return app;
 };
