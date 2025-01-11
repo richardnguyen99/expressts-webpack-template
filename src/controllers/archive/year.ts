@@ -2,7 +2,7 @@ import type { Request, Response } from "express-serve-static-core";
 
 import getArchives from "../../utils/archives";
 
-const archiveYearHandler = async (req: Request, res: Response) => {
+const archiveYearController = async (req: Request, res: Response) => {
   const { year } = req.params;
   const archiveList = await getArchives();
 
@@ -26,4 +26,4 @@ const archiveYearHandler = async (req: Request, res: Response) => {
   });
 };
 
-export default archiveYearHandler;
+export default archiveYearController;

@@ -6,7 +6,7 @@ import type {
 
 import { getMeta } from "../utils/meta";
 
-const loginHandler: RequestHandler = (_req: Request, res: Response) => {
+const loginController: RequestHandler = (_req: Request, res: Response) => {
   const meta = Object.entries(
     getMeta({
       title: "Login | ExWt",
@@ -21,4 +21,4 @@ const loginHandler: RequestHandler = (_req: Request, res: Response) => {
   res.render("login", { title: "Login", page: "/login", meta });
 };
 
-export default loginHandler;
+export default loginController;

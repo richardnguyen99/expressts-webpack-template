@@ -5,7 +5,7 @@ import {
 import { getPostById } from "../../utils/posts";
 import { getCommentsByUserId } from "../../utils/comments";
 
-const userCommentHandler = async (req: UserRequest, res: UserResponse) => {
+const userCommentController = async (req: UserRequest, res: UserResponse) => {
   const comments = await getCommentsByUserId(req.params.id);
 
   const posts = await Promise.all(
@@ -45,4 +45,4 @@ const userCommentHandler = async (req: UserRequest, res: UserResponse) => {
   res.render("users/comments", commentsData);
 };
 
-export default userCommentHandler;
+export default userCommentController;

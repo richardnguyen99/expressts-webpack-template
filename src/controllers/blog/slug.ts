@@ -2,7 +2,7 @@ import { Request, Response } from "express-serve-static-core";
 
 import { getPosts, getPostsBySlug } from "../../utils/posts";
 
-const blogSlugHandler = async (req: Request, res: Response) => {
+const blogSlugController = async (req: Request, res: Response) => {
   const post = await getPostsBySlug(req.params.slug);
 
   if (post === null) {
@@ -23,4 +23,4 @@ const blogSlugHandler = async (req: Request, res: Response) => {
   });
 };
 
-export default blogSlugHandler;
+export default blogSlugController;

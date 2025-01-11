@@ -16,7 +16,7 @@ export const blogIndexRedirectMiddleware = (
   next();
 };
 
-const blogIndexHandler = async (req: Request, res: Response) => {
+const blogIndexController = async (req: Request, res: Response) => {
   const { category } = req.query;
 
   if (typeof category !== "string") {
@@ -45,4 +45,4 @@ const blogIndexHandler = async (req: Request, res: Response) => {
   });
 };
 
-export default blogIndexHandler;
+export default blogIndexController;

@@ -5,7 +5,7 @@ import {
   type UserResponse,
 } from "../../middlewares/user.middleware";
 
-const userProfileHandler = async (req: UserRequest, res: UserResponse) => {
+const userProfileController = async (req: UserRequest, res: UserResponse) => {
   const countriesWithFlags = getCountryDataList().map((country) => {
     return {
       ...country,
@@ -35,4 +35,4 @@ const userProfileHandler = async (req: UserRequest, res: UserResponse) => {
   res.render("users/profile", profileData);
 };
 
-export default userProfileHandler;
+export default userProfileController;

@@ -1,14 +1,14 @@
 import { Router } from "express";
 
 import { cachableMiddleware } from "../middlewares/cache.middleware";
-import archiveHomeHandler from "./archive/home";
-import archiveYearHandler from "./archive/year";
-import archiveMonthHandler from "./archive/month";
+import archiveHomeController from "../controllers/archive/home";
+import archiveYearController from "../controllers/archive/year";
+import archiveMonthController from "../controllers/archive/month";
 
 const archivesRouter: Router = Router();
 
-archivesRouter.get("/", cachableMiddleware, archiveHomeHandler);
-archivesRouter.get("/:year", cachableMiddleware, archiveYearHandler);
-archivesRouter.get("/:year/:month", cachableMiddleware, archiveMonthHandler);
+archivesRouter.get("/", cachableMiddleware, archiveHomeController);
+archivesRouter.get("/:year", cachableMiddleware, archiveYearController);
+archivesRouter.get("/:year/:month", cachableMiddleware, archiveMonthController);
 
 export default archivesRouter;

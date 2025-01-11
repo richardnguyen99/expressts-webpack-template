@@ -3,7 +3,7 @@ import type { Request, Response } from "express-serve-static-core";
 import getArchives from "../../utils/archives";
 import { monthNames } from "../../utils/date";
 
-const archiveMonthHandler = async (req: Request, res: Response) => {
+const archiveMonthController = async (req: Request, res: Response) => {
   const { year, month: monthStr } = req.params;
   const archiveList = await getArchives();
 
@@ -41,4 +41,4 @@ const archiveMonthHandler = async (req: Request, res: Response) => {
   });
 };
 
-export default archiveMonthHandler;
+export default archiveMonthController;

@@ -4,7 +4,7 @@ import {
 } from "../../middlewares/user.middleware";
 import { getPostsByUserId } from "../../utils/posts";
 
-const userPostHandler = async (req: UserRequest, res: UserResponse) => {
+const userPostController = async (req: UserRequest, res: UserResponse) => {
   const posts = await getPostsByUserId(req.params.id, {
     limit: 10,
     includes: ["comments"],
@@ -32,4 +32,4 @@ const userPostHandler = async (req: UserRequest, res: UserResponse) => {
   res.render("users/posts", postsData);
 };
 
-export default userPostHandler;
+export default userPostController;

@@ -3,7 +3,10 @@ import {
   type UserResponse,
 } from "../../middlewares/user.middleware";
 
-const userNotificationHandler = async (req: UserRequest, res: UserResponse) => {
+const userNotificationController = async (
+  req: UserRequest,
+  res: UserResponse,
+) => {
   const notificationData = {
     title: `Notifications @ ${res.locals.user?.profile?.firstName} ${res.locals.user?.profile?.lastName}`,
     page: "/notifications",
@@ -25,4 +28,4 @@ const userNotificationHandler = async (req: UserRequest, res: UserResponse) => {
   res.render("users/notifications", notificationData);
 };
 
-export default userNotificationHandler;
+export default userNotificationController;

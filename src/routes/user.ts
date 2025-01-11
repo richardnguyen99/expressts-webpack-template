@@ -1,12 +1,12 @@
 import { Router } from "express";
 import type { Request, Response } from "express-serve-static-core";
 
-import userCommmentHandler from "./user/comment";
-import userPostHandler from "./user/post";
-import userNotificationHandler from "./user/notification";
-import userDeviceHandler from "./user/device";
-import userProfileHandler from "./user/profile";
-import userHoverCardHandler from "./user/hover-card";
+import userCommmentController from "../controllers/user/comment";
+import userPostController from "../controllers/user/post";
+import userNotificationController from "../controllers/user/notification";
+import userDeviceController from "../controllers/user/device";
+import userProfileController from "../controllers/user/profile";
+import userHoverCardController from "../controllers/user/hover-card";
 import {
   fetchUserMiddleware,
   type UserRequest,
@@ -28,42 +28,42 @@ userRouter.get(
   "/:id/profile",
   fetchUserMiddleware,
   noCacheMiddleware,
-  userProfileHandler,
+  userProfileController,
 );
 
 userRouter.get(
   "/:id/devices",
   fetchUserMiddleware,
   noCacheMiddleware,
-  userDeviceHandler,
+  userDeviceController,
 );
 
 userRouter.get(
   "/:id/notifications",
   fetchUserMiddleware,
   noCacheMiddleware,
-  userNotificationHandler,
+  userNotificationController,
 );
 
 userRouter.get(
   "/:id/posts",
   fetchUserMiddleware,
   noCacheMiddleware,
-  userPostHandler,
+  userPostController,
 );
 
 userRouter.get(
   "/:id/comments",
   fetchUserMiddleware,
   noCacheMiddleware,
-  userCommmentHandler,
+  userCommmentController,
 );
 
 userRouter.get(
   "/:id/hover-card",
   fetchUserMiddleware,
   cachableMiddleware,
-  userHoverCardHandler,
+  userHoverCardController,
 );
 
 userRouter.delete(

@@ -2,7 +2,7 @@ import type { Request, Response } from "express-serve-static-core";
 
 import getArchives from "../../utils/archives";
 
-const archiveHomeHandler = async (_req: Request, res: Response) => {
+const archiveHomeController = async (_req: Request, res: Response) => {
   const archiveList = Object.entries(await getArchives()).sort(
     (a, b) => Number(b[0]) - Number(a[0]),
   );
@@ -22,4 +22,4 @@ const archiveHomeHandler = async (_req: Request, res: Response) => {
   });
 };
 
-export default archiveHomeHandler;
+export default archiveHomeController;

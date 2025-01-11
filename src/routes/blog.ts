@@ -1,8 +1,8 @@
 import { Router } from "express";
 
-import blogIndexHandler, { blogIndexRedirectMiddleware } from "./blog/home";
-import blogNewHandler from "./blog/new";
-import blogSlugHandler from "./blog/slug";
+import blogIndexController, { blogIndexRedirectMiddleware } from "../controllers/blog/home";
+import blogNewController from "../controllers/blog/new";
+import blogSlugController from "../controllers/blog/slug";
 import {
   noCacheMiddleware,
   cachableMiddleware,
@@ -10,17 +10,17 @@ import {
 
 const blogRouter: Router = Router();
 
-blogRouter.get("/new", noCacheMiddleware, blogNewHandler.get);
+blogRouter.get("/new", noCacheMiddleware, blogNewController.get);
 
-blogRouter.post("/new", noCacheMiddleware, blogNewHandler.post);
+blogRouter.post("/new", noCacheMiddleware, blogNewController.post);
 
-blogRouter.get("/:slug", cachableMiddleware, blogSlugHandler);
+blogRouter.get("/:slug", cachableMiddleware, blogSlugController);
 
 blogRouter.get(
   "/",
   blogIndexRedirectMiddleware,
   cachableMiddleware,
-  blogIndexHandler,
+  blogIndexController,
 );
 
 export default blogRouter;

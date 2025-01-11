@@ -56,7 +56,7 @@ will read the JSON files and serve as requested.`,
   },
 ];
 
-const faqHandler: RequestHandler = (_req: Request, res: Response) => {
+const faqController: RequestHandler = (_req: Request, res: Response) => {
   res.render("faq", {
     page: "/faq",
     title: "FAQ",
@@ -75,4 +75,4 @@ const faqHandler: RequestHandler = (_req: Request, res: Response) => {
   });
 };
 
-export default faqHandler;
+export default faqController;

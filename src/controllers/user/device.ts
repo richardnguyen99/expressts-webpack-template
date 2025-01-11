@@ -4,7 +4,7 @@ import {
 } from "../../middlewares/user.middleware";
 import { getLoggedDevicesFromUserId } from "../../utils/devices";
 
-const userDeviceHandler = async (req: UserRequest, res: UserResponse) => {
+const userDeviceController = async (req: UserRequest, res: UserResponse) => {
   const devices = await getLoggedDevicesFromUserId(req.params.id);
 
   const devicesData = {
@@ -29,4 +29,4 @@ const userDeviceHandler = async (req: UserRequest, res: UserResponse) => {
   res.render("users/devices", devicesData);
 };
 
-export default userDeviceHandler;
+export default userDeviceController;

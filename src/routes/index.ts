@@ -2,8 +2,8 @@ import { Router, type RouterOptions } from "express";
 
 import { getTopCategories, getLatestArchives, getPosts } from "../utils/posts";
 import { getMeta } from "../utils/meta";
-import loginHandler from "./login";
-import registerHandler from "./register";
+import loginController from "../controllers/login";
+import registerController from "../controllers/register";
 import faqHandler from "./faq";
 import userRouter from "./user";
 import blogRouter from "./blog";
@@ -85,8 +85,8 @@ const getAppRouter = () => {
     },
   );
 
-  appRouter.get("/login", cachableMiddleware, loginHandler);
-  appRouter.get("/register", cachableMiddleware, registerHandler);
+  appRouter.get("/login", cachableMiddleware, loginController);
+  appRouter.get("/register", cachableMiddleware, registerController);
   appRouter.get("/faq", cachableMiddleware, faqHandler);
 
   appRouter.use("/users", userRouter);

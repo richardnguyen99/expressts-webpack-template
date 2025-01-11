@@ -1,6 +1,6 @@
 import { Request, Response } from "express-serve-static-core";
 
-const blogNewGetHandler = async (req: Request, res: Response) => {
+const blogNewGetController = async (req: Request, res: Response) => {
   const userId = req.query.userId;
 
   if (!userId) {
@@ -11,7 +11,7 @@ const blogNewGetHandler = async (req: Request, res: Response) => {
   res.render("blogs/new", { title: "New blog" });
 };
 
-const blogNewPostHandler = async (req: Request, res: Response) => {
+const blogNewPostController = async (req: Request, res: Response) => {
   const userId = req.query.userId;
 
   if (!userId) {
@@ -22,9 +22,9 @@ const blogNewPostHandler = async (req: Request, res: Response) => {
   res.send("Create blog");
 };
 
-const blogNewHandler = {
-  get: blogNewGetHandler,
-  post: blogNewPostHandler,
+const blogNewController = {
+  get: blogNewGetController,
+  post: blogNewPostController,
 };
 
-export default blogNewHandler;
+export default blogNewController;

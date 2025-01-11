@@ -3,7 +3,7 @@ import {
   type UserResponse,
 } from "../../middlewares/user.middleware";
 
-const userHoverCardHandler = (req: UserRequest, res: UserResponse) => {
+const userHoverCardController = (req: UserRequest, res: UserResponse) => {
   // Check if the request contains a referer header
   if (req.headers["referer"]) {
     res.render("users/_hover_card", {
@@ -16,4 +16,4 @@ const userHoverCardHandler = (req: UserRequest, res: UserResponse) => {
   res.status(406).send("Not Acceptable");
 };
 
-export default userHoverCardHandler;
+export default userHoverCardController;
