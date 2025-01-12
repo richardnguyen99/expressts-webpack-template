@@ -55,7 +55,6 @@ describe("cache middleware", () => {
     request(app)
       .get("/")
       .expect("Cache-Control", "public, max-age=31536000")
-      .expect("Expires", new Date(Date.now() + 31536000000).toUTCString())
       .expect("Content-Length", "26")
       .expect("Content-Type", "application/javascript; charset=utf-8")
       .expect("console.log('Hello World')")

@@ -1,0 +1,162 @@
+import express from "express";
+import request from "supertest";
+import RandExp from "randexp";
+import { faker } from "@faker-js/faker";
+
+import { setupTestApp } from "../../../utils/test";
+import blogIndexController from "../home";
+import { Post, Profile, User, Comment } from "../../../types";
+
+jest.mock("../../../server", () => {
+  const categories = [
+    "technology",
+    "science",
+    "health",
+    "business",
+    "politics",
+    "entertainment",
+    "sports",
+    "travel",
+    "lifestyle",
+    "fashion",
+    "music",
+    "art",
+  ];
+
+  const generateFakeUsers = (): User => {
+    return {
+      username: faker.internet.username(),
+      email: faker.internet.email(),
+      password: new RandExp(/(?=.*[a-z])(?=.*[A-Z])(?=.*d).{8,12}/).gen(),
+      userId: faker.string.nanoid(10),
+      createdAt: faker.date
+        .between({ from: "2019-01-01", to: "2020-12-01" })
+        .getTime(),
+      verified: faker.datatype.boolean(),
+    };
+  };
+
+  const users = faker.helpers.multiple(generateFakeUsers, {
+    count: 5,
+  });
+
+  const generateFakeProfiles = (userIndex: number): Profile => {
+    return {
+      userId: users[userIndex].userId,
+      bio: faker.lorem.paragraph(),
+      firstName: faker.person.firstName(),
+      lastName: faker.person.lastName(),
+      job: faker.person.jobTitle(),
+      phone: faker.phone.number(),
+      dateOfBirth: faker.date
+        .between({ from: "1970-01-01", to: "2003-12-31" })
+        .getTime(),
+      avatar: faker.image.avatar(),
+      gender: faker.person.gender(),
+      country: faker.location.countryCode("alpha-2"),
+      address: faker.location.streetAddress(),
+    };
+  };
+
+  const profiles = faker.helpers.multiple((_, i) => generateFakeProfiles(i), {
+    count: 5,
+  });
+
+  // Generate posts written by the users
+  const generateFakePosts = (): Post => {
+    const title = faker.lorem.sentence().slice(0, -1);
+
+    return {
+      title,
+      slug: title
+        .toLowerCase()
+        .replace(/ /g, "-")
+        .replace(/[^\w-]+/g, ""),
+      content: faker.lorem.paragraphs(
+        {
+          min: 5,
+          max: 15,
+        },
+        "\n\n",
+      ),
+      userId: users[Math.floor(Math.random() * users.length)].userId,
+      postId: faker.string.ulid().toLowerCase(),
+      createdAt: faker.date
+        .between({ from: "2021-01-01", to: "2024-12-01" })
+        .getTime(),
+      views: faker.number.int({ min: 100, max: 10000 }),
+      likes: faker.number.int({ min: 10, max: 1000 }),
+      category: categories[Math.floor(Math.random() * categories.length)],
+      thumbnail: faker.image.urlPicsumPhotos({
+        width: 1280,
+        height: 720,
+        grayscale: false,
+        blur: 1,
+      }),
+    };
+  };
+
+  const posts = faker.helpers.multiple(generateFakePosts, {
+    count: 10,
+  });
+
+  const generateFakeComments = (): Comment => {
+    const postIndex = Math.floor(Math.random() * posts.length);
+
+    return {
+      content: faker.lorem.paragraph(),
+      userId: users[Math.floor(Math.random() * users.length)].userId,
+      postId: posts[postIndex].postId,
+      commentId: faker.string.ulid().toLowerCase(),
+      createdAt: faker.date
+        .between({
+          from: posts[postIndex].createdAt,
+          to: "2024-12-01",
+        })
+        .getTime(),
+    };
+  };
+
+  const comments = faker.helpers.multiple(generateFakeComments, {
+    count: 20,
+  });
+
+  const generated = {
+    users,
+    devices: [],
+    profiles,
+    posts,
+    comments,
+  };
+
+  return {
+    mockedData: Promise.resolve(generated),
+  };
+});
+
+describe("Blog Home Controller", () => {
+  let app: express.Application;
+
+  beforeAll(() => {
+    app = express();
+    setupTestApp(app);
+
+    app.get("/blogs", blogIndexController);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
+  it("should return an error if query string is missing", async () => {
+    const response = await request(app).get("/blogs");
+
+    expect(response.status).toBe(400);
+  });
+
+  it("should return a list of posts", async () => {
+    const response = await request(app).get("/blogs?category=latest");
+
+    expect(response.status).toBe(200);
+  });
+});

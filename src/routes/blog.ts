@@ -1,6 +1,8 @@
 import { Router } from "express";
 
-import blogIndexController, { blogIndexRedirectMiddleware } from "../controllers/blog/home";
+import blogIndexController, {
+  blogIndexRedirectMiddleware,
+} from "../controllers/blog/home";
 import blogNewController from "../controllers/blog/new";
 import blogSlugController from "../controllers/blog/slug";
 import {

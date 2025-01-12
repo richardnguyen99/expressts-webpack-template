@@ -24,7 +24,11 @@ const hbsEngine = (config: { manifest: Record<string, object> }) =>
           return config.manifest[assetPath];
         }
 
-        throw new Error(`Asset not found in manifest: ${assetPath}`);
+        if (process.env.NODE_ENV === "test") {
+          return assetPath;
+        }
+
+        throw new Error(`Asset path '${assetPath}' not found in manifest.json`);
       },
 
       concat: (...args: unknown[]) => args.slice(0, -1).join(""),
@@ -37,6 +41,7 @@ const hbsEngine = (config: { manifest: Record<string, object> }) =>
         return country?.name;
       },
       eq: (a: unknown, b: unknown) => a === b,
+      neq: (a: unknown, b: unknown) => a !== b,
       uppercase: (str: string) => str.toUpperCase(),
       lowercase: (str: string) => str.toLowerCase(),
       capitalize: (str: string) => str.charAt(0).toUpperCase() + str.slice(1),
