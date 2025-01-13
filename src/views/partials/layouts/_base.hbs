@@ -1,13 +1,12 @@
 <!DOCTYPE html>
 <html lang="en" data-bs-theme="auto">
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{#> title}}{{/title}} | ExWt</title>
 
-
     <!-- Meta and SEO tags -->
-    <link rel="icon" type="image/x-icon" href={{manifest "assets//favicon.ico"}}></link>
+    <link rel="icon" type="image/x-icon" href="{{manifest "assets//favicon.ico"}}">
     {{#each meta as |meta|}}
     <meta name="{{meta.[0]}}" content="{{meta.[1]}}" />
     {{/each}}
@@ -17,16 +16,14 @@
     {{> includes/_manifest }}
     {{/if}}
 
-    <script src="{{manifest "theme.js"}}">
-    </script>
-    <link rel="stylesheet" href={{ manifest "styles.css" }} />
+    <script src="{{manifest "theme.js"}}"></script>
+    <link rel="stylesheet" href="{{ manifest "styles.css" }}">
     {{#> styles}}
     {{/styles}}
-
-
   </head>
   <body>
     {{> includes/_bootstrap_icon }}
+
     {{> includes/_header }}
 
     <main>
@@ -38,12 +35,11 @@
 
     <script src="https://unpkg.com/htmx.org@2.0.4"></script>
 
-    <script text="javascript" src={{manifest "vendors.js" }}></script>
-    <script text="javascript" src={{manifest "runtime.js" }}></script>
-    <script text="javascript" src={{manifest "main.js" }}></script>
+    <script text="javascript" src="{{manifest "vendors.js"}}"></script>
+    <script text="javascript" src="{{manifest "runtime.js"}}"></script>
+    <script text="javascript" src="{{manifest "main.js"}}"></script>
     {{#> scripts}}
     {{/scripts}}
-
   </body>
 </html>
 

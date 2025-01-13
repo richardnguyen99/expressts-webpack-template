@@ -2,14 +2,14 @@
 
 {{#*inline "title"}}
   {{#if title}}
-    {{title}}
+    {{~title~}}
   {{else}}
     Blogs
   {{/if}}
 {{/inline}}
 
 {{#*inline "styles"}}
-<link rel="stylesheet" href="{{manifest "blogStyles.css"}}">
+    <link rel="stylesheet" href="{{manifest "blogStyles.css"}}">
 {{/inline}}
 
 {{#*inline "body"}}
@@ -109,6 +109,7 @@
       <div class="d-flex flex-column justify-content-between gap-2">
         {{#each posts as |post|}}
           {{> includes/_article_list_blog_item post=post }}
+
         {{/each}}
       </div>
     </div>

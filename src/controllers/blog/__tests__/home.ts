@@ -1,6 +1,6 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
 import express from "express";
 import request from "supertest";
+import * as cheerio from "cheerio";
 
 import { setupTestApp } from "../../../utils/test";
 import blogIndexController from "../home";
@@ -54,5 +54,10 @@ describe("Blog Home Controller", () => {
     const response = await request(app).get("/blogs?category=latest");
 
     expect(response.status).toBe(200);
+    expect(response.text).toBeDefined();
+
+    const $ = cheerio.load(response.text);
+
+    expect($("head > title").text()).toBe("Blogs | ExWt");
   });
 });
