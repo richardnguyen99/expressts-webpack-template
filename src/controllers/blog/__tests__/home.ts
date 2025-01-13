@@ -3,7 +3,7 @@ import request from "supertest";
 import * as cheerio from "cheerio";
 
 import { setupTestApp } from "../../../utils/test";
-import blogIndexController from "../home";
+import blogIndexController, { blogIndexRedirectMiddleware } from "../home";
 import { getPosts, getTopCategories } from "../../../utils/posts";
 
 jest.mock("../../../server", () => {
@@ -38,17 +38,18 @@ describe("Blog Home Controller", () => {
     app = express();
     setupTestApp(app);
 
-    app.get("/blogs", blogIndexController);
+    app.get("/blogs", blogIndexRedirectMiddleware, blogIndexController);
   });
 
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  it("should return an error if query string is missing", async () => {
+  it("should return a redirect to latest when query is missing", async () => {
     const response = await request(app).get("/blogs");
 
-    expect(response.status).toBe(400);
+    expect(response.status).toBe(301);
+    expect(response.header.location).toBe("/blogs?category=latest");
   });
 
   it("should return a list of posts", async () => {

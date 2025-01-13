@@ -19,21 +19,15 @@ export const blogIndexRedirectMiddleware = (
 const blogIndexController = async (req: Request, res: Response) => {
   const { category } = req.query;
 
-  if (typeof category !== "string") {
-    res.status(400).send("Invalid category");
-    return;
-  }
-
-  const topCategories = await getTopCategories(10);
-
   const posts = await getPosts({
-    category,
+    category: category as string,
     limit: 10,
     sortedBy: "latest",
     order: "desc",
     includes: ["author", "comments", "timetoread"],
   });
 
+  const topCategories = await getTopCategories(10);
   topCategories.unshift("latest");
 
   res.render("blogs", {
