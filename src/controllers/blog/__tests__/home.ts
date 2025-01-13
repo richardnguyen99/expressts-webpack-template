@@ -14,8 +14,8 @@ jest.mock("../../../server", () => {
 
   const users = fakeUsers(5);
   const profiles = fakeProfiles(users);
-  const posts = fakePosts(10, users);
-  const comments = fakeComments(20, users, posts);
+  const posts = fakePosts(20, users);
+  const comments = fakeComments(50, users, posts);
 
   const generated = {
     users,
@@ -149,6 +149,29 @@ describe("Blog Home Controller", () => {
       expect($ttr.find("span").text()).toBe(
         posts[index].timeToRead?.toString() + " min read",
       );
+    });
+  });
+
+  it("should return a list of posts for a specific category", async () => {
+    const response = await request(app).get("/blogs?category=sports");
+
+    expect(response.status).toBe(200);
+    expect(response.text).toBeDefined();
+
+    const $ = cheerio.load(response.text);
+    const topCategories = await getTopCategories(10);
+    topCategories.unshift("latest");
+
+    expect($("head > title").text()).toBe("Blogs | ExWt");
+
+    const $offcanvasActiveItem = $(".blog__offcanvas-link[aria-current]");
+    expect($offcanvasActiveItem.length).toBe(1);
+    expect($offcanvasActiveItem.find("p").text().toLowerCase()).toBe("sports");
+
+    const $blogItems = $(".article-list-blog-item");
+
+    $blogItems.each((_index, element) => {
+      expect($(element).attr("data-test-category")).toBe("sports");
     });
   });
 });

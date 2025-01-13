@@ -116,7 +116,7 @@ export const fakeProfiles = (
   });
 };
 
-export const fakePostGenerator = (users: User[]): Post => {
+export const fakePostGenerator = (users: User[], i: number): Post => {
   const title = faker.lorem.sentence().slice(0, -1);
 
   return {
@@ -130,7 +130,6 @@ export const fakePostGenerator = (users: User[]): Post => {
         min: 5,
         max: 15,
       },
-      "\n\n",
     ),
     userId: users[Math.floor(Math.random() * users.length)].userId,
     postId: faker.string.ulid().toLowerCase(),
@@ -139,7 +138,7 @@ export const fakePostGenerator = (users: User[]): Post => {
       .getTime(),
     views: faker.number.int({ min: 100, max: 10000 }),
     likes: faker.number.int({ min: 10, max: 1000 }),
-    category: fakeCategories[Math.floor(Math.random() * fakeCategories.length)],
+    category: fakeCategories[i % fakeCategories.length],
     thumbnail: faker.image.urlPicsumPhotos({
       width: 1280,
       height: 720,
@@ -154,7 +153,7 @@ export const fakePosts = (
   users: User[],
   generator: typeof fakePostGenerator = fakePostGenerator,
 ): Post[] => {
-  return faker.helpers.multiple((_a, _b) => generator(users), { count });
+  return faker.helpers.multiple((_v, i) => generator(users, i), { count });
 };
 
 export const fakeCommentGenerator = (users: User[], posts: Post[]): Comment => {
