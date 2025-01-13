@@ -1,6 +1,6 @@
 <article
   class="article-list-blog-item"
-  data-test-article-id="{{post.id}}"
+  data-test-article-id="{{post.postId}}"
   data-test-author-id="{{post.author.userId}}"
   data-test-slug="/blogs/{{post.slug}}"
   data-test-category="{{post.category}}"
@@ -26,16 +26,14 @@
 
         <span class="article-list-blog-item__category">
           <i class="bi bi-tag-fill"></i>
-          <a href="/blogs?category={{post.category}}">{{capitalize
-              post.category
-            }}</a>
+          <a href="/blogs?category={{post.category}}">{{capitalize post.category}}</a>
         </span>
       </div>
 
       <a href="/blogs/{{post.slug}}" class="article-list-blog-item__title">
         <h2>{{post.title}}</h2>
       </a>
-
+>
       <p class="article-list-blog-item__excerpt">
         {{post.content}}
       </p>
@@ -44,20 +42,14 @@
         <div class="article-list-blog-item__avatar">
           <img
             src="{{post.author.profile.avatar}}"
-            alt="{{fullname
-              post.author.profile.firstName
-              post.author.profile.lastName
-            }}"
+            alt="{{fullname post.author.profile.firstName post.author.profile.lastName}}"
           />
         </div>
 
         <div class="article-list-blog-item__author">
           <span>By</span>
           <a href="/users/{{post.author.userId}}">
-            {{fullname
-              post.author.profile.firstName
-              post.author.profile.lastName
-            }}
+            {{~fullname post.author.profile.firstName post.author.profile.lastName~}}
           </a>
         </div>
       </div>

@@ -262,7 +262,7 @@ export const getTopCategories = async (count: number) => {
   );
 
   const topCategories = Object.keys(categories)
-    .sort((a, b) => categories[b] - categories[a])
+    .sort((a, b) => categories[b] - categories[a] || a.localeCompare(b))
     .slice(0, count);
 
   return topCategories;

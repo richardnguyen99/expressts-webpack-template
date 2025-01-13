@@ -63,7 +63,7 @@
       <div class="offcanvas-body position-sticky top-0 bottom-0">
         <div class="d-flex flex-column flex-shrink-0 w-100">
           <!-- Sidebar items -->
-          <ul class="nav nav-pills flex-column mb-auto">
+          <ul class="blog__offcanvas nav nav-pills flex-column mb-auto">
             {{#each topCategories as |category|}}
               {{> includes/_blog_sidebar_item category=category categoryQuery=@root.categoryQuery }}
             {{/each}}
@@ -105,8 +105,11 @@
     </div>
 
     <!-- Main content -->
-    <div class="col-12 col-md-8 col-lg-9 mt-3">
-      <div class="d-flex flex-column justify-content-between gap-2">
+    <div class="col-12 col-md-8 col-lg-9 mt-0">
+      <div
+        class="article-list-blog d-flex flex-column justify-content-between gap-2"
+        data-test-component="article-list-blog"
+      >
         {{#each posts as |post|}}
           {{> includes/_article_list_blog_item post=post }}
 
