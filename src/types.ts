@@ -59,7 +59,7 @@ export type Like = {
   userId: string;
   postId: string;
   createdAt: number;
-}
+};
 
 export type Post = {
   title: string;
