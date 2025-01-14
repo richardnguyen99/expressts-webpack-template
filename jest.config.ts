@@ -100,7 +100,20 @@ const config: Config = {
   preset: "ts-jest",
 
   // Run tests from one or more projects
-  // projects: undefined,
+  projects: [
+    {
+      displayName: "middlewares",
+      testMatch: ["<rootDir>/src/middlewares/__tests__/*.ts"],
+      setupFilesAfterEnv: [],
+    },
+    {
+      displayName: "blog-controllers",
+      testMatch: ["<rootDir>/src/controllers/blog/__tests__/*.ts"],
+      setupFilesAfterEnv: [
+        "<rootDir>/src/controllers/blog/__tests__/setup/mock.ts",
+      ],
+    },
+  ],
 
   // Use this configuration option to add custom reporters to Jest
   // reporters: undefined,
@@ -150,9 +163,7 @@ const config: Config = {
   // testLocationInResults: false,
 
   // The glob patterns Jest uses to detect test files
-  testMatch: [
-    "**/__tests__/**/*.ts",
-  ],
+  testMatch: ["**/__tests__/**/*.ts"],
 
   // An array of regexp pattern strings that are matched against all test paths, matched tests are skipped
   // testPathIgnorePatterns: [

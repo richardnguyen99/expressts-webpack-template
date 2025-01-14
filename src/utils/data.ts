@@ -125,12 +125,10 @@ export const fakePostGenerator = (users: User[], i: number): Post => {
       .toLowerCase()
       .replace(/ /g, "-")
       .replace(/[^\w-]+/g, ""),
-    content: faker.lorem.paragraphs(
-      {
-        min: 5,
-        max: 15,
-      },
-    ),
+    content: faker.lorem.paragraphs({
+      min: 5,
+      max: 15,
+    }),
     userId: users[Math.floor(Math.random() * users.length)].userId,
     postId: faker.string.ulid().toLowerCase(),
     createdAt: faker.date
