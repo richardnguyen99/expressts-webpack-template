@@ -6,6 +6,7 @@ import { setupTestApp } from "../../../utils/test";
 import blogSlugController from "../slug";
 import { mockedData } from "../../../server";
 import { Post } from "../../../types";
+import { getPosts } from "../../../utils/posts";
 
 describe("Blog Slug Controller", () => {
   let app: express.Application;
@@ -344,6 +345,65 @@ describe("Blog Slug Controller", () => {
     const $authorJob = $authorTitle.find(".blog__extra__author__job");
     expect($authorJob.length).toBe(1);
     expect($authorJob.text()).toBe(post.author?.profile.job);
+  });
+
+  it("should render the related posts correctly", async () => {
+    const relatedPosts = await getPosts({
+      limit: 3,
+      category: post.category,
+      sortedBy: "views",
+      order: "desc",
+    });
+
+    const $relatedPosts = $(".blog__extra__related");
+    expect($relatedPosts.length).toBe(1);
+
+    const $title = $relatedPosts.find("h2");
+    expect($title.length).toBe(1);
+    expect($title.text()).toBe("Related Posts");
+
+    const $postList = $relatedPosts.find("ul");
+    expect($postList.length).toBe(1);
+
+    const $postItems = $postList.children();
+    expect($postItems.length).toBe(relatedPosts.length);
+
+    $postItems.each((index, element) => {
+      const $postItem = $(element);
+      const relatedPost = relatedPosts[index];
+
+      expect($postItem.get(0)?.tagName).toBe("li");
+
+      const $postLink = $postItem.find("a.article-list-short-item");
+      expect($postLink.length).toBe(1);
+      expect($postLink.attr("href")).toBe(`/blogs/${relatedPost.slug}`);
+      expect($postLink.get(0)?.tagName).toBe("a");
+
+      const $postThumbnail = $postLink.find(".article-list-short-item__thumbnail");
+      expect($postThumbnail.length).toBe(1);
+
+      const $thumbnailImage = $postThumbnail.find("img");
+      expect($thumbnailImage.length).toBe(1);
+      expect($thumbnailImage.attr("src")).toBe(relatedPost.thumbnail);
+      expect($thumbnailImage.attr("alt")).toBe(`${relatedPost.title} thumbnail`);
+      expect($thumbnailImage.attr("width")).toBe("100%");
+      expect($thumbnailImage.attr("height")).toBe("100%");
+
+      const $postHeader = $postLink.children().eq(1);
+      expect($postHeader.length).toBe(1);
+
+      const $postHeading = $postHeader.find("h6.article-list-short-item__title");
+      expect($postHeading.length).toBe(1);
+      expect($postHeading.text()).toBe(relatedPost.title);
+
+      const $postDate = $postHeader.find("small.article-list-short-item__date");
+      expect($postDate.length).toBe(1);
+      expect($postDate.text()).toBe(
+        new Intl.DateTimeFormat("en-US", {
+          dateStyle: "medium",
+        }).format(new Date(relatedPost.createdAt)),
+      );
+    });
   });
 
   it("should return a 404 for an invalid blog post", async () => {
