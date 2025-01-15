@@ -2,7 +2,7 @@
 
 {{#*inline "title"}}
   {{#if post.title}}
-    {{post.title}}
+    {{~post.title~}}
   {{else}}
     Blogs
   {{/if}}
@@ -28,7 +28,7 @@
         </div>
 
         <h1 class="blog__content__title">
-          {{post.title}}
+          {{~post.title~}}
         </h1>
 
         <div class="blog__content__info">
@@ -49,28 +49,28 @@
           </div>
 
           <div class="blog__content__info__metadata">
-            <span class="blog__content__info__metadata__category">{{capitalize post.category}}</span>
+            <div class="blog__content__info__metadata__category">{{capitalize post.category}}</div>
 
-            <span class="blog__content__info__separator">|</span>
+            <div class="blog__content__info__separator">|</div>
 
-            <span class="blog__content__info__metadata__views">
+            <div class="blog__content__info__metadata__views">
               <i class="bi bi-eye"></i>
-              {{post.views}}
-            </span>
+              <span>{{~post.views~}}</span>
+            </div>
 
-            <span class="blog__content__info__separator">|</span>
+            <div class="blog__content__info__separator">|</div>
 
-            <span class="blog__content__info__metadata__likes">
+            <div class="blog__content__info__metadata__likes">
               <i class="bi bi-heart"></i>
-              {{post.likes}}
-            </span>
+              <span>{{~post.likes~}}</span>
+            </div>
 
-            <span class="blog__content__info__separator">|</span>
+            <div class="blog__content__info__separator">|</div>
 
-            <span class="blog__content__info__metadata__comments">
+            <div class="blog__content__info__metadata__comments">
               <i class="bi bi-chat"></i>
-              {{len post.comments}}
-            </span>
+              <span>{{~len post.comments~}}</span>
+            </div>
           </div>
         </div>
 
