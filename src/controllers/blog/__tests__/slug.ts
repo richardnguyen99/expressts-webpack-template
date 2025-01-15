@@ -293,6 +293,21 @@ describe("Blog Slug Controller", () => {
     expect($commentButton.attr("type")).toBe("submit");
   });
 
+  it("should render the extra column correctly", () => {
+    const $extraColumn = $(".blog__extra");
+    expect($extraColumn.length).toBe(1);
+    expect($extraColumn.children().length).toBe(3);
+
+    const $authorCard = $extraColumn.find(".blog__extra__author");
+    expect($authorCard.length).toBe(1);
+
+    const $relatedPosts = $extraColumn.find(".blog__extra__related");
+    expect($relatedPosts.length).toBe(1);
+
+    const $socials = $extraColumn.find(".blog__extra__socials");
+    expect($socials.length).toBe(1);
+  });
+
   it("should return a 404 for an invalid blog post", async () => {
     expect(invalidResponse.status).toBe(404);
     expect(invalidResponse.text).toBe("Post not found");
