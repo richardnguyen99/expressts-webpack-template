@@ -308,6 +308,44 @@ describe("Blog Slug Controller", () => {
     expect($socials.length).toBe(1);
   });
 
+  it("should render the author card correctly", () => {
+    const $authorCard = $(".blog__extra__author");
+    expect($authorCard.length).toBe(1);
+
+    const $authorBrief = $authorCard.find(".blog__extra__author__brief");
+    expect($authorBrief.length).toBe(1);
+
+    const $authorBio = $authorCard.find(".blog__extra__author__bio");
+    expect($authorBio.length).toBe(1);
+    expect($authorBio.find("p").text()).toBe(post.author?.profile.bio);
+
+    const $authorAvatar = $authorBrief.find(".blog__extra__author__avatar");
+    expect($authorAvatar.length).toBe(1);
+    expect($authorAvatar.attr("href")).toBe(
+      `/users/${post.author?.userId}/profile`,
+    );
+
+    const $authorAvatarImage = $authorAvatar.find("img");
+    expect($authorAvatarImage.length).toBe(1);
+    expect($authorAvatarImage.attr("src")).toBe(post.author?.profile.avatar);
+    expect($authorAvatarImage.attr("alt")).toBe(
+      post.author?.profile.firstName + " " + post.author?.profile.lastName,
+    );
+
+    const $authorTitle = $authorBrief.find(".blog__extra__author__title");
+    expect($authorTitle.length).toBe(1);
+
+    const $authorName = $authorTitle.find(".blog__extra__author__name");
+    expect($authorName.length).toBe(1);
+    expect($authorName.text()).toBe(
+      post.author?.profile.firstName + " " + post.author?.profile.lastName,
+    );
+
+    const $authorJob = $authorTitle.find(".blog__extra__author__job");
+    expect($authorJob.length).toBe(1);
+    expect($authorJob.text()).toBe(post.author?.profile.job);
+  });
+
   it("should return a 404 for an invalid blog post", async () => {
     expect(invalidResponse.status).toBe(404);
     expect(invalidResponse.text).toBe("Post not found");
