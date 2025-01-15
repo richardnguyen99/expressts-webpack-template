@@ -379,20 +379,26 @@ describe("Blog Slug Controller", () => {
       expect($postLink.attr("href")).toBe(`/blogs/${relatedPost.slug}`);
       expect($postLink.get(0)?.tagName).toBe("a");
 
-      const $postThumbnail = $postLink.find(".article-list-short-item__thumbnail");
+      const $postThumbnail = $postLink.find(
+        ".article-list-short-item__thumbnail",
+      );
       expect($postThumbnail.length).toBe(1);
 
       const $thumbnailImage = $postThumbnail.find("img");
       expect($thumbnailImage.length).toBe(1);
       expect($thumbnailImage.attr("src")).toBe(relatedPost.thumbnail);
-      expect($thumbnailImage.attr("alt")).toBe(`${relatedPost.title} thumbnail`);
+      expect($thumbnailImage.attr("alt")).toBe(
+        `${relatedPost.title} thumbnail`,
+      );
       expect($thumbnailImage.attr("width")).toBe("100%");
       expect($thumbnailImage.attr("height")).toBe("100%");
 
       const $postHeader = $postLink.children().eq(1);
       expect($postHeader.length).toBe(1);
 
-      const $postHeading = $postHeader.find("h6.article-list-short-item__title");
+      const $postHeading = $postHeader.find(
+        "h6.article-list-short-item__title",
+      );
       expect($postHeading.length).toBe(1);
       expect($postHeading.text()).toBe(relatedPost.title);
 
