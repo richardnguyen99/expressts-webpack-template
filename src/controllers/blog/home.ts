@@ -24,7 +24,7 @@ const blogIndexController = async (req: Request, res: Response) => {
     limit: 10,
     sortedBy: "latest",
     order: "desc",
-    includes: ["author", "comments", "timetoread"],
+    includes: ["author", "comments", "timetoread", "likes"],
   });
 
   const topCategories = await getTopCategories(10);

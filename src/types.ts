@@ -71,7 +71,6 @@ export type Post = {
   thumbnail: string;
   category: string;
   views: number;
-  likes: number;
 
   author?: {
     userId: string;
@@ -79,6 +78,7 @@ export type Post = {
   };
 
   comments?: Comment[];
+  likes?: Like[];
   timeToRead?: number;
 };
 
@@ -88,6 +88,7 @@ export type Data = {
   posts: Post[];
   comments: Comment[];
   devices: Device[];
+  likes: Like[];
 };
 
 export type ResponseLocals = {

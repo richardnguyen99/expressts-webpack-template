@@ -38,8 +38,10 @@ const getPostsByViews = (posts: Post[], order: "asc" | "desc") => {
   return posts.sort((a, b) => viewsStrategies[order](a, b));
 };
 
-const likesLessThanStrategy = (a: Post, b: Post) => b.likes - a.likes;
-const likesGreaterThanStrategy = (a: Post, b: Post) => a.likes - b.likes;
+const likesLessThanStrategy = (a: Post, b: Post) =>
+  (b.likes?.length || 0) - (a.likes?.length || 0);
+const likesGreaterThanStrategy = (a: Post, b: Post) =>
+  (a.likes?.length || 0) - (b.likes?.length || 0);
 
 const likesStrategies = {
   asc: likesLessThanStrategy,
@@ -89,7 +91,7 @@ export const getPosts = async (options: {
   category: string;
   sortedBy: "latest" | "views" | "likes";
   order: "asc" | "desc";
-  includes?: ("author" | "comments" | "timetoread")[];
+  includes?: ("author" | "comments" | "likes" | "timetoread")[];
 }): Promise<Post[]> => {
   const { limit, category, sortedBy, order, includes } = options;
 
@@ -144,6 +146,16 @@ export const getPosts = async (options: {
     });
   }
 
+  if (includes && includes.includes("likes")) {
+    const likes = sortedPosts.map((post) => {
+      return data.likes.filter((like) => like.postId === post.postId);
+    });
+
+    sortedPosts.forEach((post, index) => {
+      post.likes = likes[index];
+    });
+  }
+
   if (includes && includes.includes("timetoread")) {
     sortedPosts.forEach((post) => {
       const words = post.content.split(" ").length;
@@ -163,7 +175,9 @@ export const getTopViewedPosts = async (limit: number) => {
 
 export const getTopLikedPosts = async (limit: number) => {
   const data = await mockedData;
-  const posts = data.posts.sort((a, b) => b.likes - a.likes).slice(0, limit);
+  const posts = data.posts
+    .sort((a, b) => (b.likes?.length || 0) - (a.likes?.length || 0))
+    .slice(0, limit);
 
   return posts;
 };
@@ -233,13 +247,14 @@ export const getPostsBySlug = async (slug: string) => {
     limit: -1,
     includes: ["author"],
   });
+  const likes = data.likes.filter((like) => like.postId === post.postId);
 
   post.author = {
     userId: author!.userId,
     profile: profile!,
   };
-
   post.comments = comments;
+  post.likes = likes;
 
   return post;
 };

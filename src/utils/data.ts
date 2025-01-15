@@ -4,7 +4,7 @@ import uap from "ua-parser-js";
 import geoip from "geoip-lite";
 import cryptol from "crypto";
 
-import { Device, Profile, User, Post, Comment } from "../types";
+import { Device, Profile, User, Post, Comment, Like } from "../types";
 
 export const fakeCategories = [
   "technology",
@@ -125,17 +125,20 @@ export const fakePostGenerator = (users: User[], i: number): Post => {
       .toLowerCase()
       .replace(/ /g, "-")
       .replace(/[^\w-]+/g, ""),
-    content: faker.lorem.paragraphs({
-      min: 5,
-      max: 15,
-    }),
+    content: faker.lorem
+      .paragraphs({
+        min: 5,
+        max: 15,
+      })
+      .split("\n")
+      .map((p) => `<p>${p}</p>`)
+      .join("\n"),
     userId: users[Math.floor(Math.random() * users.length)].userId,
     postId: faker.string.ulid().toLowerCase(),
     createdAt: faker.date
       .between({ from: "2021-01-01", to: "2024-12-01" })
       .getTime(),
     views: faker.number.int({ min: 100, max: 10000 }),
-    likes: faker.number.int({ min: 10, max: 1000 }),
     category: fakeCategories[i % fakeCategories.length],
     thumbnail: faker.image.urlPicsumPhotos({
       width: 1280,
@@ -177,6 +180,32 @@ export const fakeComments = (
   posts: Post[],
   generator: typeof fakeCommentGenerator = fakeCommentGenerator,
 ): Comment[] => {
+  return faker.helpers.multiple((_a, _b) => generator(users, posts), {
+    count,
+  });
+};
+
+export const fakeLikeGenerator = (users: User[], posts: Post[]): Like => {
+  const postIndex = Math.floor(Math.random() * posts.length);
+
+  return {
+    userId: users[Math.floor(Math.random() * users.length)].userId,
+    postId: posts[postIndex].postId,
+    createdAt: faker.date
+      .between({
+        from: posts[postIndex].createdAt,
+        to: "2024-12-01",
+      })
+      .getTime(),
+  };
+};
+
+export const fakeLikes = (
+  count: number,
+  users: User[],
+  posts: Post[],
+  generator: typeof fakeLikeGenerator = fakeLikeGenerator,
+): Like[] => {
   return faker.helpers.multiple((_a, _b) => generator(users, posts), {
     count,
   });

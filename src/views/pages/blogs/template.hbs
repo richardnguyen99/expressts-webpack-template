@@ -62,7 +62,7 @@
 
             <div class="blog__content__info__metadata__likes">
               <i class="bi bi-heart"></i>
-              <span>{{~post.likes~}}</span>
+              <span>{{~len post.likes~}}</span>
             </div>
 
             <div class="blog__content__info__separator">|</div>
@@ -81,7 +81,7 @@
         </div>
 
         <div class="blog__content__body">
-          <p>{{{post.content}}}</p>
+          {{{post.content}}}
         </div>
 
         <div id="comment-section" class="blog__comment-section">
