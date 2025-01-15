@@ -8,7 +8,7 @@ jest.mock("../../../../server", () => {
   const profiles = fakeProfiles(users);
   const posts = fakePosts(20, users);
   const comments = fakeComments(50, users, posts);
-  const likes = fakeLikes (100, users, posts);
+  const likes = fakeLikes(100, users, posts);
 
   const generated = {
     users,
