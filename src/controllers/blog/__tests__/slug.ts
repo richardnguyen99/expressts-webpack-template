@@ -269,6 +269,30 @@ describe("Blog Slug Controller", () => {
     });
   });
 
+  it("should render the comment form correctly", () => {
+    const $commentFormSection = $(".blog__comment-form");
+    expect($commentFormSection.length).toBe(1);
+    expect($commentFormSection.find("h2").text()).toBe("Leave a Comment");
+
+    const $commentForm = $commentFormSection.find("form");
+    expect($commentForm.length).toBe(1);
+    expect($commentForm.attr("action")).toBe(`/comments`);
+    expect($commentForm.attr("method")).toBe("POST");
+    expect($commentForm.children().length).toBe(2);
+
+    const $commentFormArea = $commentForm.children().eq(0);
+    expect($commentFormArea.length).toBe(1);
+    expect($commentFormArea.find("textarea").length).toBe(1);
+
+    const $commentButtonArea = $commentForm.children().eq(1);
+    expect($commentButtonArea.length).toBe(1);
+
+    const $commentButton = $commentButtonArea.find("button");
+    expect($commentButton.length).toBe(1);
+    expect($commentButton.text()).toBe("Submit");
+    expect($commentButton.attr("type")).toBe("submit");
+  });
+
   it("should return a 404 for an invalid blog post", async () => {
     expect(invalidResponse.status).toBe(404);
     expect(invalidResponse.text).toBe("Post not found");
