@@ -124,7 +124,7 @@ describe("Blog Slug Controller", () => {
     expect($likes.length).toBe(1);
     expect($likes.get(0)!.tagName).toBe("div");
     expect($likes.find("i").hasClass("bi-heart")).toBe(true);
-    expect($likes.find("span").text()).toBe(post.likes.toString());
+    expect($likes.find("span").text()).toBe(post.likes?.length.toString());
 
     const $comments = $metadata.find(
       ".blog__content__info__metadata__comments",

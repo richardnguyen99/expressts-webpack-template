@@ -111,7 +111,9 @@ describe("Blog Home Controller", () => {
 
       const $likes = $metadata.find(".article-list-blog-item__likes");
       expect($likes.find("i").hasClass("bi-heart")).toBe(true);
-      expect($likes.find("span").text()).toBe(posts[index].likes.toString());
+      expect($likes.find("span").text()).toBe(
+        posts[index].likes?.length.toString(),
+      );
 
       const $comments = $metadata.find(".article-list-blog-item__comments");
       expect($comments.find("i").hasClass("bi-chat")).toBe(true);
