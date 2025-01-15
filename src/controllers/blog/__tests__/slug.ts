@@ -137,6 +137,17 @@ describe("Blog Slug Controller", () => {
     );
   });
 
+  it("should render the thumbnail correctly", () => {
+    const $thumbnail = $(".blog__content__thumbnail");
+    expect($thumbnail.length).toBe(1);
+
+    const $thumbnailImage = $thumbnail.find("img");
+    expect($thumbnailImage.length).toBe(1);
+
+    expect($thumbnailImage.attr("src")).toBe(post.thumbnail);
+    expect($thumbnailImage.attr("alt")).toBe(`${post.title} thumbnail`);
+  });
+
   it("should return a 404 for an invalid blog post", async () => {
     expect(invalidResponse.status).toBe(404);
     expect(invalidResponse.text).toBe("Post not found");
