@@ -85,7 +85,8 @@ const getAppRouter = () => {
     },
   );
 
-  appRouter.get("/login", cachableMiddleware, loginController);
+  appRouter.get("/login", cachableMiddleware, loginController.get);
+  appRouter.post("/login", loginController.post);
   appRouter.get("/register", cachableMiddleware, registerController);
   appRouter.get("/faq", cachableMiddleware, faqHandler);
 
