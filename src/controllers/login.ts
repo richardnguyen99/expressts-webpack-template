@@ -24,9 +24,7 @@ const getLoginController: RequestHandler = (_req: Request, res: Response) => {
 const postLoginController: RequestHandler = async (
   _req: Request,
   _res: Response,
-) => {
-
-};
+) => {};
 
 const loginController = {
   get: getLoginController,
