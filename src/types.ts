@@ -10,6 +10,7 @@ export type User = {
   posts?: Post[];
   comments?: Comment[];
   devices?: Device[];
+  likes?: Like[];
 };
 
 export type Device = {

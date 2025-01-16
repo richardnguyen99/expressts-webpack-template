@@ -4,6 +4,7 @@ import Express from "express";
 import dotenv from "dotenv";
 import methodOverride from "method-override";
 import cookieParser from "cookie-parser";
+import expressSession from "express-session";
 
 import getAppRouter from "./routes";
 import morganMiddleware from "./middlewares/morgan.middleware";
@@ -89,6 +90,18 @@ const createApp = async () => {
   const manifest = JSON.parse(manifestContent);
 
   const app = Express();
+  const session: expressSession.SessionOptions = {
+    secret: process.env.SESSION_SECRET as string,
+    saveUninitialized: true,
+    cookie: {
+      secure: process.env.NODE_ENV === "production",
+    }
+  }
+
+  if (process.env.NODE_ENV === "production") {
+    app.set("trust proxy", 1);
+    session.cookie!.secure = true;
+  }
 
   // Set up handlebars as the template engine
   app.engine(
@@ -109,6 +122,9 @@ const createApp = async () => {
   app.use(Express.urlencoded({ extended: true }));
   app.use(Express.json());
   app.use(methodOverride());
+
+  // Set up cookie and session
+  app.use(expressSession(session));
 
   app.use(
     "/public",

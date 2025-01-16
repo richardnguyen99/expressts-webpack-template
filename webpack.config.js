@@ -34,6 +34,7 @@ module.exports = (env, argv) => {
     entry: {
       main: "./src/static/js/main.js",
       home: "./src/static/js/home.js",
+      form: "./src/static/js/form.js",
       styles: "./src/static/scss/styles.scss",
       faqStyles: "./src/static/scss/faq.scss",
       homeStyles: "./src/static/scss/home.scss",
@@ -48,7 +49,7 @@ module.exports = (env, argv) => {
           name: "theme",
           export: "default",
         },
-      }
+      },
     },
 
     output: {

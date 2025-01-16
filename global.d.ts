@@ -1,11 +1,18 @@
 declare global {
   namespace NodeJS {
-    interface ProcessEnv {
+    export interface ProcessEnv {
       NODE_ENV: "development" | "production" | "test";
       PORT: string;
       BASE_URL: string;
       ENV_PATH: string;
+      SESSION_SECRET: string;
     }
+  }
+}
+
+declare module "express-session" {
+  interface SessionData {
+    userId: string;
   }
 }
 
