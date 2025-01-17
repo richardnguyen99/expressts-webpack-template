@@ -144,7 +144,6 @@ export const getUserById = async (userId: string) => {
   const data = await mockedData;
 
   const user = data.users.find((user) => user.userId === userId);
-  console.log("getUserById -> user", user);
 
   if (!user) {
     return null;
