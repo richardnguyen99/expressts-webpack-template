@@ -140,32 +140,14 @@ export const getUsers = async (options: {
   return sortedUsers.slice(0, limit);
 };
 
-export const getUserById = async (
-  userId: string,
-  options: {
-    includes: ("profile" | "comments" | "posts")[];
-  },
-) => {
+export const getUserById = async (userId: string) => {
   const data = await mockedData;
 
   const user = data.users.find((user) => user.userId === userId);
+  console.log("getUserById -> user", user);
 
   if (!user) {
     return null;
-  }
-
-  if (options.includes.includes("profile")) {
-    user.profile = data.profiles.find((profile) => profile.userId === userId);
-  }
-
-  if (options.includes.includes("posts")) {
-    user.posts = data.posts.filter((post) => post.userId === userId);
-  }
-
-  if (options.includes.includes("comments")) {
-    user.comments = data.comments.filter(
-      (comment) => comment.userId === userId,
-    );
   }
 
   return user;

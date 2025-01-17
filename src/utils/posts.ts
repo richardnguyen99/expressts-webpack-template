@@ -64,9 +64,7 @@ const postSortStrategies = {
 
 const includesAuthorStrategy = (posts: Post[]) => {
   posts.forEach(async (post) => {
-    const author = await getUserById(post.userId, {
-      includes: ["profile"],
-    });
+    const author = await getUserById(post.userId);
 
     post.author = {
       userId: author!.userId,

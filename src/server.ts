@@ -5,16 +5,18 @@ import dotenv from "dotenv";
 import methodOverride from "method-override";
 import cookieParser from "cookie-parser";
 import expressSession from "express-session";
+import bcrypt from "bcrypt";
 
+import type { Data } from "./types";
 import getAppRouter from "./routes";
+import logger from "./logger";
+import hbsEngine from "./engine";
+import { fetchUserFromSessionMiddleware } from "./middlewares/user.middleware";
 import morganMiddleware from "./middlewares/morgan.middleware";
 import { requestIdMiddleware } from "./middlewares/request.middleware";
 import errorHandlerMiddleware, {
   ErrorHandler,
 } from "./middlewares/error.middleware";
-import type { Data } from "./types";
-import logger from "./logger";
-import hbsEngine from "./engine";
 
 const getErrorTemplate: ErrorHandler = (_req, res, _next) => {
   const data = {
@@ -73,7 +75,18 @@ process.env.ENV_PATH = env_path;
 
 export const mockedData: Promise<Data> = fs
   .readFile(path.join(__dirname, "fake-data.json"), "utf-8")
-  .then((data) => JSON.parse(data))
+  .then((data) => {
+    const dataObj = JSON.parse(data) as Data;
+
+    dataObj.users = dataObj.users.map((user) => {
+      return {
+        ...user,
+        password: bcrypt.hashSync(user.password, 10),
+      }
+    });
+
+    return dataObj;
+  })
   .catch(() => {
     console.error(
       "Failed to load fake data. Make sure you have run `npm run gen:data`",
@@ -125,6 +138,7 @@ const createApp = async () => {
 
   // Set up cookie and session
   app.use(expressSession(session));
+  app.use(fetchUserFromSessionMiddleware);
 
   app.use(
     "/public",

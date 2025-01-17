@@ -34,7 +34,7 @@ const postLoginController: RequestHandler = async (
   res: Response,
 ) => {
   const userService = new UserService(await mockedData);
-  const { email, password } = req.body;
+  const { email, password, rememberMe } = req.body;
 
   const meta = Object.entries(
     getMeta({
@@ -50,7 +50,7 @@ const postLoginController: RequestHandler = async (
   const user = await userService.getUserByEmail(email);
 
   if (!user) {
-    return res.status(400).render("login", {
+    return res.status(401).render("login", {
       title: "Login",
       page: "/login",
       meta,
@@ -61,7 +61,7 @@ const postLoginController: RequestHandler = async (
   const isValid = await userService.comparePassword(password, user.password);
 
   if (!isValid) {
-    return res.status(400).render("login", {
+    return res.status(401).render("login", {
       title: "Login",
       page: "/login",
       meta,
@@ -69,7 +69,24 @@ const postLoginController: RequestHandler = async (
     });
   }
 
-  req.session.userId = user.userId;
+  req.session.regenerate(function(err) {
+    if (err) {
+      return res.status(500).render("errors/5xx", {
+        title: "Server Error",
+        statusCode: 500,
+        message: "An error occurred while logging in",
+      });
+    }
+
+    req.session.userId = user.userId;
+    req.session.cookie.sameSite = "lax";
+
+    if (rememberMe) {
+      req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000;
+    }
+
+    return res.redirect("/");
+  });
 };
 
 const loginController = {
