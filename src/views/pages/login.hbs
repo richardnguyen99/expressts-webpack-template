@@ -44,17 +44,27 @@ Login
         <div id="emailMessage" class="form-text"></div>
       </div>
 
-      <div class="form-floating">
+      <div class="form-floating position-relative">
         <input
           type="password"
           class="form-control"
           id="floatingPassword"
           placeholder="Password"
           name="password"
-        />
+        >
         <label for="floatingPassword">Password</label>
-        <div id="passwordMessage" class="form-text"></div>
+        <div id="passwordVisibilityToggle" class="position-absolute top-0 end-0 mt-2">
+          <button
+            class="btn text-decoration-none"
+            type="button"
+            data-target="floatingPassword"
+            aria-pressed="false"
+          >
+            <i class="bi bi-eye"></i>
+          </button>
+        </div>
       </div>
+      <div id="passwordMessage" class="form-text"></div>
 
       <div class="d-flex justify-content-between align-items-center my-3">
         <div class="form-check text-start">
