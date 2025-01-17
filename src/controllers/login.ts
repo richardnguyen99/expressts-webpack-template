@@ -69,7 +69,7 @@ const postLoginController: RequestHandler = async (
     });
   }
 
-  req.session.regenerate(function(err) {
+  req.session.regenerate(function (err) {
     if (err) {
       return res.status(500).render("errors/5xx", {
         title: "Server Error",

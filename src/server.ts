@@ -82,7 +82,7 @@ export const mockedData: Promise<Data> = fs
       return {
         ...user,
         password: bcrypt.hashSync(user.password, 10),
-      }
+      };
     });
 
     return dataObj;

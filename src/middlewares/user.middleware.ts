@@ -32,7 +32,7 @@ export const fetchUserMiddleware = async (
   next();
 };
 
-export const fetchUserFromSessionMiddleware= async (
+export const fetchUserFromSessionMiddleware = async (
   req: UserRequest,
   res: UserResponse,
   next: NextFunction,
