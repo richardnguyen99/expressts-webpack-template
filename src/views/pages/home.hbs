@@ -26,6 +26,13 @@
     </nav>
   </div>
 
+  {{#if successMessage}}
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <p class="mb-0">{{{successMessage}}}</p>
+    <button type="button" class="btn-close btn-sm" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+  {{/if}}
+
   {{> includes/_hero_article post=topThreeViewedPosts.[0]}}
 
   <div class="row mb-2">

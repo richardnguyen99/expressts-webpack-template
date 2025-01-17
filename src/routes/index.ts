@@ -68,6 +68,10 @@ const getAppRouter = () => {
           }),
         );
 
+        const successMessage = req.flash("success_message");
+        const errorMessage = req.flash("error_message");
+
+
         res.render("home", {
           page: "/",
           title: "Home",
@@ -78,6 +82,8 @@ const getAppRouter = () => {
           topCategories,
           categoryQuery: category,
           recentArchives,
+          successMessage,
+          errorMessage,
         });
       } catch (error) {
         next(error);

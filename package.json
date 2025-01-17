@@ -29,10 +29,12 @@
   "dependencies": {
     "@floating-ui/dom": "^1.6.12",
     "@popperjs/core": "^2.11.8",
+    "@types/connect-flash": "^0.0.40",
     "bcrypt": "^5.1.1",
     "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
     "cheerio": "^1.0.0",
+    "connect-flash": "^0.1.1",
     "cookie-parser": "^1.4.7",
     "countries-list": "^3.1.1",
     "dotenv": "^16.4.7",

@@ -6,6 +6,7 @@ declare global {
       BASE_URL: string;
       ENV_PATH: string;
       SESSION_SECRET: string;
+      COOKIE_SECRET: string;
     }
   }
 }

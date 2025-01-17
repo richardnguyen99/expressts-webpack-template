@@ -85,6 +85,11 @@ const postLoginController: RequestHandler = async (
       req.session.cookie.maxAge = 30 * 24 * 60 * 60 * 1000;
     }
 
+    req.flash(
+      "success_message",
+      `Welcome back, <strong>${user.username}</strong>`,
+    );
+
     return res.redirect("/");
   });
 };
