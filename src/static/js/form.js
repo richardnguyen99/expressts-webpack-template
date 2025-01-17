@@ -20,10 +20,11 @@ $(function () {
       });
     });
 
-    const $passwordVisibilityToggle = $(this).find("#passwordVisibilityToggle");
+    const $formPasswords = $(this).find(".form-password");
 
-    if ($passwordVisibilityToggle.length) {
-      const $btn = $passwordVisibilityToggle.find("button");
+    $formPasswords.each(function () {
+      const $formPassword = $(this);
+      const $btn = $formPassword.find("button");
       const $btnIcon = $btn.find("i");
 
       $btn.on("click", function () {
@@ -40,6 +41,6 @@ $(function () {
           $btnIcon.removeClass("bi-eye-slash").addClass("bi-eye");
         }
       });
-    }
+    });
   });
 });

@@ -15,7 +15,7 @@
   }
 }
 
-#passwordVisibilityToggle {
+.form-password {
   position: absolute;
   cursor: pointer;
   transition: opacity 0.15s ease-in-out;
@@ -23,21 +23,21 @@
   margin-right: 8px;
 }
 
-#passwordVisibilityToggle > button {
+.form-password > button {
   background: none;
   border: none;
 }
 
-#passwordVisibilityToggle > button:focus,
-#passwordVisibilityToggle > button:active {
+.form-password > button:focus,
+.form-password > button:active {
   outline: none;
 }
 
-.form-floating:hover > #passwordVisibilityToggle {
+.form-floating:hover > .form-password {
   opacity: 1;
 }
 
-.form-floating:has(.form-control.is-valid) > #passwordVisibilityToggle,
-.form-floating:has(.form-control.is-invalid) > #passwordVisibilityToggle {
+.form-floating:has(.form-control.is-valid) > .form-password,
+.form-floating:has(.form-control.is-invalid) > .form-password {
   margin-right: 32px;
 }
