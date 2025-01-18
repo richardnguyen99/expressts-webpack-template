@@ -24,4 +24,3 @@ jest.mock("../../../server", () => {
     mockedData: Promise.resolve(generated),
   };
 });
-
