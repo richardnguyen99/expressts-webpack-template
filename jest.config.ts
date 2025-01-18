@@ -104,7 +104,9 @@ const config: Config = {
     {
       displayName: "middlewares",
       testMatch: ["<rootDir>/src/middlewares/__tests__/*.ts"],
-      setupFilesAfterEnv: [],
+      setupFilesAfterEnv: [
+        "<rootDir>/src/middlewares/__tests__/setup/mock.ts",
+      ],
     },
     {
       displayName: "blog-controllers",

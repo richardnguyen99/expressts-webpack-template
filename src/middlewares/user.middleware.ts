@@ -41,7 +41,6 @@ export const fetchUserFromSessionMiddleware = async (
     next();
     return;
   }
-
   const user = await getUserById(req.session.userId);
 
   if (!user) {
