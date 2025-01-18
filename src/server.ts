@@ -107,6 +107,7 @@ const createApp = async () => {
   const session: expressSession.SessionOptions = {
     secret: process.env.SESSION_SECRET as string,
     saveUninitialized: true,
+    resave: false,
     cookie: {
       secure: process.env.NODE_ENV === "production",
     },
