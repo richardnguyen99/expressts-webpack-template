@@ -1,0 +1,67 @@
+<div class="dropdown">
+  <button
+    type="button"
+    id="dropdownUser"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+    class="btn d-flex align-items-center text-decoration-none dropdown-toggle border-0"
+  >
+    <img
+      src="{{user.profile.avatar}}"
+      alt="Avatar of {{fullname user.profile.firstName user.profile.lastName}}"
+      width="32"
+      height="32"
+      class="rounded-circle me-2"
+    >
+  </button>
+
+  <ul
+    class="dropdown-menu dropdown-menu-lg-end text-small shadow"
+    aria-labelledby="dropdownUser"
+  >
+    <li>
+      <p class="dropdown-header">
+        Signed in as <strong>{{user.username}}</strong>
+      </p>
+    </li>
+
+    <li>
+      <hr class="dropdown-divider">
+    </li>
+
+    <li>
+      <a
+        class="dropdown-item"
+        href="/users/{{user.userId}}/profile"
+      >
+        My Profile
+      </a>
+    </li>
+
+    <li>
+      <a
+        class="dropdown-item"
+        href="/users/{{user.userId}}/posts"
+      >
+        My Posts
+      </a>
+    </li>
+
+    <li>
+      <a
+        class="dropdown-item"
+        href="/users/{{user.userId}}/notifications"
+      >
+        My Notifications
+      </a>
+    </li>
+
+    <li>
+      <hr class="dropdown-divider">
+    </li>
+
+    <li>
+      <a class="dropdown-item" href="/logout">Sign out</a>
+    </li>
+  </ul>
+</div>

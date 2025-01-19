@@ -71,6 +71,8 @@ const getAppRouter = () => {
         const successMessage = req.flash("success_message");
         const errorMessage = req.flash("error_message");
 
+        console.log(res.locals);
+
         res.render("home", {
           page: "/",
           title: "Home",

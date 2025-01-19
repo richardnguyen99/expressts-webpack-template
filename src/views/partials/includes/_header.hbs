@@ -56,16 +56,10 @@
         <div
           class="text-md-end d-flex flex-column flex-lg-row gap-lg-1 gap-3 col-12 col-lg-auto"
         >
-          {{#if (eq page "/login")}}
-          <a href="/login" class="btn btn-secondary active me-lg-3">Login</a>
+          {{#if user}}
+          {{> includes/_user_profile_dropdown}}
           {{else}}
-          <a href="/login" class="btn btn-outline-secondary me-lg-3">Login</a>
-          {{/if}}
-
-          {{#if (eq page "/register")}}
-          <a href="/register" class="btn btn-warning active">Sign-up</a>
-          {{else}}
-          <a href="/register" class="btn btn-outline-warning">Sign-up</a>
+          {{> includes/_header_auth_rhs}}
           {{/if}}
         </div>
       </div>
