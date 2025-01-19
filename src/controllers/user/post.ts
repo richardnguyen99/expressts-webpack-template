@@ -14,7 +14,10 @@ const userPostController = async (req: UserRequest, res: UserResponse) => {
     title: `Posts by ${res.locals.user?.profile?.firstName} ${res.locals.user?.profile?.lastName}`,
     page: "/posts",
     user: res.locals.user,
-    posts,
+    posts: posts.map((post) => ({
+      ...post,
+      content: post.content.split("\n")[0],
+    })),
   };
 
   if (
