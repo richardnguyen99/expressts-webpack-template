@@ -24,12 +24,12 @@ describe("fetchUser middleware", () => {
     app.use("/:id", fetchUserMiddleware);
     app.get("/:id", async (_req, res) => {
       res.status(200).json({
-        ...res.locals.user,
+        ...res.locals.fetchUser,
       });
     });
 
     app.post("/:id", (req, res) => {
-      const user = res.locals.user as User;
+      const user = res.locals.fetchUser as User;
       user.username = req.body.username;
 
       res.status(200).send(
@@ -41,27 +41,19 @@ describe("fetchUser middleware", () => {
   });
 
   it("should fetch an existing user by id", async () => {
-    const testUser = (await mockedData).users[0];
+    const { password, ...testUser } = (await mockedData).users[0];
     const response = await request(app).get(`/${testUser.userId}`);
 
     expect(response.status).toBe(200);
-    expect(response.text).toBe(
-      JSON.stringify({
-        ...testUser,
-      }),
-    );
+    expect(response.text).toBe(JSON.stringify(testUser));
   });
 
   it("should fetch an another existing user by id", async () => {
-    const testUser = (await mockedData).users[1];
+    const { password, ...testUser } = (await mockedData).users[1];
     const response = await request(app).get(`/${testUser.userId}`);
 
     expect(response.status).toBe(200);
-    expect(response.text).toBe(
-      JSON.stringify({
-        ...testUser,
-      }),
-    );
+    expect(response.text).toBe(JSON.stringify(testUser));
   });
 
   it("should return a 404 if the user is not found", async () => {
@@ -78,7 +70,7 @@ describe("fetchUser middleware", () => {
   });
 
   it("should affect other methods [POST]", async () => {
-    const testUser = (await mockedData).users[0];
+    const { password, ...testUser } = (await mockedData).users[0];
     const response = await request(app)
       .post(`/${testUser.userId}`)
       .send({ username: "Harry Potter" });
@@ -126,13 +118,13 @@ describe("fetchUserFromSession middleware", () => {
     });
 
     app.get("/authenticated/:id", (_req, res) => {
-      if (!res.locals.user) {
+      if (!res.locals.sessionUser) {
         res.status(404).send("User not found");
         return;
       }
 
       res.status(200).json({
-        ...res.locals.user,
+        ...res.locals.sessionUser,
       });
     });
   });

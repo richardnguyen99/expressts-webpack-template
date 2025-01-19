@@ -1,11 +1,16 @@
+import type { RequestHandler } from "express";
 import { getCountryDataList, getEmojiFlag } from "countries-list";
+import ExpressError from "../../error";
 
-import {
-  type UserRequest,
-  type UserResponse,
-} from "../../middlewares/user.middleware";
+const userProfileController: RequestHandler = async (req, res) => {
+  const fetchUser = res.locals.fetchUser;
 
-const userProfileController = async (req: UserRequest, res: UserResponse) => {
+  if (!fetchUser) {
+    throw new ExpressError("User not found", 404);
+  }
+
+  console.log(fetchUser); // For debugging
+
   const countriesWithFlags = getCountryDataList().map((country) => {
     return {
       ...country,
@@ -14,15 +19,15 @@ const userProfileController = async (req: UserRequest, res: UserResponse) => {
   });
 
   const profileData = {
-    title: `User @ ${res.locals.user?.profile?.firstName} ${res.locals.user?.profile?.lastName}`,
+    title: `User @ ${fetchUser.profile?.firstName} ${fetchUser.profile?.lastName}`,
     page: "/profile",
-    user: res.locals.user,
+    user: fetchUser,
     countriesWithFlags,
   };
 
   if (
     req.headers["referer"] &&
-    req.headers["referer"].includes(`/users/${res.locals.user?.userId}`)
+    req.headers["referer"].includes(`/users/${fetchUser.userId}`)
   ) {
     res.render("users/profile", {
       ...profileData,

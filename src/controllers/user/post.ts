@@ -10,8 +10,6 @@ const userPostController = async (req: UserRequest, res: UserResponse) => {
     includes: ["comments", "likes"],
   });
 
-  console.log(posts);
-
   const postsData = {
     title: `Posts by ${res.locals.user?.profile?.firstName} ${res.locals.user?.profile?.lastName}`,
     page: "/posts",

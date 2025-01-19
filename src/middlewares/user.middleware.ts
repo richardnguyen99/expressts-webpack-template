@@ -21,14 +21,18 @@ export const fetchUserMiddleware = async (
   res: UserResponse,
   next: NextFunction,
 ): Promise<void> => {
-  const user = await getUserById(req.params.id);
+  const user = await getUserById(req.params.id, {
+    includes: ["profile", "posts", "comments", "likes", "devices"],
+  });
 
   if (!user) {
     res.status(404).send("User not found");
     return;
   }
 
-  res.locals.user = user;
+  const { password, ...rest } = user;
+  res.locals.fetchUser = rest;
+
   next();
 };
 
@@ -48,6 +52,6 @@ export const fetchUserFromSessionMiddleware = async (
     return;
   }
 
-  res.locals.user = user;
+  res.locals.sessionUser = user;
   next();
 };

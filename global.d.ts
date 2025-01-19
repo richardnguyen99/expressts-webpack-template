@@ -1,3 +1,5 @@
+import type { User } from "./src/types";
+
 declare global {
   namespace NodeJS {
     export interface ProcessEnv {
@@ -7,6 +9,13 @@ declare global {
       ENV_PATH: string;
       SESSION_SECRET: string;
       COOKIE_SECRET: string;
+    }
+  }
+
+  namespace Express {
+    export interface Locals {
+      sessionUser?: User;
+      fetchUser?: Omit<User, "password">;
     }
   }
 }
