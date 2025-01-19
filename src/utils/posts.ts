@@ -9,7 +9,7 @@ type Options = {
   category: string;
   sortedBy: "latest" | "views" | "likes";
   order: "asc" | "desc";
-  includes?: ("author" | "comments" | "timetoread")[];
+  includes?: ("author" | "comments" | "timetoread" | "likes")[];
 };
 
 const createdAtLessThanStrategy = (a: Post, b: Post) =>
@@ -80,7 +80,7 @@ const includesCommentsStrategy = async (posts: Post[]) => {
       includes: ["author"],
     });
 
-    post.comments = comments;
+    post.comments = comments || [];
   });
 };
 
@@ -224,6 +224,16 @@ export const getPostsByUserId = async (
 
   if (options.includes && options.includes.includes("comments")) {
     includesCommentsStrategy(sortedPosts);
+  }
+
+  if (options.includes && options.includes.includes("likes")) {
+    const likes = sortedPosts.map((post) => {
+      return data.likes.filter((like) => like.postId === post.postId);
+    });
+
+    sortedPosts.forEach((post, index) => {
+      post.likes = likes[index] || [];
+    });
   }
 
   return posts.slice(0, limit);
