@@ -30,8 +30,6 @@ const userCommentController = async (req: UserRequest, res: UserResponse) => {
     })),
   };
 
-  console.log(req.headers);
-
   if (req.headers["hx-request"]) {
     res.render("users/comments", {
       ...commentsData,

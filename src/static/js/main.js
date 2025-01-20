@@ -89,7 +89,6 @@ $(function () {
 
       timeoutId = setTimeout(() => {
         if (isHoveringCard) return;
-        console.log(isHoveringCard);
 
         $hoverCard.removeClass("show").addClass("hide");
 

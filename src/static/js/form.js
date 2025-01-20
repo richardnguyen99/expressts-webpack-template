@@ -29,7 +29,6 @@ $(function () {
 
       $btn.on("click", function () {
         const $passwordInput = $form.find(`#${$btn.data("target")}`);
-        console.log($btn.attr("aria-pressed"));
 
         if ($btn.attr("aria-pressed") === "false") {
           $btn.attr("aria-pressed", true);

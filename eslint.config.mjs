@@ -11,6 +11,10 @@ export default [
   ...tseslint.configs.recommended,
   {
     rules: {
+      // Remove direct usages of `console`. Use `logger` instead.
+      "no-console": ["error", { allow: ["warn", "error"] }],
+
+      // Enforce a maximum line length of 80 characters.
       "max-len": [
         "error",
         {
@@ -22,6 +26,8 @@ export default [
           ignoreTemplateLiterals: true,
         },
       ],
+
+      // Disallow unused variables, but allow those prefixed with `_`.
       "no-unused-vars": [
         "error",
         {
@@ -34,6 +40,8 @@ export default [
           ignoreRestSiblings: true,
         },
       ],
+
+      // TypeScript compatible version of no-unused-vars.
       "@typescript-eslint/no-unused-vars": [
         "error",
         {
