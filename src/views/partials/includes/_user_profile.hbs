@@ -30,7 +30,7 @@
                 class="form-control"
                 id="firstNameInput"
                 placeholder="First name"
-                value="{{ user.profile.firstName }}"
+                value="{{ fetchUser.profile.firstName }}"
               />
               <label for="firstNameInput">First Name</label>
             </div>
@@ -40,7 +40,7 @@
                 class="form-control"
                 id="lastNameInput"
                 placeholder="Last name"
-                value="{{ user.profile.lastName }}"
+                value="{{ fetchUser.profile.lastName }}"
               />
               <label for="lastNameInput">Last Name</label>
             </div>
@@ -54,7 +54,7 @@
               class="form-control"
               id="emailInput"
               placeholder="Email"
-              value="{{ user.email }}"
+              value="{{ fetchUser.email }}"
             />
             <label for="emailInput">Email</label>
           </div>
@@ -67,7 +67,7 @@
               class="form-control"
               id="dobInput"
               placeholder="Date of Birth"
-              value="{{date 'short' user.profile.dateOfBirth}}"
+              value="{{date 'short' fetchUser.profile.dateOfBirth}}"
             />
             <label for="dobInput">Date of Birth</label>
           </div>
@@ -80,11 +80,11 @@
               id="nationalitySelect"
               aria-label="Select your nationality"
             >
-              <option value="{{ user.profile.country }}" selected>
+              <option value="{{ fetchUser.profile.country }}" selected>
                 {{flag
-                  user.profile.country
+                  fetchUser.profile.country
                 }}
-                {{countryName user.profile.country}}
+                {{countryName fetchUser.profile.country}}
               </option>
               {{#each countriesWithFlags}}
               <option value="{{ this.iso2 }}">
@@ -103,7 +103,7 @@
               class="form-control"
               id="jobInput"
               placeholder="Job"
-              value="{{ user.profile.job }}"
+              value="{{ fetchUser.profile.job }}"
             />
             <label for="jobInput">Job</label>
           </div>
@@ -116,7 +116,7 @@
               class="form-control"
               id="phoneInput"
               placeholder="Phone"
-              value="{{ user.profile.phone }}"
+              value="{{ fetchUser.profile.phone }}"
             />
             <label for="phoneInput">Phone</label>
           </div>
@@ -144,7 +144,7 @@
               class="form-control"
               id="addressInput"
               placeholder="Address"
-              value="{{ user.profile.address }}"
+              value="{{ fetchUser.profile.address }}"
             />
             <label for="addressInput">Address</label>
           </div>
@@ -154,10 +154,10 @@
           <div class="form-floating">
             <textarea
               class="form-control"
-              placeholder="User biography"
+              placeholder="fetchUser biography"
               id="biographyTextarea"
               style="height: 120px"
-              >{{ user.profile.bio }}</textarea
+              >{{ fetchUser.profile.bio }}</textarea
             >
             <label for="biographyTextarea">Biography</label>
           </div>

@@ -6,9 +6,7 @@ import {
 const userHoverCardController = (req: UserRequest, res: UserResponse) => {
   // Check if the request contains a referer header
   if (req.headers["referer"]) {
-    res.render("users/_hover_card", {
-      user: res.locals.user,
-    });
+    res.render("users/_hover_card");
 
     return;
   }

@@ -13,10 +13,7 @@ const userNotificationController = async (
     user: res.locals.user,
   };
 
-  if (
-    req.headers["referer"] &&
-    req.headers["referer"].includes(`/users/${res.locals.user?.userId}`)
-  ) {
+  if (req.headers["hx-request"]) {
     res.render("users/notifications", {
       ...notificationData,
       partial: true,

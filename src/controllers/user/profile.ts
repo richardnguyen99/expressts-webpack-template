@@ -9,8 +9,6 @@ const userProfileController: RequestHandler = async (req, res) => {
     throw new ExpressError("User not found", 404);
   }
 
-  console.log(fetchUser); // For debugging
-
   const countriesWithFlags = getCountryDataList().map((country) => {
     return {
       ...country,
@@ -21,14 +19,10 @@ const userProfileController: RequestHandler = async (req, res) => {
   const profileData = {
     title: `User @ ${fetchUser.profile?.firstName} ${fetchUser.profile?.lastName}`,
     page: "/profile",
-    user: fetchUser,
     countriesWithFlags,
   };
 
-  if (
-    req.headers["referer"] &&
-    req.headers["referer"].includes(`/users/${fetchUser.userId}`)
-  ) {
+  if (req.headers["hx-request"]) {
     res.render("users/profile", {
       ...profileData,
       partial: true,

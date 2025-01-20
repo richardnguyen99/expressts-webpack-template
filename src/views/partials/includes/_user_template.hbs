@@ -29,20 +29,20 @@
                 <div class="user__avatar position-relative my-2">
                   <img
                     class="rounded-circle border border-2 border-secondary"
-                    src="{{user.profile.avatar}}"
-                    alt="{{fullname user.profile.firstName user.profile.lastName}}"
+                    src="{{fetchUser.profile.avatar}}"
+                    alt="{{fullname fetchUser.profile.firstName fetchUser.profile.lastName}}"
                   />
                 </div>
 
-                <h6 class="mb-0">{{fullname user.profile.firstName user.profile.lastName}}</h6>
+                <h6 class="mb-0">{{fullname fetchUser.profile.firstName fetchUser.profile.lastName}}</h6>
 
-                <a href="#" class="text-reset text-primary-hover small mt-n3">{{user.email}}</a>
+                <a href="#" class="text-reset text-primary-hover small mt-n3">{{fetchUser.email}}</a>
               </div>
 
               <hr class="my-1">
 
               <div class="card-body py-2 px-0">
-                {{> includes/_user_nav_items user=@root.user page=@root.page  }}
+                {{> includes/_user_nav_items page=@root.page  }}
               </div>
             </div>
           </div>

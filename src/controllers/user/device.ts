@@ -14,10 +14,7 @@ const userDeviceController = async (req: UserRequest, res: UserResponse) => {
     devices,
   };
 
-  if (
-    req.headers["referer"] &&
-    req.headers["referer"].includes(`/users/${res.locals.user?.userId}`)
-  ) {
+  if (req.headers["hx-request"]) {
     res.render("users/devices", {
       ...devicesData,
       partial: true,

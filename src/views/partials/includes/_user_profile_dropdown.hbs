@@ -7,8 +7,8 @@
     class="btn d-flex align-items-center text-decoration-none dropdown-toggle border-0"
   >
     <img
-      src="{{user.profile.avatar}}"
-      alt="Avatar of {{fullname user.profile.firstName user.profile.lastName}}"
+      src="{{sessionUser.profile.avatar}}"
+      alt="Avatar of {{fullname sessionUser.profile.firstName sessionUser.profile.lastName}}"
       width="32"
       height="32"
       class="rounded-circle me-2"
@@ -21,7 +21,7 @@
   >
     <li>
       <p class="dropdown-header">
-        Signed in as <strong>{{user.username}}</strong>
+        Signed in as <strong>{{sessionUser.username}}</strong>
       </p>
     </li>
 
@@ -32,7 +32,7 @@
     <li>
       <a
         class="dropdown-item"
-        href="/users/{{user.userId}}/profile"
+        href="/users/{{sessionUser.userId}}/profile"
       >
         My Profile
       </a>
@@ -41,7 +41,7 @@
     <li>
       <a
         class="dropdown-item"
-        href="/users/{{user.userId}}/posts"
+        href="/users/{{sessionUser.userId}}/posts"
       >
         My Posts
       </a>
@@ -50,7 +50,7 @@
     <li>
       <a
         class="dropdown-item"
-        href="/users/{{user.userId}}/notifications"
+        href="/users/{{sessionUser.userId}}/notifications"
       >
         My Notifications
       </a>

@@ -30,10 +30,9 @@ const userCommentController = async (req: UserRequest, res: UserResponse) => {
     })),
   };
 
-  if (
-    req.headers["referer"] &&
-    req.headers["referer"].includes(`/users/${res.locals.user?.userId}`)
-  ) {
+  console.log(req.headers);
+
+  if (req.headers["hx-request"]) {
     res.render("users/comments", {
       ...commentsData,
       partial: true,

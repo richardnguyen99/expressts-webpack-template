@@ -20,10 +20,7 @@ const userPostController = async (req: UserRequest, res: UserResponse) => {
     })),
   };
 
-  if (
-    req.headers["referer"] &&
-    req.headers["referer"].includes(`/users/${res.locals.user?.userId}`)
-  ) {
+  if (req.headers["hx-request"]) {
     res.render("users/posts", {
       ...postsData,
       partial: true,

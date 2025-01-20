@@ -1,6 +1,6 @@
-<div class="card" data-user="{{ user.userId }}" style="width: 360px">
+<div class="card" data-user="{{ fetchUser.userId }}" style="width: 360px">
   <div class="card-header text-nowrap d-flex">
-    {{ user.profile.job }}
+    {{ fetchUser.profile.job }}
   </div>
 
   <div class="card-body">
@@ -10,40 +10,40 @@
     >
       <img
         class="rounded-circle object-fit-cover w-100 h-100"
-        src="{{ user.profile.avatar }}"
-        alt="{{fullname user.profile.firstName user.profile.lastName}}"
+        src="{{ fetchUser.profile.avatar }}"
+        alt="{{fullname fetchUser.profile.firstName fetchUser.profile.lastName}}"
       />
     </div>
     <div class="card-text mt-2">
       <p class="mb-0">
         <a
           class="text-reset text-decoration-none"
-          href="/users/{{ user.userId }}"
-          ><strong>{{ user.username }}</strong></a
+          href="/users/{{ fetchUser.userId }}"
+          ><strong>{{ fetchUser.username }}</strong></a
         >
         <span class="text-muted">{{fullname
-            user.profile.firstName
-            user.profile.lastName
+            fetchUser.profile.firstName
+            fetchUser.profile.lastName
         }}</span>
       </p>
 
       <p class="mb-0">
         <i class="bi bi-at"></i>
-        <span>{{ user.email }}</span>
+        <span>{{ fetchUser.email }}</span>
       </p>
 
       <p class="mb-0">
         <i class="bi bi-phone"></i>
-        <span>{{ user.profile.phone }}</span>
+        <span>{{ fetchUser.profile.phone }}</span>
       </p>
 
       <p>
         <i class="bi bi-geo-alt"></i>
-        <span>{{ user.profile.address }}</span>
+        <span>{{ fetchUser.profile.address }}</span>
       </p>
 
       <p class="mb-0 line-clamp-3 text-muted small">
-        {{ user.profile.bio }}
+        {{ fetchUser.profile.bio }}
       </p>
     </div>
   </div>
