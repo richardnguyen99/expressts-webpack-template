@@ -4,7 +4,15 @@ import uap from "ua-parser-js";
 import geoip from "geoip-lite";
 import cryptol from "crypto";
 
-import { Device, Profile, User, Post, Comment, Like } from "../types";
+import {
+  Device,
+  Profile,
+  User,
+  Post,
+  Comment,
+  Like,
+  Notification,
+} from "../types";
 
 export const fakeCategories = [
   "technology",
@@ -210,4 +218,48 @@ export const fakeLikes = (
   return faker.helpers.multiple((_a, _b) => generator(users, posts), {
     count,
   });
+};
+
+export const fakeNotifications = (
+  users: User[],
+  posts: Post[],
+  likes: Like[],
+  comments: Comment[],
+): Notification[] => {
+  return [
+    ...likes.map((like) => {
+      const post = posts.find((post) => post.postId === like.postId)!;
+      const author = users.find((user) => user.userId === post.userId)!;
+
+      return {
+        notificationId: faker.string.ulid().toLowerCase(),
+        recipientId: author.userId,
+        senderId: like.userId,
+        type: "like",
+        entityType: "post",
+        entityId: post.postId,
+        createdAt: like.createdAt,
+        isRead: faker.datatype.boolean(),
+        title: `${author.username} liked your post <a href="/posts/${post.slug}">${post.slug}</a>`,
+      } as Notification;
+    }),
+
+    ...comments.map((comment) => {
+      const post = posts.find((post) => post.postId === comment.postId)!;
+      const author = users.find((user) => user.userId === post.userId)!;
+
+      return {
+        notificationId: faker.string.ulid().toLowerCase(),
+        recipientId: author.userId,
+        senderId: comment.userId,
+        type: "comment",
+        entityType: "post",
+        entityId: post.postId,
+        createdAt: comment.createdAt,
+        isRead: faker.datatype.boolean(),
+        title: `${author.username} commented on your post <a href="/posts/${post.slug}">${post.slug}</a>`,
+        content: comment.content,
+      } as Notification;
+    }),
+  ];
 };

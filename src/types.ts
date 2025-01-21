@@ -90,6 +90,19 @@ export type Post = {
   timeToRead?: number;
 };
 
+export type Notification = {
+  notificationId: string;
+  recipientId: string;
+  senderId: string;
+  type: "like" | "comment" | "follow";
+  entityType: "post" | "user";
+  entityId: string;
+  createdAt: number;
+  isRead: boolean;
+  title: string;
+  content?: string;
+};
+
 export type Data = {
   users: User[];
   profiles: Profile[];
@@ -97,6 +110,7 @@ export type Data = {
   comments: Comment[];
   devices: Device[];
   likes: Like[];
+  notifications: Notification[];
 };
 
 export type ResponseLocals = {

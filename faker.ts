@@ -4,6 +4,7 @@ import {
   fakeComments,
   fakeDevices,
   fakeLikes,
+  fakeNotifications,
   fakePosts,
   fakeProfiles,
   fakeUsers,
@@ -15,6 +16,7 @@ const profiles = fakeProfiles(users);
 const posts = fakePosts(250, users);
 const comments = fakeComments(500, users, posts);
 const likes = fakeLikes(5000, users, posts);
+const notifications = fakeNotifications(users, posts, likes, comments);
 
 const generated = {
   users,
@@ -23,6 +25,7 @@ const generated = {
   posts,
   comments,
   likes,
+  notifications,
 };
 
 fs.writeFileSync("src/fake-data.json", JSON.stringify(generated, null, 2));
