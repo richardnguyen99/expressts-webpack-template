@@ -7,10 +7,10 @@ const includeAuthorToComment = async (comment: Comment) => {
     (profile) => profile.userId === comment.userId,
   );
 
-  comment.author = {
-    userId: comment.userId,
-    profile: author!,
-  };
+  const user = data.users.find((user) => user.userId === comment.userId);
+
+  comment.user = user;
+  comment.profile = author;
 };
 
 const includesAuthorStrategy = async (comments: Comment[]) => {

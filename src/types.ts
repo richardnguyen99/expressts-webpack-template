@@ -27,6 +27,8 @@ export type Device = {
     region: string;
     country: string;
   };
+
+  user?: User;
 };
 
 export type Profile = {
@@ -41,6 +43,8 @@ export type Profile = {
   country: string;
   job: string;
   address: string;
+
+  user?: User;
 };
 
 export type Comment = {
@@ -50,16 +54,19 @@ export type Comment = {
   commentId: string;
   createdAt: number;
 
-  author?: {
-    userId: string;
-    profile: Profile;
-  };
+  user?: User;
+  profile?: Profile;
+  post?: Post;
 };
 
 export type Like = {
+  likeId: string;
   userId: string;
   postId: string;
   createdAt: number;
+
+  user?: User;
+  post?: Post;
 };
 
 export type Post = {

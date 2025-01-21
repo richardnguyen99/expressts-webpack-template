@@ -5,7 +5,7 @@ import type {
 } from "express-serve-static-core";
 
 import { getMeta } from "../utils/meta";
-import UserService from "../services/user";
+import UserService from "../services/user.service";
 import { mockedData } from "../server";
 
 interface LoginDto {

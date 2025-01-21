@@ -5,14 +5,14 @@
 >
   <div class="comment-item__avatar">
     <a
-      href="/users/{{comment.author.userId}}"
-      data-hover-card-url="/users/{{comment.author.userId}}/hover-card"
+      href="/users/{{comment.userId}}"
+      data-hover-card-url="/users/{{comment.userId}}/hover-card"
     >
       <img
-        src="{{comment.author.profile.avatar}}"
+        src="{{comment.profile.avatar}}"
         alt="{{fullname
-          comment.author.profile.firstName
-          comment.author.profile.lastName
+          comment.profile.firstName
+          comment.profile.lastName
         }}"
       />
     </a>
@@ -25,11 +25,11 @@
     >
       <div class="comment-item__content__header">
         <a
-          href="/users/{{comment.author.userId}}"
+          href="/users/{{comment.userId}}"
           class="comment-item__content__header__author"
         >{{fullname
-            comment.author.profile.firstName
-            comment.author.profile.lastName
+            comment.profile.firstName
+            comment.profile.lastName
           }}</a>
         <div
           class="comment-item__content__header__date d-flex align-items-center"

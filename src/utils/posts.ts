@@ -130,14 +130,8 @@ export const getPosts = async (options: {
         const author = data.users.find(
           (user) => user.userId === comment.userId,
         );
-        const profile = data.profiles.find(
-          (profile) => profile.userId === author!.userId,
-        );
 
-        comment.author = {
-          userId: author!.userId,
-          profile: profile!,
-        };
+        comment.user = author;
       });
 
       post.comments = comments[index];

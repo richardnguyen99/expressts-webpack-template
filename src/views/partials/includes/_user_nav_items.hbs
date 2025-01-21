@@ -14,21 +14,7 @@
     </a>
   </li>
 
-  <li class="nav-item" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasSidebar">
-    <a
-      hx-get="/users/{{fetchUser.userId}}/devices"
-      hx-push-url="/users/{{fetchUser.userId}}/devices"
-      hx-trigger="click"
-      hx-target="#user-content"
-      hx-swap="innerHTML"
-      class="nav-link {{#if (eq page "/devices")}}active{{/if}}"
-      {{#if (eq page "/devices")}}aria-current="page"{{/if}}
-    >
-      <i class="bi bi-phone"></i>
-      Devices
-    </a>
-  </li>
-
+  {{#if sessionUser}}
   <li class="nav-item" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasSidebar">
     <a
       hx-get="/users/{{fetchUser.userId}}/notifications"
@@ -43,6 +29,22 @@
       Notifications
     </a>
   </li>
+
+  <li class="nav-item" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasSidebar">
+    <a
+      hx-get="/users/{{fetchUser.userId}}/devices"
+      hx-push-url="/users/{{fetchUser.userId}}/devices"
+      hx-trigger="click"
+      hx-target="#user-content"
+      hx-swap="innerHTML"
+      class="nav-link {{#if (eq page "/devices")}}active{{/if}}"
+      {{#if (eq page "/devices")}}aria-current="page"{{/if}}
+    >
+      <i class="bi bi-phone"></i>
+      Devices
+    </a>
+  </li>
+  {{/if}}
 
   <li class="nav-item" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasSidebar">
     <a
@@ -74,10 +76,12 @@
     </a>
   </li>
 
+  {{#if sessionUser}}
   <li class="nav-item" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasSidebar">
     <a href="/users/{{fetchUser.userId}}/delete_account" class="nav-link">
       <i class="bi bi-trash"></i>
       Delete Account
     </a>
   </li>
+  {{/if}}
 </ul>

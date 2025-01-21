@@ -189,6 +189,7 @@ export const fakeLikeGenerator = (users: User[], posts: Post[]): Like => {
   const postIndex = Math.floor(Math.random() * posts.length);
 
   return {
+    likeId: faker.string.ulid().toLowerCase(),
     userId: users[Math.floor(Math.random() * users.length)].userId,
     postId: posts[postIndex].postId,
     createdAt: faker.date

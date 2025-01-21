@@ -192,22 +192,16 @@ describe("Blog Slug Controller", () => {
 
       const $commentAvatarLink = $commentAvatar.find("a");
       expect($commentAvatarLink.length).toBe(1);
-      expect($commentAvatarLink.attr("href")).toBe(
-        `/users/${comment.author?.userId}`,
-      );
+      expect($commentAvatarLink.attr("href")).toBe(`/users/${comment.userId}`);
       expect($commentAvatarLink.attr("data-hover-card-url")).toBe(
-        `/users/${comment.author?.userId}/hover-card`,
+        `/users/${comment.userId}/hover-card`,
       );
 
       const $commentAvatarImage = $commentAvatarLink.find("img");
       expect($commentAvatarImage.length).toBe(1);
-      expect($commentAvatarImage.attr("src")).toBe(
-        comment.author?.profile.avatar,
-      );
+      expect($commentAvatarImage.attr("src")).toBe(comment.profile?.avatar);
       expect($commentAvatarImage.attr("alt")).toBe(
-        comment.author?.profile.firstName +
-          " " +
-          comment.author?.profile.lastName,
+        comment.profile?.firstName + " " + comment.profile?.lastName,
       );
 
       const $commentContent = $commentItem.find(".comment-item__content");
@@ -229,13 +223,9 @@ describe("Blog Slug Controller", () => {
       );
       expect($commentAuthor.length).toBe(1);
       expect($commentAuthor.get(0)?.tagName).toBe("a");
-      expect($commentAuthor.attr("href")).toBe(
-        `/users/${comment.author?.userId}`,
-      );
+      expect($commentAuthor.attr("href")).toBe(`/users/${comment.userId}`);
       expect($commentAuthor.text()).toBe(
-        comment.author?.profile.firstName +
-          " " +
-          comment.author?.profile.lastName,
+        comment.profile?.firstName + " " + comment.profile?.lastName,
       );
 
       const $commentDateContainer = $commentHeader.find(
