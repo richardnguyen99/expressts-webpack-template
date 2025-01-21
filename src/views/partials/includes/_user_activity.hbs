@@ -1,0 +1,74 @@
+<div
+  class="d-flex justify-content-md-between align-items-md-center mb-5 lg:exts-mb-6 flex-column flex-md-row gap-3"
+>
+  {{#if sessionUser}}
+  <h3 class="h3 mb-0">My activities</h3>
+  {{else}}
+  <h3 class="h3 mb-0">{{fullname fetchUser.profile.firstName fetchUser.profile.lastName}}&apos;s activities</h3>
+  {{/if}}
+  <button
+    class="btn btn-primary btn-sm d-flex align-items-center gap-2 d-lg-none flex-shrink-0 ms-md-2 bg-info flex-wrap"
+    style="width: fit-content"
+    type="button"
+    data-bs-toggle="offcanvas"
+    data-bs-target="#offcanvasSidebar"
+    aria-controls="offcanvasSidebar"
+  >
+    <i class="bi bi-box-arrow-right d-none d-sm-block"></i>
+    <span>Show Sidebar</span>
+  </button>
+</div>
+
+<div class="card bg-body-tertiary p-3">
+  <div class="card-header bg-transparent border-bottom p-0 pb-3">
+    <h6 class="mb-0">Latest activities</h6>
+  </div>
+
+  <div class="card-body px-0 pb-0">
+    <ul class="user__activities list-group">
+      {{#each activities as |activity|}}
+      <li class="user__activity list-group-item d-flex gap-2 flex-column">
+        <div class="d-flex align-items-center gap-2">
+          <div class="user__activity__icon">
+              {{#if (eq activity.objectType "comment")}}
+              <i class="bi bi-chat"></i>
+              {{/if}}
+
+              {{#if (eq activity.objectType "like")}}
+              <i class="bi bi-heart"></i>
+              {{/if}}
+          </div>
+
+          <div
+            class="user__activity__header d-flex align-items-center justify-content-between gap-2"
+          >
+            <div class="text-truncate d-flex">
+              {{#if (eq activity.objectType "comment")}}
+              <span class="d-none d-sm-block">Commented on&nbsp;</span>
+              {{/if}}
+
+              {{#if (eq activity.objectType "like")}}
+              <span class="d-none d-sm-block">Liked&nbsp;</span>
+              {{/if}}
+              <a
+                href="/blogs/{{activity.post.slug}}#comment-{{activity.comment.commentId}}"
+              >
+                {{activity.post.slug}}
+              </a>
+            </div>
+            <div class="ms-auto">
+              <span class="text-muted">{{date "short" activity.createdAt}}</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="d-flex align-items-center gap-2">
+          <p class="user__activity__content small text-muted mb-0">
+            {{activity.content}}
+          </p>
+        </div>
+      </li>
+      {{/each}}
+    </ul>
+  </div>
+</div>

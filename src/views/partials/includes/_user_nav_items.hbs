@@ -6,7 +6,7 @@
       hx-target="#user-content"
       hx-swap="innerHTML"
       hx-push-url="/users/{{fetchUser.userId}}/profile"
-      class="nav-link {{#if (eq page "/profile")}}active{{/if}}"
+      class="nav-link d-flex align-items-center gap-1 {{#if (eq page "/profile")}}active{{/if}}"
       {{#if (eq page "/profile")}}aria-current="page"{{/if}}
     >
       <i class="bi bi-person"></i>
@@ -22,7 +22,7 @@
       hx-trigger="click"
       hx-target="#user-content"
       hx-swap="innerHTML"
-      class="nav-link {{#if (eq page "/notifications")}}active{{/if}}"
+      class="nav-link d-flex align-items-center gap-1 {{#if (eq page "/notifications")}}active{{/if}}"
       {{#if (eq page "/notifications")}}aria-current="page"{{/if}}
     >
       <i class="bi bi-bell"></i>
@@ -37,7 +37,7 @@
       hx-trigger="click"
       hx-target="#user-content"
       hx-swap="innerHTML"
-      class="nav-link {{#if (eq page "/devices")}}active{{/if}}"
+      class="nav-link d-flex align-items-center gap-1 {{#if (eq page "/devices")}}active{{/if}}"
       {{#if (eq page "/devices")}}aria-current="page"{{/if}}
     >
       <i class="bi bi-phone"></i>
@@ -53,7 +53,7 @@
       hx-trigger="click"
       hx-target="#user-content"
       hx-swap="innerHTML"
-      class="nav-link {{#if (eq page "/posts")}}active{{/if}}"
+      class="nav-link d-flex align-items-center gap-1 {{#if (eq page "/posts")}}active{{/if}}"
       {{#if (eq page "/posts")}}aria-current="page"{{/if}}
     >
       <i class="bi bi-file-earmark-text"></i>
@@ -63,16 +63,16 @@
 
   <li class="nav-item" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasSidebar">
     <a
-      hx-get="/users/{{fetchUser.userId}}/comments"
-      hx-push-url="/users/{{fetchUser.userId}}/comments"
+      hx-get="/users/{{fetchUser.userId}}/activities"
+      hx-push-url="/users/{{fetchUser.userId}}/activities"
       hx-trigger="click"
       hx-target="#user-content"
       hx-swap="innerHTML"
-      class="nav-link {{#if (eq page "/comments")}}active{{/if}}"
+      class="nav-link d-flex align-items-center gap-1 {{#if (eq page "/comments")}}active{{/if}}"
       {{#if (eq page "/comments")}}aria-current="page"{{/if}}
     >
-      <i class="bi bi-chat"></i>
-      Comments
+      <i class="bi bi-info-circle"></i>
+      Activities
     </a>
   </li>
 

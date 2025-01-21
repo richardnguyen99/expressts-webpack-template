@@ -1,7 +1,7 @@
 import { Router } from "express";
 import type { Request, Response } from "express-serve-static-core";
 
-import userCommmentController from "../controllers/user/comment";
+import userActivityController from "../controllers/user/activity";
 import userPostController from "../controllers/user/post";
 import userNotificationController from "../controllers/user/notification";
 import userDeviceController from "../controllers/user/device";
@@ -53,10 +53,10 @@ userRouter.get(
 );
 
 userRouter.get(
-  "/:id/comments",
+  "/:id/activities",
   fetchUserMiddleware,
   noCacheMiddleware,
-  userCommmentController,
+  userActivityController,
 );
 
 userRouter.get(

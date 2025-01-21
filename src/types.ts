@@ -94,7 +94,8 @@ export type Notification = {
   notificationId: string;
   recipientId: string;
   senderId: string;
-  type: "like" | "comment" | "follow";
+  objectType: "like" | "comment" | "follow";
+  objectId: string;
   entityType: "post" | "user";
   entityId: string;
   createdAt: number;

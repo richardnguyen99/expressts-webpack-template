@@ -193,13 +193,46 @@ export const fakeComments = (
   });
 };
 
-export const fakeLikeGenerator = (users: User[], posts: Post[]): Like => {
-  const postIndex = Math.floor(Math.random() * posts.length);
+export const fakeLikeGenerator = (
+  users: User[],
+  posts: Post[],
+  likeSet: Set<{ userId: string; postId: string }>,
+): Like => {
+  let postIndex: number;
+  let userIndex: number;
+  let userId: string;
+  let postId: string;
+
+  let tryAgain = 5;
+
+  do {
+    postIndex = Math.floor(Math.random() * posts.length);
+    userIndex = Math.floor(Math.random() * users.length);
+    userId = users[userIndex].userId;
+    postId = posts[postIndex].postId;
+
+    tryAgain--;
+  } while (
+    likeSet.has({
+      userId,
+      postId,
+    }) &&
+    tryAgain >= 0
+  );
+
+  if (tryAgain < 0) {
+    return null!;
+  }
+
+  likeSet.add({
+    userId,
+    postId,
+  });
 
   return {
     likeId: faker.string.ulid().toLowerCase(),
-    userId: users[Math.floor(Math.random() * users.length)].userId,
-    postId: posts[postIndex].postId,
+    userId,
+    postId,
     createdAt: faker.date
       .between({
         from: posts[postIndex].createdAt,
@@ -215,7 +248,9 @@ export const fakeLikes = (
   posts: Post[],
   generator: typeof fakeLikeGenerator = fakeLikeGenerator,
 ): Like[] => {
-  return faker.helpers.multiple((_a, _b) => generator(users, posts), {
+  const likeSet = new Set<{ userId: string; postId: string }>();
+
+  return faker.helpers.multiple((_a, _b) => generator(users, posts, likeSet), {
     count,
   });
 };
@@ -229,13 +264,14 @@ export const fakeNotifications = (
   return [
     ...likes.map((like) => {
       const post = posts.find((post) => post.postId === like.postId)!;
-      const author = users.find((user) => user.userId === post.userId)!;
+      const author = users.find((user) => user.userId === like.userId)!;
 
       return {
         notificationId: faker.string.ulid().toLowerCase(),
         recipientId: author.userId,
         senderId: like.userId,
-        type: "like",
+        objectType: "like",
+        objectId: like.likeId,
         entityType: "post",
         entityId: post.postId,
         createdAt: like.createdAt,
@@ -246,13 +282,14 @@ export const fakeNotifications = (
 
     ...comments.map((comment) => {
       const post = posts.find((post) => post.postId === comment.postId)!;
-      const author = users.find((user) => user.userId === post.userId)!;
+      const author = users.find((user) => user.userId === comment.userId)!;
 
       return {
         notificationId: faker.string.ulid().toLowerCase(),
         recipientId: author.userId,
         senderId: comment.userId,
-        type: "comment",
+        objectType: "comment",
+        objectId: comment.commentId,
         entityType: "post",
         entityId: post.postId,
         createdAt: comment.createdAt,

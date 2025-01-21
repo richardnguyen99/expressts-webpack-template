@@ -51,10 +51,10 @@
     }
   }
 
-  &__comments {
+  &__activities {
   }
 
-  &__comment {
+  &__activity {
     padding: 1rem;
 
     [data-bs-theme="dark"] & {
@@ -70,7 +70,6 @@
       height: 1.5rem;
       border-radius: 50%;
       overflow: hidden;
-      color: var(--bs-info);
       display: none;
       visibility: hidden;
 
@@ -80,6 +79,14 @@
         align-items: center;
         justify-content: center;
       }
+    }
+
+    &__icon > .bi-chat {
+      color: var(--bs-info);
+    }
+
+    &__icon > .bi-heart {
+      color: var(--bs-pink);
     }
 
     &__header {
