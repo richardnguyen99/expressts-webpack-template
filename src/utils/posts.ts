@@ -62,26 +62,26 @@ const postSortStrategies = {
   likes: getPostsByLikes,
 };
 
-const includesAuthorStrategy = (posts: Post[]) => {
-  posts.forEach(async (post) => {
+const includesAuthorStrategy = async (posts: Post[]) => {
+  for (const post of posts) {
     const author = await getUserById(post.userId);
 
     post.author = {
       userId: author!.userId,
       profile: author!.profile!,
     };
-  });
+  }
 };
 
 const includesCommentsStrategy = async (posts: Post[]) => {
-  posts.forEach(async (post) => {
+  for (const post of posts) {
     const comments = await getCommmentsByPostId(post.postId, {
       limit: -1,
       includes: ["author"],
     });
 
     post.comments = comments || [];
-  });
+  }
 };
 
 export const getPosts = async (options: {
@@ -213,11 +213,11 @@ export const getPostsByUserId = async (
   const sortedPosts = postSortStrategies[sortedBy](posts, order);
 
   if (options.includes && options.includes.includes("author")) {
-    includesAuthorStrategy(sortedPosts);
+    await includesAuthorStrategy(sortedPosts);
   }
 
   if (options.includes && options.includes.includes("comments")) {
-    includesCommentsStrategy(sortedPosts);
+    await includesCommentsStrategy(sortedPosts);
   }
 
   if (options.includes && options.includes.includes("likes")) {
