@@ -11,7 +11,7 @@ export type UserRequest = Request<
   { id: string },
   unknown,
   unknown,
-  unknown,
+  { page?: string },
   ResponseLocals
 >;
 export type UserResponse = Response<unknown, ResponseLocals>;

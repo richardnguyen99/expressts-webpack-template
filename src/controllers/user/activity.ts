@@ -6,6 +6,8 @@ import { mockedData } from "../../server";
 
 const userCommentController = async (req: UserRequest, res: UserResponse) => {
   const data = await mockedData;
+  const page = req.query.page ? parseInt(req.query.page, 10) : 1;
+  const perPage = 10;
 
   const activities = data.notifications
     .filter(
@@ -14,24 +16,30 @@ const userCommentController = async (req: UserRequest, res: UserResponse) => {
     )
     .sort((a, b) => b.createdAt - a.createdAt);
 
+  const totalPages = 5;
+
   const commentsData = {
     title: `Activities by ${res.locals.user?.profile?.firstName} ${res.locals.user?.profile?.lastName}`,
     page: "/activities",
     user: res.locals.user,
-    activities: activities.map((activity) => {
-      if (activity.entityType === "post") {
-        const post = data.posts.find(
-          (post) => post.postId === activity.entityId,
-        );
+    totalPages,
+    currentPage: page,
+    activities: activities
+      .slice((page - 1) * perPage, page * perPage)
+      .map((activity) => {
+        if (activity.entityType === "post") {
+          const post = data.posts.find(
+            (post) => post.postId === activity.entityId,
+          );
 
-        return {
-          ...activity,
-          post,
-        };
-      }
+          return {
+            ...activity,
+            post,
+          };
+        }
 
-      return activity;
-    }),
+        return activity;
+      }),
   };
 
   if (req.headers["hx-request"]) {

@@ -30,7 +30,16 @@ const hbsEngine = (config: { manifest: Record<string, object> }) =>
 
         throw new Error(`Asset path '${assetPath}' not found in manifest.json`);
       },
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      for: (start: number, end: number, block: any) => {
+        let accum = "";
 
+        for (let i = start; i <= end; i++) {
+          accum += block.fn(i);
+        }
+
+        return accum;
+      },
       concat: (...args: unknown[]) => args.slice(0, -1).join(""),
       flag: (countryCode: TCountryCode) => getEmojiFlag(countryCode),
       countryName: (countryCode: TCountryCode) => {
@@ -41,6 +50,12 @@ const hbsEngine = (config: { manifest: Record<string, object> }) =>
         return country?.name;
       },
       eq: (a: unknown, b: unknown) => a === b,
+      lt: (a: number, b: number) => a < b,
+      lte: (a: number, b: number) => a <= b,
+      gt: (a: number, b: number) => a > b,
+      gte: (a: number, b: number) => a >= b,
+      and: (a: boolean, b: boolean) => a && b,
+      or: (a: boolean, b: boolean) => a || b,
       neq: (a: unknown, b: unknown) => a !== b,
       uppercase: (str: string) => str.toUpperCase(),
       lowercase: (str: string) => str.toLowerCase(),
@@ -63,6 +78,10 @@ const hbsEngine = (config: { manifest: Record<string, object> }) =>
           dateStyle: format,
         }).format(date);
       },
+      add: (a: number, b: number) => a + b,
+      sub: (a: number, b: number) => a - b,
+      mul: (a: number, b: number) => a * b,
+      div: (a: number, b: number) => a / b,
     },
   });
 

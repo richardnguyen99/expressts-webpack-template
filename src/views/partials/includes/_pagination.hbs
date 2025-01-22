@@ -1,0 +1,58 @@
+<ul class="user__pagination pagination">
+  {{#if (eq currentPage 1)}}
+  <li class="page-item disabled">
+    <span class="page-link">Previous</span>
+  {{else}}
+  <li class="page-item">
+    <a class="page-link" href="?page={{sub currentPage 1}}">Previous</a>
+  {{/if}}
+  </li>
+
+  <li>
+    {{#if (eq currentPage 1)}}
+    <span class="page-link active">1</span>
+    {{else}}
+    <a class="page-link" href="?page=1">1</a>
+    {{/if}}
+  </li>
+
+  {{#if (gt (sub (sub currentPage 1) 1) 1)}}
+  <li><span class="page-link disabled border-0 bg-transparent">...</span></li>
+  {{/if}}
+
+  {{#for (sub currentPage 1) (add currentPage 1)}}
+    {{#if (and (gte this 2) (lte this (sub ../totalPages 1)))}}
+    <li>
+      {{#if (eq ../currentPage this)}}
+      <span class="page-link active">{{this}}</span>
+      {{else}}
+      <a class="page-link" href="?page={{this}}">{{this}}</a>
+      {{/if}}
+    </li>
+    {{/if}}
+  {{/for}}
+
+
+  {{#if (gt (sub totalPages (add currentPage 1)) 1)}}
+  <li><span class="page-link disabled border-0 bg-transparent">...</span></li>
+  {{/if}}
+
+  {{#if (gte totalPages 2)}}
+  <li>
+    {{#if (eq currentPage totalPages)}}
+    <span class="page-link active">{{totalPages}}</span>
+    {{else}}
+    <a class="page-link" href="?page={{totalPages}}">{{totalPages}}</a>
+    {{/if}}
+  </li>
+  {{/if}}
+
+  {{#if (eq currentPage totalPages)}}
+  <li class="page-item disabled">
+    <span class="page-link">Next</span>
+  {{else}}
+  <li class="page-item">
+    <a class="page-link" href="?page={{add currentPage 1}}">Next</a>
+  {{/if}}
+  </li>
+</ul>
