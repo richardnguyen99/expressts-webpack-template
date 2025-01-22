@@ -264,7 +264,7 @@ export const fakeNotifications = (
   return [
     ...likes.map((like) => {
       const post = posts.find((post) => post.postId === like.postId)!;
-      const author = users.find((user) => user.userId === like.userId)!;
+      const author = users.find((user) => user.userId === post.userId)!;
 
       return {
         notificationId: faker.string.ulid().toLowerCase(),
@@ -282,7 +282,7 @@ export const fakeNotifications = (
 
     ...comments.map((comment) => {
       const post = posts.find((post) => post.postId === comment.postId)!;
-      const author = users.find((user) => user.userId === comment.userId)!;
+      const author = users.find((user) => user.userId === post.userId)!;
 
       return {
         notificationId: faker.string.ulid().toLowerCase(),
