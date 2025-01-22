@@ -45,16 +45,21 @@
             <div class="text-truncate d-flex">
               {{#if (eq activity.objectType "comment")}}
               <span class="d-none d-sm-block">Commented on&nbsp;</span>
+              <a
+                href="/blogs/{{activity.post.slug}}#comment-{{activity.objectId}}"
+              >
+                {{activity.post.slug}}
+              </a>
               {{/if}}
 
               {{#if (eq activity.objectType "like")}}
               <span class="d-none d-sm-block">Liked&nbsp;</span>
-              {{/if}}
               <a
-                href="/blogs/{{activity.post.slug}}#comment-{{activity.comment.commentId}}"
+                href="/blogs/{{activity.post.slug}}"
               >
                 {{activity.post.slug}}
               </a>
+              {{/if}}
             </div>
             <div class="ms-auto">
               <span class="text-muted">{{date "short" activity.createdAt}}</span>
