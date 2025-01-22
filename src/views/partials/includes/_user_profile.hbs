@@ -31,6 +31,7 @@
                 id="firstNameInput"
                 placeholder="First name"
                 value="{{ fetchUser.profile.firstName }}"
+                {{#unless sessionUser}}disabled{{/unless}}
               />
               <label for="firstNameInput">First Name</label>
             </div>
@@ -41,6 +42,7 @@
                 id="lastNameInput"
                 placeholder="Last name"
                 value="{{ fetchUser.profile.lastName }}"
+                {{#unless sessionUser}}disabled{{/unless}}
               />
               <label for="lastNameInput">Last Name</label>
             </div>
@@ -55,6 +57,7 @@
               id="emailInput"
               placeholder="Email"
               value="{{ fetchUser.email }}"
+              {{#unless sessionUser}}disabled{{/unless}}
             />
             <label for="emailInput">Email</label>
           </div>
@@ -68,6 +71,7 @@
               id="dobInput"
               placeholder="Date of Birth"
               value="{{date 'short' fetchUser.profile.dateOfBirth}}"
+              {{#unless sessionUser}}disabled{{/unless}}
             />
             <label for="dobInput">Date of Birth</label>
           </div>
@@ -79,11 +83,10 @@
               class="form-select"
               id="nationalitySelect"
               aria-label="Select your nationality"
+              {{#unless sessionUser}}disabled{{/unless}}
             >
               <option value="{{ fetchUser.profile.country }}" selected>
-                {{flag
-                  fetchUser.profile.country
-                }}
+                {{flag fetchUser.profile.country~}}
                 {{countryName fetchUser.profile.country}}
               </option>
               {{#each countriesWithFlags}}
@@ -104,6 +107,7 @@
               id="jobInput"
               placeholder="Job"
               value="{{ fetchUser.profile.job }}"
+              {{#unless sessionUser}}disabled{{/unless}}
             />
             <label for="jobInput">Job</label>
           </div>
@@ -113,10 +117,11 @@
           <div class="form-floating">
             <input
               type="text"
-              class="form-control"
+              class="form-control "
               id="phoneInput"
               placeholder="Phone"
               value="{{ fetchUser.profile.phone }}"
+              {{#unless sessionUser}}disabled{{/unless}}
             />
             <label for="phoneInput">Phone</label>
           </div>
@@ -128,6 +133,7 @@
               class="form-select"
               id="genderSelect"
               aria-label="Select your gender"
+              {{#unless sessionUser}}disabled{{/unless}}
             >
               <option value="male">Male</option>
               <option value="female">Female</option>
@@ -145,6 +151,7 @@
               id="addressInput"
               placeholder="Address"
               value="{{ fetchUser.profile.address }}"
+              {{#unless sessionUser}}disabled{{/unless}}
             />
             <label for="addressInput">Address</label>
           </div>
@@ -157,15 +164,19 @@
               placeholder="fetchUser biography"
               id="biographyTextarea"
               style="height: 120px"
-              >{{ fetchUser.profile.bio }}</textarea
+              {{#unless sessionUser}}disabled{{/unless}}
             >
+              {{ fetchUser.profile.bio }}
+            </textarea>
             <label for="biographyTextarea">Biography</label>
           </div>
         </div>
 
+        {{#if sessionUser }}
         <div class="col-12 d-flex justify-content-end">
           <button type="submit" class="btn btn-success">Edit Changes</button>
         </div>
+        {{/if}}
       </div>
     </div>
   </div>
