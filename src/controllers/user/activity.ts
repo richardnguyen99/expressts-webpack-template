@@ -16,7 +16,7 @@ const userCommentController = async (req: UserRequest, res: UserResponse) => {
     )
     .sort((a, b) => b.createdAt - a.createdAt);
 
-  const totalPages = 5;
+  const totalPages = Math.ceil(activities.length / perPage);
 
   const commentsData = {
     title: `Activities by ${res.locals.user?.profile?.firstName} ${res.locals.user?.profile?.lastName}`,

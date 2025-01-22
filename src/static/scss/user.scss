@@ -122,4 +122,26 @@
       overflow: hidden;
     }
   }
+
+  &__pagination {
+    [data-bs-theme="dark"] & .page-link {
+      background-color: mix($gray-800, $gray-700, 50%);
+    }
+
+    [data-bs-theme="dark"] & .page-link:hover {
+      background-color: mix($gray-700, $gray-600, 50%);
+    }
+
+    [data-bs-theme="dark"] & .page-link.active {
+      background-color: mix($blue-400, $blue-500, 50%);
+    }
+
+    [data-bs-theme="dark"] & .page-link:hover.active {
+      background-color: mix($blue-500, $blue-500, 50%);
+    }
+
+    [data-bs-theme="dark"] & .disabled > .page-link {
+      background-color: mix($gray-700, $gray-600, 40%);
+    }
+  }
 }
