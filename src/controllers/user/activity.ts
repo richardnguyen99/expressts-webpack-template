@@ -6,7 +6,8 @@ import { mockedData } from "../../server";
 
 const userCommentController = async (req: UserRequest, res: UserResponse) => {
   const data = await mockedData;
-  const page = req.query.page ? parseInt(req.query.page, 10) : 1;
+  const pageStr = req.query.page ? parseInt(req.query.page, 10) : 1;
+  const page = isNaN(pageStr) ? 1 : pageStr;
   const perPage = 10;
 
   const activities = data.notifications
@@ -18,12 +19,20 @@ const userCommentController = async (req: UserRequest, res: UserResponse) => {
 
   const totalPages = Math.ceil(activities.length / perPage);
 
+  if (page > totalPages) {
+    res.redirect(
+      301,
+      `/users/${res.locals.fetchUser?.userId}/activities?page=${totalPages}`,
+    );
+    return;
+  }
+
   const commentsData = {
     title: `Activities by ${res.locals.user?.profile?.firstName} ${res.locals.user?.profile?.lastName}`,
     page: "/activities",
     user: res.locals.user,
     totalPages,
-    currentPage: page,
+    currentPage: page > totalPages ? totalPages : page,
     activities: activities
       .slice((page - 1) * perPage, page * perPage)
       .map((activity) => {

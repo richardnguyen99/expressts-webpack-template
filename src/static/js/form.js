@@ -43,3 +43,24 @@ $(function () {
     });
   });
 });
+
+$(function userMobilePagination() {
+  const $userMp = $(".user__mobile-pagination");
+  if ($userMp.length <= 0) {
+    return;
+  }
+
+  const $form = $userMp.find("form");
+  if ($form.length <= 0) {
+    return;
+  }
+
+  $form.on("submit", function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+    const qs = new URLSearchParams(formData).toString();
+
+    window.location.search = qs;
+  });
+});

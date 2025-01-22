@@ -124,6 +124,14 @@
   }
 
   &__pagination {
+    display: none;
+    visibility: hidden;
+
+    @include media-breakpoint-up(sm) {
+      display: flex;
+      visibility: visible;
+    }
+
     [data-bs-theme="dark"] & .page-link {
       background-color: mix($gray-800, $gray-700, 50%);
     }
@@ -141,7 +149,7 @@
     }
 
     [data-bs-theme="dark"] & .disabled > .page-link {
-      background-color: mix($gray-700, $gray-600, 40%);
+      background-color: mix($gray-700, $gray-600, 50%);
     }
   }
 }
