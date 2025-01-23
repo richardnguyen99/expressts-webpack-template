@@ -1,7 +1,11 @@
 <div
   class="user-post d-flex justify-content-md-between align-items-md-center mb-5 lg:exts-mb-6 flex-column flex-md-row gap-3"
 >
-  <h3 class="user-post__title h3 mb-0">My posts</h3>
+  {{#if sessionUser}}
+  <h3 class="h3 mb-0">My posts</h3>
+  {{else}}
+  <h3 class="h3 mb-0">{{fullname fetchUser.profile.firstName fetchUser.profile.lastName}}&apos;s posts</h3>
+  {{/if}}
   <button
     class="user-post__offcanvas-btn btn btn-primary btn-sm d-flex align-items-center gap-2 d-lg-none flex-shrink-0 ms-md-2 bg-info flex-wrap"
     style="width: fit-content"
