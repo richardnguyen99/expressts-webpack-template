@@ -5,6 +5,18 @@ import {
 import { getLoggedDevicesFromUserId } from "../../utils/devices";
 
 const userDeviceController = async (req: UserRequest, res: UserResponse) => {
+  const user = res.locals.sessionUser;
+
+  if (!user) {
+    return res.redirect(
+      `/login?${new URLSearchParams(`redirect=${req.originalUrl}`).toString()}`,
+    );
+  }
+
+  if (user.userId !== req.params.id) {
+    return res.redirect(`/users/${res.locals.fetchUser?.userId}/profile`);
+  }
+
   const devices = await getLoggedDevicesFromUserId(req.params.id);
 
   const devicesData = {

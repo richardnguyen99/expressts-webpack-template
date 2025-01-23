@@ -16,6 +16,10 @@ const userNotificationController = async (
     );
   }
 
+  if (user.userId !== req.params.id) {
+    return res.redirect(`/users/${res.locals.fetchUser?.userId}/profile`);
+  }
+
   const data = await mockedData;
   const pageStr = req.query.page ? parseInt(req.query.page, 10) : 1;
   const page = isNaN(pageStr) ? 1 : pageStr;

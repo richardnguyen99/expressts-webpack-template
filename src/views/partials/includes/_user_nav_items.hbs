@@ -14,7 +14,7 @@
     </a>
   </li>
 
-  {{#if sessionUser}}
+  {{#if (eq sessionUser.userId fetchUser.userId)}}
   <li class="nav-item" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasSidebar">
     <a
       hx-get="/users/{{fetchUser.userId}}/notifications"
@@ -76,7 +76,7 @@
     </a>
   </li>
 
-  {{#if sessionUser}}
+  {{#if (eq sessionUser.userId fetchUser.userId)}}
   <li class="nav-item" data-bs-dismiss="offcanvas" data-bs-target="#offcanvasSidebar">
     <a href="/users/{{fetchUser.userId}}/delete_account" class="nav-link">
       <i class="bi bi-trash"></i>

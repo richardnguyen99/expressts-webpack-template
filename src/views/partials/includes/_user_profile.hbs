@@ -1,7 +1,7 @@
 <div
   class="d-flex justify-content-between align-items-center mb-5 lg:exts-mb-6"
 >
-  {{#if sessionUser}}
+  {{#if (eq sessionUser.userId fetchUser.userId)}}
   <h3 class="h3 mb-0">My profile</h3>
   {{else}}
   <h3 class="h3 mb-0">{{fullname fetchUser.profile.firstName fetchUser.profile.lastName}}&apos;s profile</h3>
@@ -176,7 +176,7 @@
           </div>
         </div>
 
-        {{#if sessionUser }}
+        {{#if (eq sessionUser.userId fetchUser.userId)}}
         <div class="col-12 d-flex justify-content-end">
           <button type="submit" class="btn btn-success">Edit Changes</button>
         </div>
