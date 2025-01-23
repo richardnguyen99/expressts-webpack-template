@@ -1,4 +1,5 @@
 import type {
+  ErrorRequestHandler,
   Request,
   RequestHandler,
   Response,
@@ -7,6 +8,7 @@ import type {
 import { getMeta } from "../utils/meta";
 import UserService from "../services/user.service";
 import { mockedData } from "../server";
+import csrf from "../csrf";
 
 interface LoginDto {
   email: string;
@@ -14,7 +16,9 @@ interface LoginDto {
   rememberMe?: boolean;
 }
 
-const getLoginController: RequestHandler = (_req: Request, res: Response) => {
+const getLoginController: RequestHandler = (req: Request, res: Response) => {
+  const csrfToken = csrf.generateToken(req, res);
+
   const meta = Object.entries(
     getMeta({
       title: "Login | ExWt",
@@ -26,7 +30,29 @@ const getLoginController: RequestHandler = (_req: Request, res: Response) => {
     }),
   );
 
-  res.render("login", { title: "Login", page: "/login", meta });
+  res.render("login", {
+    title: "Login | ExWt",
+    page: "/login",
+    meta,
+    csrfToken,
+  });
+};
+
+export const postLoginCsrfMiddleware: ErrorRequestHandler = (
+  err,
+  _req,
+  res,
+  next,
+) => {
+  if (err === csrf.invalidCsrfTokenError) {
+    return res.status(403).render("errors/4xx", {
+      title: "Forbidden",
+      statusCode: 403,
+      message: "Invalid CSRF token",
+    });
+  }
+
+  next();
 };
 
 const postLoginController: RequestHandler = async (

@@ -45,6 +45,8 @@ Login
       method="POST"
 
     >
+      <input type="hidden" name="csrfToken" value="{{csrfToken}}" />
+
       <div class="form-floating mb-3">
         <input
           type="email"

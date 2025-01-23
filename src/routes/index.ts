@@ -2,7 +2,7 @@ import { Router, type RouterOptions } from "express";
 
 import { getTopCategories, getLatestArchives, getPosts } from "../utils/posts";
 import { getMeta } from "../utils/meta";
-import loginController from "../controllers/login";
+import loginController, { postLoginCsrfMiddleware } from "../controllers/login";
 import registerController from "../controllers/register";
 import faqHandler from "./faq";
 import userRouter from "./user";
@@ -91,7 +91,7 @@ const getAppRouter = () => {
   );
 
   appRouter.get("/login", cachableMiddleware, loginController.get);
-  appRouter.post("/login", loginController.post);
+  appRouter.post("/login", postLoginCsrfMiddleware, loginController.post);
   appRouter.get("/register", cachableMiddleware, registerController);
   appRouter.get("/faq", cachableMiddleware, faqHandler);
 

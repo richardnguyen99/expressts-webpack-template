@@ -9,6 +9,7 @@ import bcrypt from "bcrypt";
 import flash from "connect-flash";
 
 import type { Data } from "./types";
+import csrf from "./csrf";
 import getAppRouter from "./routes";
 import logger from "./logger";
 import hbsEngine from "./engine";
@@ -131,17 +132,20 @@ const createApp = async () => {
   // Set up logging
   app.use(morganMiddleware(stream, skip));
 
+  // Set up cookie and session
+  app.use(expressSession(session));
+
   // Set up unique request ID registration
   app.use(requestIdMiddleware);
   app.use(cookieParser(process.env.COOKIE_SECRET));
   app.use(Express.urlencoded({ extended: true }));
   app.use(Express.json());
   app.use(methodOverride());
-
-  // Set up cookie and session
-  app.use(expressSession(session));
   app.use(fetchUserFromSessionMiddleware);
   app.use(flash());
+
+  // Set up CSRF protection
+  app.use(csrf.doubleCsrfProtection);
 
   app.use(
     "/public",
