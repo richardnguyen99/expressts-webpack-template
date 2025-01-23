@@ -26,7 +26,7 @@ Register
     </div>
 
     <form
-      id="loginForm"
+      id="registerForm"
       class="needs-validation"
       novalidate
       action="/login"
@@ -63,7 +63,7 @@ Register
         </div>
       </div>
 
-      <div class="form-floating">
+      <div class="form-floating position-relative">
         <input
           type="password"
           class="form-control"
@@ -73,19 +73,54 @@ Register
         <label for="floatingPassword"
           >Password <span class="text-danger">*</span></label
         >
-        <div id="passwordMessage" class="form-text">
-          <p class="mb-2">Password must follow these rules:</p>
-          <ul class="mb-3">
-            <li>At least 8 characters</li>
-            <li>At least one uppercase letter</li>
-            <li>At least one lowercase letter</li>
-            <li>At least one number</li>
-            <li>At least one special character</li>
-          </ul>
+        <div class="form-password position-absolute top-0 end-0 mt-2">
+          <button
+            class="btn text-decoration-none"
+            type="button"
+            data-target="floatingPassword"
+            aria-pressed="false"
+          >
+            <i class="bi bi-eye"></i>
+          </button>
         </div>
       </div>
+      <div id="passwordMessage" class="form-text">
+        <p class="mb-2">Password must follow these rules:</p>
+        <ul class="mb-3">
+          <li>At least 8 characters</li>
+          <li>At least one uppercase letter</li>
+          <li>At least one lowercase letter</li>
+          <li>At least one number</li>
+          <li>At least one special character</li>
+        </ul>
+      </div>
 
-      <button class="btn btn-primary w-100 py-2 mb-4" type="submit">
+      <div class="form-floating position-relative">
+        <input
+          type="password"
+          class="form-control"
+          id="floatingConfirmPassword"
+          placeholder="Password"
+        />
+        <label for="floatingConfirmPassword">
+          Confirm Password <span class="text-danger">*</span>
+        </label>
+        <div class="form-password position-absolute top-0 end-0 mt-2">
+          <button
+            class="btn text-decoration-none"
+            type="button"
+            data-target="floatingConfirmPassword"
+            aria-pressed="false"
+          >
+            <i class="bi bi-eye"></i>
+          </button>
+        </div>
+      </div>
+      <div id="passwordMessage" class="form-text">
+        <p class="mb-2">Confirm your password again</p>
+      </div>
+
+      <button class="btn btn-primary w-100 py-2 mb-4 mt-2" type="submit">
         Sign in
       </button>
       <a href="/login" class="btn btn-outline-secondary w-100 py-2"
@@ -102,6 +137,7 @@ Register
 {{/inline}}
 
 {{#*inline "scripts"}}
+<script src="{{manifest "form.js"}}"></script>
 {{/inline}}
 
 {{/layouts/_base}}
