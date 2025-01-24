@@ -6,6 +6,8 @@ import type {
 
 import { getUserById } from "../utils/users";
 import { ResponseLocals } from "../types";
+import UserService from "../services/user.service";
+import { mockedData } from "../server";
 
 export type UserRequest = Request<
   { id: string },
@@ -45,7 +47,11 @@ export const fetchUserFromSessionMiddleware = async (
     next();
     return;
   }
-  const user = await getUserById(req.session.userId);
+  const user = new UserService(await mockedData)
+    .query()
+    .where((user) => user.userId === req.session.userId)
+    .join("profile")
+    .first();
 
   if (!user) {
     next();

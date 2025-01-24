@@ -4,11 +4,13 @@ import type {
   RequestHandler,
   Response,
 } from "express-serve-static-core";
+import bcrypt from "bcrypt";
 
 import { getMeta } from "../utils/meta";
 import UserService from "../services/user.service";
 import { mockedData } from "../server";
 import csrf from "../csrf";
+import logger from "../logger";
 
 interface LoginDto {
   email: string;
@@ -73,9 +75,12 @@ const postLoginController: RequestHandler = async (
     }),
   );
 
-  const user = await userService.getUserByEmail(email);
+  const user = userService
+    .query()
+    .where((user) => user.email === email)
+    .first();
 
-  if (!user) {
+  if (typeof user === "undefined") {
     return res.status(401).render("login", {
       title: "Login",
       page: "/login",
@@ -84,7 +89,9 @@ const postLoginController: RequestHandler = async (
     });
   }
 
-  const isValid = await userService.comparePassword(password, user.password);
+  logger.debug("User ->", user);
+
+  const isValid = await bcrypt.compare(password, user.password);
 
   if (!isValid) {
     return res.status(401).render("login", {
