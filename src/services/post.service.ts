@@ -1,4 +1,6 @@
 import { Data, Post } from "../types";
+import CommentService from "./comment.service";
+import LikeService from "./like.service";
 
 export interface IncludeStrategy {
   include: (_posts: Post[], _data: Data) => Post[];
@@ -159,9 +161,12 @@ class PostService {
     }
 
     this._posts = this._posts.map((post) => {
-      const comments = this._data.comments.filter(
-        (comment) => comment.postId === post.postId,
-      );
+      const comments = new CommentService(this._data)
+        .query()
+        .where((comment) => comment.postId === post.postId)
+        .join("user")
+        .join("profile")
+        .execute();
 
       return {
         ...post,
@@ -176,9 +181,10 @@ class PostService {
     }
 
     this._posts = this._posts.map((post) => {
-      const likes = this._data.likes.filter(
-        (like) => like.postId === post.postId,
-      );
+      const likes = new LikeService(this._data)
+        .query()
+        .where((like) => like.postId === post.postId)
+        .execute();
 
       return {
         ...post,

@@ -6,7 +6,7 @@ import { setupTestApp } from "../../../utils/test";
 import blogSlugController from "../slug";
 import { mockedData } from "../../../server";
 import { Post } from "../../../types";
-import { getPosts } from "../../../utils/posts";
+import PostService from "../../../services/post.service";
 
 describe("Blog Slug Controller", () => {
   let app: express.Application;
@@ -21,7 +21,15 @@ describe("Blog Slug Controller", () => {
 
     app.get("/blogs/:slug", blogSlugController);
 
-    post = (await mockedData).posts[0];
+    //post = (await mockedData).posts[0];
+    post = new PostService(await mockedData)
+      .query()
+      .join("author")
+      .join("comments")
+      .join("likes")
+      .limit(1)
+      .execute()[0];
+
     response = await request(app).get(`/blogs/${post.slug}`);
     invalidResponse = await request(app).get(`/blogs/invalid-slug`);
 
@@ -338,12 +346,12 @@ describe("Blog Slug Controller", () => {
   });
 
   it("should render the related posts correctly", async () => {
-    const relatedPosts = await getPosts({
-      limit: 3,
-      category: post.category,
-      sortedBy: "views",
-      order: "desc",
-    });
+    const relatedPosts = new PostService(await mockedData)
+      .query()
+      .where((p) => post.category === p.category && p.slug !== post.slug)
+      .join("author")
+      .limit(3)
+      .execute();
 
     const $relatedPosts = $(".blog__extra__related");
     expect($relatedPosts.length).toBe(1);
