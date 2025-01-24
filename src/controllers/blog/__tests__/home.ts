@@ -41,17 +41,23 @@ describe("Blog Home Controller", () => {
     const $ = cheerio.load(response.text);
     const posts = postService
       .query()
-      .where((post) => post.category === "latest")
       .join("author")
       .join("comments")
+      .join("likes")
+      .limit(10)
       .sort((posts) =>
         posts.sort(
           (a, b) =>
             new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
         ),
       )
-      .limit(10)
       .execute();
+
+    const ttrs = posts.map((post) => {
+      const content = post.content.replace(/<[^>]*>?/gm, "");
+
+      return Math.ceil(content.length / 230);
+    });
 
     const topCategories = await getTopCategories(10);
     topCategories.unshift("latest");
@@ -136,7 +142,7 @@ describe("Blog Home Controller", () => {
       const $ttr = $metadata.find(".article-list-blog-item__time-to-read");
       expect($ttr.find("i").hasClass("bi-clock")).toBe(true);
       expect($ttr.find("span").text()).toBe(
-        posts[index].timeToRead?.toString() + " min read",
+        ttrs[index].toString() + " min read",
       );
     });
   });

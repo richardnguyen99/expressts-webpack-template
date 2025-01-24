@@ -23,29 +23,38 @@ const blogIndexController = async (req: Request, res: Response) => {
   const data = await mockedData;
   const postService = new PostService(data);
 
-  const posts = postService
+  let postQuery = postService
     .query()
-    .where((post) => post.category === (category as string))
     .join("author")
     .join("comments")
-    .join("likes")
+    .join("likes");
+
+  if (category !== "latest") {
+    postQuery = postQuery.where((post) => post.category === category);
+  }
+
+  const posts = postQuery
     .limit(10)
-    .sort((posts) =>
-      posts.sort(
-        (a, b) =>
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
-      ),
-    )
+    .sort((posts) => posts.sort((a, b) => b.createdAt - a.createdAt))
     .execute();
 
   const topCategories = await getTopCategories(10);
   topCategories.unshift("latest");
 
+  const ttrs = posts.map((post) => {
+    const content = post.content.replace(/<[^>]*>?/gm, "");
+
+    return Math.ceil(content.length / 230);
+  });
+
   res.render("blogs", {
     title: "Blogs",
     page: "/blogs",
     topCategories,
-    posts,
+    posts: posts.map((post, index) => ({
+      ...post,
+      timeToRead: ttrs[index],
+    })),
     categoryQuery: category,
   });
 };
