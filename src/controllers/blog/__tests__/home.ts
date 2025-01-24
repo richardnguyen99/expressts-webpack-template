@@ -4,14 +4,19 @@ import * as cheerio from "cheerio";
 
 import { setupTestApp } from "../../../utils/test";
 import blogIndexController, { blogIndexRedirectMiddleware } from "../home";
-import { getPosts, getTopCategories } from "../../../utils/posts";
+import { getTopCategories } from "../../../utils/posts";
+import PostService from "../../../services/post.service";
+import { mockedData } from "../../../server";
 
 describe("Blog Home Controller", () => {
   let app: express.Application;
+  let postService: PostService;
 
-  beforeAll(() => {
+  beforeAll(async () => {
     app = express();
     setupTestApp(app);
+
+    postService = new PostService(await mockedData);
 
     app.get("/blogs", blogIndexRedirectMiddleware, blogIndexController);
   });
@@ -34,13 +39,20 @@ describe("Blog Home Controller", () => {
     expect(response.text).toBeDefined();
 
     const $ = cheerio.load(response.text);
-    const posts = await getPosts({
-      category: "latest",
-      limit: 10,
-      sortedBy: "latest",
-      order: "desc",
-      includes: ["author", "comments", "timetoread"],
-    });
+    const posts = postService
+      .query()
+      .where((post) => post.category === "latest")
+      .join("author")
+      .join("comments")
+      .sort((posts) =>
+        posts.sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+        ),
+      )
+      .limit(10)
+      .execute();
+
     const topCategories = await getTopCategories(10);
     topCategories.unshift("latest");
 

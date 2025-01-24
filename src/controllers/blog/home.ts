@@ -1,6 +1,8 @@
 import { Request, Response, NextFunction } from "express-serve-static-core";
 
-import { getPosts, getTopCategories } from "../../utils/posts";
+import { getTopCategories } from "../../utils/posts";
+import PostService from "../../services/post.service";
+import { mockedData } from "../../server";
 
 export const blogIndexRedirectMiddleware = (
   req: Request,
@@ -18,14 +20,23 @@ export const blogIndexRedirectMiddleware = (
 
 const blogIndexController = async (req: Request, res: Response) => {
   const { category } = req.query;
+  const data = await mockedData;
+  const postService = new PostService(data);
 
-  const posts = await getPosts({
-    category: category as string,
-    limit: 10,
-    sortedBy: "latest",
-    order: "desc",
-    includes: ["author", "comments", "timetoread", "likes"],
-  });
+  const posts = postService
+    .query()
+    .where((post) => post.category === (category as string))
+    .join("author")
+    .join("comments")
+    .join("likes")
+    .limit(10)
+    .sort((posts) =>
+      posts.sort(
+        (a, b) =>
+          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime(),
+      ),
+    )
+    .execute();
 
   const topCategories = await getTopCategories(10);
   topCategories.unshift("latest");

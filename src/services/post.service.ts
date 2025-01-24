@@ -9,9 +9,20 @@ class PostService {
   private _limit: number = 10;
   private _offset: number = 0;
   private _posts: Post[] | undefined = undefined;
+  private _joins: {
+    author: () => void;
+    comments: () => void;
+    likes: () => void;
+  };
 
   constructor(data: Data) {
     this._data = data;
+
+    this._joins = {
+      author: this._joinAuthor.bind(this),
+      comments: this._joinComments.bind(this),
+      likes: this._joinLikes.bind(this),
+    };
   }
 
   query() {
@@ -25,6 +36,16 @@ class PostService {
     }
 
     this._posts = this._posts.filter(filterFn);
+    return this;
+  }
+
+  join(entity: "author" | "comments" | "likes") {
+    if (!this._posts) {
+      throw new Error("No posts available to include.");
+    }
+
+    this._joins[entity]();
+
     return this;
   }
 
@@ -110,6 +131,60 @@ class PostService {
     }
 
     return this._posts.slice(this._offset, this._offset + this._limit);
+  }
+
+  private _joinAuthor() {
+    if (!this._posts) {
+      throw new Error("No posts available to include.");
+    }
+
+    this._posts = this._posts.map((post) => {
+      const profile = this._data.profiles.find(
+        (user) => user.userId === post.userId,
+      )!;
+
+      return {
+        ...post,
+        author: {
+          userId: profile?.userId,
+          profile,
+        },
+      };
+    });
+  }
+
+  private _joinComments() {
+    if (!this._posts) {
+      throw new Error("No posts available to include.");
+    }
+
+    this._posts = this._posts.map((post) => {
+      const comments = this._data.comments.filter(
+        (comment) => comment.postId === post.postId,
+      );
+
+      return {
+        ...post,
+        comments,
+      };
+    });
+  }
+
+  private _joinLikes() {
+    if (!this._posts) {
+      throw new Error("No posts available to include.");
+    }
+
+    this._posts = this._posts.map((post) => {
+      const likes = this._data.likes.filter(
+        (like) => like.postId === post.postId,
+      );
+
+      return {
+        ...post,
+        likes,
+      };
+    });
   }
 }
 
