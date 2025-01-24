@@ -2,23 +2,26 @@ import {
   type UserRequest,
   type UserResponse,
 } from "../../middlewares/user.middleware";
-import { getPostsByUserId } from "../../utils/posts";
+import { mockedData } from "../../server";
+import PostService from "../../services/post.service";
 
 const userPostController = async (req: UserRequest, res: UserResponse) => {
-  const posts = (
-    await getPostsByUserId(req.params.id, {
-      limit: 10,
-      includes: ["comments", "likes"],
-    })
-  ).map((post) => ({
-    ...post,
-    content: post.content.split("\n")[0],
-  }));
+  const posts = new PostService(await mockedData)
+    .query()
+    .where((post) => post.userId === res.locals.fetchUser?.userId)
+    .join("author")
+    .join("comments")
+    .join("likes")
+    .limit(10)
+    .execute();
 
   const postsData = {
     title: `Posts by ${res.locals.user?.profile?.firstName} ${res.locals.user?.profile?.lastName}`,
     page: "/posts",
-    posts,
+    posts: posts.map((post) => ({
+      ...post,
+      content: post.content.split("\n")[0],
+    })),
   };
 
   if (req.headers["hx-request"]) {

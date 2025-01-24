@@ -4,7 +4,6 @@ import type {
   NextFunction,
 } from "express-serve-static-core";
 
-import { getUserById } from "../utils/users";
 import { ResponseLocals } from "../types";
 import UserService from "../services/user.service";
 import { mockedData } from "../server";
@@ -23,9 +22,11 @@ export const fetchUserMiddleware = async (
   res: UserResponse,
   next: NextFunction,
 ): Promise<void> => {
-  const user = await getUserById(req.params.id, {
-    includes: ["profile", "posts", "comments", "likes", "devices"],
-  });
+  const user = new UserService(await mockedData)
+    .query()
+    .where((user) => user.userId === req.params.id)
+    .join("profile")
+    .first();
 
   if (!user) {
     res.status(404).send("User not found");
