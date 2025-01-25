@@ -28,8 +28,8 @@ stack web application that is ready for production.
 - [x] ESLint: Linter for TypeScript
 - [x] Prettier: Code formatter for TypeScript
 - [x] Husky: Git hooks for linting and formatting before commits
-- [ ] Jest: Testing framework for TypeScript
-- [ ] Supertest: HTTP assertions for testing ExpressJS routes
+- [x] Jest: Testing framework for TypeScript
+- [x] Supertest: HTTP assertions for testing ExpressJS routes
 - [ ] Docker: Containerization for the application
 - [ ] GitHub Actions: CI/CD pipeline for the application
 
@@ -73,6 +73,7 @@ The application will be running on `http://localhost:3000`.
 ## More examples
 
 - [ ] [expressts-typeorm-template](#): An extension of this template with TypeORM for database integration
+- [ ] [expressts-knex-template](#): An extension of this template with Knex for database integration
 - [ ] [expressts-sequelize-template](#): An extension of this template with Sequelize for database integration
 - [ ] [expressts-mongoose-template](#): An extension of this template with Mongoose for database integration
 - [ ] [expressts-prisma-template](#): An extension of this template with Prisma for database integration

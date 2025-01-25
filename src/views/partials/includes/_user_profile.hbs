@@ -169,9 +169,7 @@
               id="biographyTextarea"
               style="height: 120px"
               {{#unless sessionUser}}disabled{{/unless}}
-            >
-              {{ fetchUser.profile.bio }}
-            </textarea>
+            >{{fetchUser.profile.bio}}</textarea>
             <label for="biographyTextarea">Biography</label>
           </div>
         </div>
