@@ -2,10 +2,6 @@ import { Data, Post } from "../types";
 import CommentService from "./comment.service";
 import LikeService from "./like.service";
 
-export interface IncludeStrategy {
-  include: (_posts: Post[], _data: Data) => Post[];
-}
-
 class PostService {
   private _data: Data;
   private _limit: number = 10;
@@ -57,17 +53,6 @@ class PostService {
     }
 
     this._posts = includeFn(this._posts, this._data);
-    return this;
-  }
-
-  includes(includeStrategies: IncludeStrategy[]) {
-    if (!this._posts) {
-      throw new Error("No posts available to include.");
-    }
-
-    for (const strategy of includeStrategies) {
-      this._posts = strategy.include(this._posts, this._data);
-    }
     return this;
   }
 
